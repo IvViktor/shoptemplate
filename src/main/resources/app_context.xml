@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans  
+    xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xmlns:p="http://www.springframework.org/schema/p"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans   
+http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">  
+
+		<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="25" />
+		<property name="username" value="eshopmanager88@gmail.com" />
+		<property name="password" value="pswdpswd" />
+		<property name="javaMailProperties">
+			   <props>
+		       	      <prop key="mail.smtp.auth">true</prop>
+		       	      <prop key="mail.smtp.starttls.enable">true</prop>
+			      <prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
+	
+		       	   </props>
+		</property>
+	</bean>
+	<bean id="mailUtil" class="utils.ApplicationMailUtil">
+		<property name="mailSender" ref="mailSender"/>			
+	</bean>
+	<bean id="ProductImpl" class="utils.product.ProductImpl"></bean>
+	<bean id="ProductDAOImpl" class="utils.product.ProductDAOImpl" factory-method="getInstance" lazy-init="true"></bean>
+	<bean id="ManagerImpl" class="utils.manager.ManagerImpl"></bean>
+	<bean id="ManagerDAOImpl" class="utils.manager.ManagerDAOImpl" factory-method="getInstance" lazy-init="true"></bean>
+	<bean id="Order" class="utils.order.OrderImpl"/>
+	<bean id="OrderDAO" class="utils.order.OrderDAOHQLImpl"/>
+	<bean id="Search" class="utils.product.SearchImpl"/>
+</beans>  
