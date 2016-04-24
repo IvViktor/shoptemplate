@@ -1,5 +1,8 @@
 package sitecreators.utils.product;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class ProductDecription {
 	
 	private String description;

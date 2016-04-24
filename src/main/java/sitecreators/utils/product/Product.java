@@ -3,12 +3,21 @@
  */
 package sitecreators.utils.product;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -31,21 +40,33 @@ public class Product {
 	
 	private String productTitle;
 	
+	@Embedded
 	private ProductPrice productPrice;
 	
+	@ManyToOne
 	private Category category;
 	
+	@ManyToOne
 	private User owner;
 	
-	private Set<User> customers;
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	private List<User> customers = new ArrayList<>();
 	
+	@Embedded
 	private ProductDecription description;
 	
+	@OneToOne
+	@JoinColumn(name="icon_image_id")
 	private Image icon;
 	
-	private List<Image> images;
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Image> images = new ArrayList<>();
 	
-	private List<Comment> comments;
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Comment> comments = new ArrayList<>();
+	
+	@Enumerated(EnumType.STRING)
+	private ProductStatus status;
 
 	public long getId() {
 		return id;
@@ -87,14 +108,20 @@ public class Product {
 		this.owner = owner;
 	}
 
-	public Set<User> getCustomers() {
+	public List<User> getCustomers() {
 		return customers;
 	}
 
-	public void setCustomers(Set<User> customers) {
-		this.customers = customers;
+	public void addCustomer(User customer){
+		this.customers.add(customer);
+		customer.getPurchases().add(this);
 	}
-
+	
+	public void removeCustomer(User customer){
+		this.customers.remove(customer);
+		customer.getPurchases().remove(this);
+	}
+	
 	public ProductDecription getDescription() {
 		return description;
 	}
@@ -115,15 +142,27 @@ public class Product {
 		return images;
 	}
 
-	public void setImages(List<Image> images) {
-		this.images = images;
+	public void addImage(Image image){
+		this.images.add(image);
 	}
-
+	
+	public void removeImage(Image image){
+		this.images.remove(image);
+	}
+	
 	public List<Comment> getComments() {
 		return comments;
 	}
 
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
+	public void addComment(Comment comment){
+		this.comments.add(comment);
+	}
+	
+	public ProductStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(ProductStatus status) {
+		this.status = status;
 	}
 }

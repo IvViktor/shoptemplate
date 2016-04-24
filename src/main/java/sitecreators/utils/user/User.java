@@ -3,11 +3,17 @@
  */
 package sitecreators.utils.user;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -38,17 +44,25 @@ public class User {
 	
 	private String userAbout;
 	
+	@OneToOne
+	@JoinColumn(name="pswd_id")
 	private Password password;
 	
+	@OneToOne
+	@JoinColumn(name="icon_image_id")
 	private Image icon;
 	
-	private List<Image> images;
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Image> images = new ArrayList<>();
 	
-	private List<Comment> comments;
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Comment> comments = new ArrayList<>();
 	
-	private List<Product> selling;
+	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Product> selling = new ArrayList<>();
 	
-	private List<Product> purchases;
+	@ManyToMany(mappedBy="customers")
+	private List<Product> purchases = new ArrayList<>();
 
 	public long getId() {
 		return id;
@@ -118,33 +132,38 @@ public class User {
 		return images;
 	}
 
-	public void setImages(List<Image> images) {
-		this.images = images;
+	public void addImage(Image image){
+		this.images.add(image);
 	}
-
+	
+	public void removeImage(Image image){
+		this.images.remove(image);
+	}
+	
 	public List<Comment> getComments() {
 		return comments;
 	}
 
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
+	public void addComment(Comment comment){
+		this.comments.add(comment);
 	}
 
 	public List<Product> getSelling() {
 		return selling;
 	}
 
-	public void setSelling(List<Product> selling) {
-		this.selling = selling;
+	public void addSellProduct(Product product){
+		this.selling.add(product);
+		product.setOwner(this);
 	}
 
+	public void removeSellProduct(Product product){
+		this.selling.remove(product);
+		product.setOwner(null);
+	}
+	
 	public List<Product> getPurchases() {
 		return purchases;
 	}
-
-	public void setPurchases(List<Product> purchases) {
-		this.purchases = purchases;
-	}
-	
 	
 }

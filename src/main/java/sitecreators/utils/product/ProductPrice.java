@@ -3,6 +3,11 @@
  */
 package sitecreators.utils.product;
 
+import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.ForeignKey;
+
 import sitecreators.utils.finance.Currency;
 
 /**
@@ -10,10 +15,13 @@ import sitecreators.utils.finance.Currency;
  *
  */
 
+@Embeddable
 public class ProductPrice {
 	
 	private int amount;
 	
+	@ManyToOne
+	@JoinColumn(name = "currency_id",foreignKey = @ForeignKey(name = "CURRENCY_ID_FK"))
 	private Currency currency;
 
 	public int getAmount() {

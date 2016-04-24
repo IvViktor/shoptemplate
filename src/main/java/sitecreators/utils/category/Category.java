@@ -3,13 +3,17 @@
  */
 package sitecreators.utils.category;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.NaturalId;
 
 import sitecreators.utils.product.Product;
 
@@ -25,9 +29,11 @@ public class Category {
     @GenericGenerator(name="increment", strategy = "increment")
 	private long id;
 	
+	@NaturalId
 	private String title;
 	
-	private List<Product> products;
+	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Product> products = new ArrayList<>();
 
 	public long getId() {
 		return id;
@@ -49,10 +55,14 @@ public class Category {
 		return products;
 	}
 
-	public void setProducts(List<Product> products) {
-		this.products = products;
+	public void addProduct(Product product){
+		products.add(product);
+		product.setCategory(this);
 	}
 	
+	public void removeProduct(Product product){
+		products.remove(product);
+		product.setCategory(null);
+	}
 	
-
 }
