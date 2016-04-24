@@ -18,6 +18,22 @@ public class Currency {
 	private Country countryCode;
 	
 	private double koef;
+
+	public Country getCountryCode() {
+		return countryCode;
+	}
+
+	public void setCountryCode(Country countryCode) {
+		this.countryCode = countryCode;
+	}
+
+	public double getKoef() {
+		return koef;
+	}
+
+	public void setKoef(double koef) {
+		this.koef = koef;
+	}
 	
 
 }
