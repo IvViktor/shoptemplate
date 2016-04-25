@@ -1,8 +1,8 @@
 package sitecreators.utils.order;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -28,6 +28,9 @@ public class Order {
 	private Product product;
 	
 	private Timestamp formedTime;
+	
+	@Embedded
+	private OrederStatus status;
 
 	public long getId() {
 		return id;
@@ -59,6 +62,14 @@ public class Order {
 
 	public void setFormedTime(Timestamp formedTime) {
 		this.formedTime = formedTime;
+	}
+
+	public OrederStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(OrederStatus status) {
+		this.status = status;
 	}
 	
 }
