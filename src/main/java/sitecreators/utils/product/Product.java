@@ -14,7 +14,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -24,6 +23,7 @@ import org.hibernate.annotations.GenericGenerator;
 import sitecreators.utils.category.Category;
 import sitecreators.utils.comment.Comment;
 import sitecreators.utils.image.Image;
+import sitecreators.utils.order.Order;
 import sitecreators.utils.user.User;
 
 /**
@@ -49,8 +49,8 @@ public class Product {
 	@ManyToOne
 	private User owner;
 	
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	private List<User> customers = new ArrayList<>();
+    @OneToMany(mappedBy="product",cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Order> orders = new ArrayList<>();
 	
 	@Embedded
 	private ProductDecription description;
@@ -108,18 +108,18 @@ public class Product {
 		this.owner = owner;
 	}
 
-	public List<User> getCustomers() {
-		return customers;
+	public List<Order> getOrders() {
+		return orders;
 	}
 
-	public void addCustomer(User customer){
-		this.customers.add(customer);
-		customer.getPurchases().add(this);
+	public void addOrder(Order order){
+		this.orders.add(order);
+		order.setProduct(this);
 	}
 	
-	public void removeCustomer(User customer){
-		this.customers.remove(customer);
-		customer.getPurchases().remove(this);
+	public void removeOrder(Order order){
+		this.orders.remove(order);
+		order.setProduct(null);
 	}
 	
 	public ProductDecription getDescription() {

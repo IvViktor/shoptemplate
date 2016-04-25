@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -20,6 +20,7 @@ import org.hibernate.annotations.GenericGenerator;
 import sitecreators.utils.auth.Password;
 import sitecreators.utils.comment.Comment;
 import sitecreators.utils.image.Image;
+import sitecreators.utils.order.Order;
 import sitecreators.utils.product.Product;
 
 /**
@@ -34,15 +35,11 @@ public class User {
     @GenericGenerator(name="increment", strategy = "increment")
 	private long id;
 	
-	private String firstName;
-	
-	private String secondName;
-	
-	private String emailAddr;
-	
-	private String phoneNumber;
-	
-	private String userAbout;
+	@Embedded
+	private UserAbout about;
+		
+	@Embedded
+	private UserContacts contacts;
 	
 	@OneToOne
 	@JoinColumn(name="pswd_id")
@@ -61,8 +58,8 @@ public class User {
 	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Product> selling = new ArrayList<>();
 	
-	@ManyToMany(mappedBy="customers")
-	private List<Product> purchases = new ArrayList<>();
+	@OneToMany(mappedBy="customers",cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Order> purchases = new ArrayList<>();
 
 	public long getId() {
 		return id;
@@ -70,46 +67,6 @@ public class User {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getSecondName() {
-		return secondName;
-	}
-
-	public void setSecondName(String secondName) {
-		this.secondName = secondName;
-	}
-
-	public String getEmailAddr() {
-		return emailAddr;
-	}
-
-	public void setEmailAddr(String emailAddr) {
-		this.emailAddr = emailAddr;
-	}
-
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
-	public String getUserAbout() {
-		return userAbout;
-	}
-
-	public void setUserAbout(String userAbout) {
-		this.userAbout = userAbout;
 	}
 
 	public Password getPassword() {
@@ -162,8 +119,17 @@ public class User {
 		product.setOwner(null);
 	}
 	
-	public List<Product> getPurchases() {
+	public List<Order> getPurchases() {
 		return purchases;
 	}
 	
+	public void addPurchase(Order order){
+		this.purchases.add(order);
+		order.setCustomer(this);
+	}
+	
+	public void removePurchase(Order order){
+		this.purchases.remove(order);
+		order.setCustomer(null);
+	}
 }
