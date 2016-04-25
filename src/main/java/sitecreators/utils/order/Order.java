@@ -31,7 +31,7 @@ public class Order {
 	private Timestamp formedTime;
 	
 	@Enumerated(EnumType.STRING)
-	private OrederStatus status;
+	private OrderStatus status;
 
 	public long getId() {
 		return id;
@@ -65,11 +65,11 @@ public class Order {
 		this.formedTime = formedTime;
 	}
 
-	public OrederStatus getStatus() {
+	public OrderStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(OrederStatus status) {
+	public void setStatus(OrderStatus status) {
 		this.status = status;
 	}
 	

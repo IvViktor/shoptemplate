@@ -24,6 +24,7 @@ import sitecreators.utils.category.Category;
 import sitecreators.utils.comment.Comment;
 import sitecreators.utils.image.Image;
 import sitecreators.utils.order.Order;
+import sitecreators.utils.order.OrderStatus;
 import sitecreators.utils.user.User;
 
 /**
@@ -98,6 +99,7 @@ public class Product {
 
 	public void setCategory(Category category) {
 		this.category = category;
+		category.getProducts().add(this);
 	}
 
 	public User getOwner() {
@@ -106,6 +108,7 @@ public class Product {
 
 	public void setOwner(User owner) {
 		this.owner = owner;
+		owner.getSelling().add(this);
 	}
 
 	public List<Order> getOrders() {
@@ -117,9 +120,8 @@ public class Product {
 		order.setProduct(this);
 	}
 	
-	public void removeOrder(Order order){
-		this.orders.remove(order);
-		order.setProduct(null);
+	public void removeOrder(Order order, OrderStatus status){
+		order.setStatus(status);
 	}
 	
 	public ProductDecription getDescription() {

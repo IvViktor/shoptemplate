@@ -21,6 +21,7 @@ import sitecreators.utils.auth.Password;
 import sitecreators.utils.comment.Comment;
 import sitecreators.utils.image.Image;
 import sitecreators.utils.order.Order;
+import sitecreators.utils.order.OrderStatus;
 import sitecreators.utils.product.Product;
 
 /**
@@ -128,8 +129,7 @@ public class User {
 		order.setCustomer(this);
 	}
 	
-	public void removePurchase(Order order){
-		this.purchases.remove(order);
-		order.setCustomer(null);
+	public void removePurchase(Order order, OrderStatus status){
+		order.setStatus(status);
 	}
 }
