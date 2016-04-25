@@ -2,8 +2,9 @@ package sitecreators.utils.order;
 
 import java.sql.Timestamp;
 
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -29,7 +30,7 @@ public class Order {
 	
 	private Timestamp formedTime;
 	
-	@Embedded
+	@Enumerated(EnumType.STRING)
 	private OrederStatus status;
 
 	public long getId() {

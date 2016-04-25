@@ -6,6 +6,10 @@ package sitecreators.utils.finance;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+import org.hibernate.annotations.GenericGenerator;
 
 /**
  * @author User
@@ -13,6 +17,11 @@ import javax.persistence.Enumerated;
  */
 @Entity
 public class Currency {
+	
+	@Id
+    @GeneratedValue(generator="increment")
+    @GenericGenerator(name="increment", strategy = "increment")
+	private long id;
 	
 	@Enumerated(EnumType.STRING)
 	private Country countryCode;
@@ -33,6 +42,14 @@ public class Currency {
 
 	public void setKoef(double koef) {
 		this.koef = koef;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 	
 

@@ -3,7 +3,7 @@
  */
 package sitecreators.utils.comment;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,7 +25,7 @@ public class Comment {
     @GenericGenerator(name="increment", strategy = "increment")
 	private long id;
 	
-	private Date publishTime;
+	private Timestamp publishTime;
 	
 	private User publisher;
 	
@@ -39,11 +39,11 @@ public class Comment {
 		this.id = id;
 	}
 
-	public Date getPublishTime() {
+	public Timestamp getPublishTime() {
 		return publishTime;
 	}
 
-	public void setPublishTime(Date publishTime) {
+	public void setPublishTime(Timestamp publishTime) {
 		this.publishTime = publishTime;
 	}
 
