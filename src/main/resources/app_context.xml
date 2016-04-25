@@ -23,8 +23,9 @@ http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
 	<bean id="mailUtil" class="utils.ApplicationMailUtil">
 		<property name="mailSender" ref="mailSender"/>			
 	</bean>
+   <!-- <bean id="SessionFactory" class="sitecreators.utils.SessionFactoryUtil"-->
+			<!--   factory-method="getSessionFactory" lazy-init="true"></bea-->
 <!-- 	<bean id="ProductImpl" class="utils.product.ProductImpl"></bean> -->
-<!-- 	<bean id="ProductDAOImpl" class="utils.product.ProductDAOImpl" factory-method="getInstance" lazy-init="true"></bean> -->
 <!-- 	<bean id="ManagerImpl" class="utils.manager.ManagerImpl"></bean> -->
 <!-- 	<bean id="ManagerDAOImpl" class="utils.manager.ManagerDAOImpl" factory-method="getInstance" lazy-init="true"></bean> -->
 <!-- 	<bean id="Order" class="utils.order.OrderImpl"/> -->
