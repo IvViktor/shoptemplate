@@ -81,6 +81,21 @@
 	       		</configuration>
 			</plugin>
 	
+			<plugin>
+				 <groupId>com.jelastic</groupId>
+				 <artifactId>jelastic-maven-plugin</artifactId>
+				 <version>1.7</version>
+				 <configuration>
+				    <email>seonjelastic@gmail.com</email>
+				    <password>2P0qdr4zpS</password>
+				    <context>shoptemplate</context>
+				    <environment>env-0316098.unicloud.pl</environment>
+				    <comment>deploy by maven</comment>
+				    <api_hoster>app.unicloud.pl/</api_hoster>
+				 </configuration>
+		</plugin>
+		
 	</plugins>
+	
   </build>
 </project>
