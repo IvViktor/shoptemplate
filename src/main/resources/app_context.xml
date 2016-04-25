@@ -23,12 +23,11 @@ http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
 	<bean id="mailUtil" class="utils.ApplicationMailUtil">
 		<property name="mailSender" ref="mailSender"/>			
 	</bean>
-   <!-- <bean id="SessionFactory" class="sitecreators.utils.SessionFactoryUtil"-->
-			<!--   factory-method="getSessionFactory" lazy-init="true"></bea-->
-<!-- 	<bean id="ProductImpl" class="utils.product.ProductImpl"></bean> -->
-<!-- 	<bean id="ManagerImpl" class="utils.manager.ManagerImpl"></bean> -->
-<!-- 	<bean id="ManagerDAOImpl" class="utils.manager.ManagerDAOImpl" factory-method="getInstance" lazy-init="true"></bean> -->
-<!-- 	<bean id="Order" class="utils.order.OrderImpl"/> -->
-<!-- 	<bean id="OrderDAO" class="utils.order.OrderDAOHQLImpl"/> -->
-<!-- 	<bean id="Search" class="utils.product.SearchImpl"/> -->
+	<bean id="Password" class="sitecreators.utils.auth.Password"/>
+	<bean id="CategoryDAO" class="sitecreators.utils.category.CategoryDAOImpl"/>
+	<bean id="CurrencyDAO" class="sitecreators.utils.finance.CurrencyDAOImpl"/>
+	<bean id="ImageDAO" class="sitecreators.utils.image.ImageDAOImpl"/>
+	<bean id="OrderDAO" class="sitecreators.utils.order.OrderDAOImpl"/>
+	<bean id="ProductDAO" class="sitecreators.utils.product.ProductDAOImpl"/>
+	<bean id="UserDAO" class="sitecreators.utils.user.UserDAOImpl"/>
 </beans>  

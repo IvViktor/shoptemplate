@@ -13,8 +13,13 @@
         <property name="show_sql">true</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
  
-        	<mapping class="utils.product.ProductImpl"/>
-		<mapping class="utils.order.OrderImpl"/>
-		<mapping class="utils.manager.ManagerImpl"/>
+       	<mapping class="sitecreators.utils.auth.Password"/>
+       	<mapping class="sitecreators.utils.category.Category"/>
+       	<mapping class="sitecreators.utils.finance.Currency"/>
+       	<mapping class="sitecreators.utils.comment.Comment"/>
+       	<mapping class="sitecreators.utils.image.Image"/>
+       	<mapping class="sitecreators.utils.order.Order"/>
+       	<mapping class="sitecreators.utils.product.Product"/>
+       	<mapping class="sitecreators.utils.user.User"/>
     </session-factory>
 </hibernate-configuration>
