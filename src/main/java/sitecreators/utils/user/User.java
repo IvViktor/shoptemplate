@@ -53,13 +53,13 @@ public class User {
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Image> images = new ArrayList<>();
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy="publisher",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Comment> comments = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Product> selling = new ArrayList<>();
 	
-	@OneToMany(mappedBy="customers",cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy="customer",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Order> purchases = new ArrayList<>();
 
 	public long getId() {

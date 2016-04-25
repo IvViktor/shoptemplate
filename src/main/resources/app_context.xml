@@ -6,7 +6,7 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans   
 http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">  
 
-		<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<!--<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="25" />
 		<property name="username" value="eshopmanager88@gmail.com" />
@@ -22,7 +22,7 @@ http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
 	</bean>
 	<bean id="mailUtil" class="utils.ApplicationMailUtil">
 		<property name="mailSender" ref="mailSender"/>			
-	</bean>
+	</bean>-->
 	<bean id="Password" class="sitecreators.utils.auth.Password"/>
 	<bean id="CategoryDAO" class="sitecreators.utils.category.CategoryDAOImpl"/>
 	<bean id="CurrencyDAO" class="sitecreators.utils.finance.CurrencyDAOImpl"/>

@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -27,6 +28,7 @@ public class Comment {
 	
 	private Timestamp publishTime;
 	
+	@ManyToOne
 	private User publisher;
 	
 	private String body;

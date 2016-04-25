@@ -2,12 +2,14 @@ package sitecreators.utils.order;
 
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -15,11 +17,13 @@ import sitecreators.utils.product.Product;
 import sitecreators.utils.user.User;
 
 @Entity
+@Table(name = "Order_table")
 public class Order {
 	
 	@Id
     @GeneratedValue(generator="increment")
     @GenericGenerator(name="increment", strategy = "increment")
+	@Column(name = "`id`")
 	private long id;
 	
 	@ManyToOne
@@ -31,6 +35,7 @@ public class Order {
 	private Timestamp formedTime;
 	
 	@Enumerated(EnumType.STRING)
+	@Column(name="`order_status`")
 	private OrderStatus status;
 
 	public long getId() {
