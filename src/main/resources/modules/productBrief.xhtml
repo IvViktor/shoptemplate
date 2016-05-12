@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:composite="http://java.sun.com/jsf/composite">
+
+   <composite:interface>
+   	<composite:attribute name="blockClass" />
+   	<composite:attribute name="productTitle" />
+   	<composite:attribute name="productPrice" />
+   	<composite:attribute name="productImage" />
+   	<composite:attribute name="productImageAlt" />
+   	<composite:attribute name="actionButtonLabel" />
+   	<composite:attribute name="buttonAction" />
+   </composite:interface>
+   <composite:implementation>
+   	<div class="#{cc.attr.blockClass}">
+   		<h3>#{cc.attr.productTitle}</h3>
+   		<p>Price: #{cc.attr.productPrice}</p>
+   		<img src="#{cc.attr.productImage}" alt="#{cc.attr.productImageAlt}" />
+   		<h:commanButton action="#{cc.attr.buttonAction}" value="#{cc.attr.actionButtonLabel}" />
+   	</div>
+   </composite:implementation>
+
+ </html>

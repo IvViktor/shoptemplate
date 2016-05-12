@@ -86,14 +86,14 @@
 				 <artifactId>jelastic-maven-plugin</artifactId>
 				 <version>1.7</version>
 				 <configuration>
-				    <email>seonjelastic@gmail.com</email>
-				    <password>2P0qdr4zpS</password>
+				    <email>viittyok1992@gmail.com</email>
+				    <password>7Qj9GHS31y</password>
 				    <context>shoptemplate</context>
-				    <environment>env-0316098.unicloud.pl</environment>
+				    <environment>env-9516471.unicloud.pl</environment>
 				    <comment>deploy by maven</comment>
 				    <api_hoster>app.unicloud.pl/</api_hoster>
 				 </configuration>
-		</plugin>
+			</plugin>
 		
 	</plugins>
 	

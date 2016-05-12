@@ -3,12 +3,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:h="http://java.sun.com/jsf/html"
 	  xmlns:ui="http://java.sun.com/jsf/facelets"
-	  xmlns:f="http://java.sun.com/jsf/core">
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:cm="http://java.sun.com/jsf/modules">
 	<head>
     	<title>shoptemplate</title>
 	</head>
 
 	<body>
+		
 		<h1>Hello World!</h1>
 		<h2>Number of categories: #{indexBean.getCategoriesNumber()}</h2><br/>
 		<h2>Number of currencies: #{indexBean.getCurrenciesNumber()}</h2><br/>
@@ -16,5 +18,20 @@
 		<h2>Number of products: #{indexBean.getProductsNumber()}</h2><br/>
 		<h2>Number of users: #{indexBean.getUsersNumber()}</h2><br/>
 
+		<h1>Products in database:</h1>
+		<ui:repeat value="#{indexBean.products}" var="p">
+			<div><cm:productBrief
+				blockClass="productBlock"
+				productTitle="#{p.productTitle}"
+				productPrice="1000"
+				productImage="aaa"
+				productImageAlt="image-alt"
+				actionButtonLabel="Details"
+				buttonAction="indexBean.details"
+			/></div>
+
+		</ui:repeat>
+
    	</body>
+
 </html>
