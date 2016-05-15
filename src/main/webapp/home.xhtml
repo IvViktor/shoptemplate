@@ -4,7 +4,7 @@
 	  xmlns:h="http://java.sun.com/jsf/html"
 	  xmlns:ui="http://java.sun.com/jsf/facelets"
 	  xmlns:f="http://java.sun.com/jsf/core"
-	  xmlns:cm="http://java.sun.com/jsf/modules">
+	  xmlns:cm="http://java.sun.com/jsf/composite/modules">
 	<head>
     	<title>shoptemplate</title>
 	</head>
@@ -19,18 +19,22 @@
 		<h2>Number of users: #{indexBean.getUsersNumber()}</h2><br/>
 
 		<h1>Products in database:</h1>
-		<ui:repeat value="#{indexBean.products}" var="p">
-			<div><cm:productBrief
+		<ui:repeat value="#{indexBean.getProducts()}" var="p">
+		<br />
+			<div><cm:productbrief
 				blockClass="productBlock"
-				productTitle="#{p.productTitle}"
-				productPrice="1000"
+				productTitle="#{p.getProductTitle()}"
+				productPrice="#{p.getProductPrice().getAmount()}"
 				productImage="aaa"
 				productImageAlt="image-alt"
 				actionButtonLabel="Details"
-				buttonAction="indexBean.details"
+				buttonAction="#{indexBean.details}"
 			/></div>
 
 		</ui:repeat>
+		<h:form>
+		<h:link value="Add new product" outcome="newproduct"></h:link>
+		</h:form>
 
    	</body>
 

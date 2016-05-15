@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:cmodule="http://java.sun.com/jsf/composite/modules">
+	  <head>
+		  <title>add product page</title>
+	  </head> 
+
+	  <body>
+	  	<h2>Add new product</h2>
+		<h:form>
+			Enter new product title:
+			<h:inputText value="#{addProductBean.productTitle}" required="true" />
+			<br />
+			Enter product category: 
+			<h:inputText value="#{addProductBean.category}" required="true" />
+			<br />
+			Enter product price: 
+			<h:inputText value="#{addProductBean.productPrice}" />
+			<br />
+			<h:commandButton action="#{addProductBean.addProduct()}" value="Add product" />
+		</h:form>
+		<h:form>
+			<h:link value="back to main page" outcome="home" />
+		</h:form>
+	  </body>
+</html>
