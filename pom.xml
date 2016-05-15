@@ -5,7 +5,7 @@
   <artifactId>shoptemplate</artifactId>
   <packaging>war</packaging>
   <version>1.0</version>
-  <name>shoptemplate Maven Webapp</name>
+  <name>shoptemplate</name>
   <url>http://maven.apache.org</url>
 
  	<properties>
@@ -67,7 +67,7 @@
   </dependencies>
   <build>
 
-    <finalName>shoptemplate</finalName>
+    <!--<finalName>shoptemplate</finalName>-->
 
 	<plugins>
 
