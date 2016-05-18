@@ -15,18 +15,10 @@
 		<cm:header />
 		<cm:navbar />
 		<cm:filterpanel />
-		<ui:repeat value="#{indexBean.getProducts()}" var="p">
-			<cmp:productbrief
-				blockClass="productBlock"
-				productTitle="#{p.getProductTitle()}"
-				productPrice="#{p.getProductPrice().getAmount()}"
-				productImage="#{p.getIcon().getImagePath()}"
-				productId="#{p.getId()}"
-				productImageAlt="p.getIcon().getImgDesc()"
-				actionButtonLabel="Details"
-				buttonAction="productdetails"
-			/>
-		</ui:repeat>
+		<cmp:productPanelComp 
+			productList = "#{productPanelBean.products}"
+			buttonAction = "productdetails"
+		/>
 		<cm:footer />
 
    	</body>
