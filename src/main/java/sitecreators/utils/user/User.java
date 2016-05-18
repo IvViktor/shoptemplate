@@ -132,4 +132,20 @@ public class User {
 	public void removePurchase(Order order, OrderStatus status){
 		order.setStatus(status);
 	}
+
+	public UserAbout getAbout() {
+		return about;
+	}
+
+	public void setAbout(UserAbout about) {
+		this.about = about;
+	}
+
+	public UserContacts getContacts() {
+		return contacts;
+	}
+
+	public void setContacts(UserContacts contacts) {
+		this.contacts = contacts;
+	}
 }
