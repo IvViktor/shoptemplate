@@ -56,7 +56,7 @@ public class Product {
 	@Embedded
 	private ProductDecription description;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
 	@JoinColumn(name="icon_image_id")
 	private Image icon;
 	

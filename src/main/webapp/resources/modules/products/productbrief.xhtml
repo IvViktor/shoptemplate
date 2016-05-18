@@ -12,15 +12,18 @@
    	<composite:attribute name="productImage" />
    	<composite:attribute name="productImageAlt" />
    	<composite:attribute name="actionButtonLabel" />
-   	<composite:attribute name="buttonAction"
-   						 method-signature="java.lang.String action()" />
+   	<composite:attribute name="productId" />
+	<composite:attribute name="buttonAction" />
    </composite:interface>
    <composite:implementation>
    	<div class="#{cc.attrs.blockClass}">
    		<h3>#{cc.attrs.productTitle}</h3>
    		<p>Price: #{cc.attrs.productPrice}</p>
    		<img src="#{cc.attrs.productImage}" alt="#{cc.attrs.productImageAlt}" />
-   		<h:commandButton action="#{cc.attrs.buttonAction}" value="#{cc.attrs.actionButtonLabel}" />
+		<form method="POST">
+			<input type="hidden" value="#{cc.attrs.productId}" />
+	   		<h:commandButton action="#{cc.attrs.buttonAction}" value="#{cc.attrs.actionButtonLabel}"/>
+		</form>
    	</div>
    </composite:implementation>
 
