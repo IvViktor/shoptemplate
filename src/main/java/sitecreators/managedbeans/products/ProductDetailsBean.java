@@ -1,4 +1,4 @@
-package sitecreators.managedbeans;
+package sitecreators.managedbeans.products;
 
 
 import javax.faces.bean.ManagedBean;

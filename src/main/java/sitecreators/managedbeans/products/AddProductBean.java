@@ -1,4 +1,4 @@
-package sitecreators.managedbeans;
+package sitecreators.managedbeans.products;
 
 import java.io.File;
 import java.io.IOException;

@@ -42,7 +42,7 @@ public class User {
 	@Embedded
 	private UserContacts contacts;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name="pswd_id")
 	private Password password;
 	
