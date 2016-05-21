@@ -67,8 +67,7 @@ public class EditUserBean {
 		images.add(newImage);
 	}
 	
-	public void setIcon(String imagePath){
-		Image newIcon = imageDao.getImage(imagePath);
+	public void setNewIcon(Image newIcon){
 		images.add(icon);
 		icon = newIcon;
 		user.setIcon(newIcon);
