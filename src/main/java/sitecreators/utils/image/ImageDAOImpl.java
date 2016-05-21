@@ -1,6 +1,12 @@
 package sitecreators.utils.image;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.List;
+
+import javax.servlet.http.Part;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -93,6 +99,37 @@ private SessionFactory sessionFactory;
 		} finally {
 			session.close();
 		}
+	}
+
+	@Override
+	public String saveImage(Part part, String directory, long userId) {
+		String webappRoot = System.getProperty("catalina.base");
+		String defaultIcon = File.separator + "webapps"+ File.separator + "shopImageData"+File.separator + directory + File.separator + "noimage.gif";
+		String fileName = getFileName(part);
+		if(fileName!=null){
+			fileName = File.separator + "webapps"+ File.separator + "shopImageData"+File.separator + directory + File.separator + userId + File.separator + fileName;
+			try (InputStream input = part.getInputStream()) {
+		        Files.copy(input, new File(webappRoot, fileName).toPath());
+		    }
+		    catch (IOException e) {
+		        return defaultIcon;
+		    }
+			return fileName;
+		}
+		return defaultIcon;
+	}
+	
+	private String getFileName(Part part) {
+	    try{
+		for (String content : part.getHeader("content-disposition").split(";")) {
+	        if (content.trim().startsWith("filename")) {
+	            return content.substring(content.indexOf('=') + 1).trim().replace("\"", "");
+	        }
+	    }
+	    return null;
+	    } catch (Exception e){
+	    	return null;
+	    }
 	}
 
 }

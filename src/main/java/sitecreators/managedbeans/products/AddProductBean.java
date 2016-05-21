@@ -1,9 +1,5 @@
 package sitecreators.managedbeans.products;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -14,6 +10,7 @@ import sitecreators.utils.ApplicationContextUtil;
 import sitecreators.utils.category.Category;
 import sitecreators.utils.category.CategoryDAO;
 import sitecreators.utils.image.Image;
+import sitecreators.utils.image.ImageDAO;
 import sitecreators.utils.product.Product;
 import sitecreators.utils.product.ProductDAO;
 import sitecreators.utils.product.ProductDecription;
@@ -27,8 +24,8 @@ public class AddProductBean {
 	private CategoryDAO categoryDao = (CategoryDAO) ApplicationContextUtil.getApplicationContext().getBean("CategoryDAO");
 	private ProductDAO productDao = (ProductDAO) ApplicationContextUtil.getApplicationContext().getBean("ProductDAO");
 	private UserDAO userDao = (UserDAO) ApplicationContextUtil.getApplicationContext().getBean("UserDAO");
+	private ImageDAO imageDao = (ImageDAO) ApplicationContextUtil.getApplicationContext().getBean("ImageDAO");
 	private long userId =(long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
-
 	private List<Category> categories = categoryDao.getAllCategories();
 	
 	private String productTitle;
@@ -37,19 +34,13 @@ public class AddProductBean {
 	
 	private String description;
 	
-	private String iconImage = null;
+	private String iconImage;
 	
 	private String imageDesc;
 	
 	private String category;
 	
 	private Part imageFile;
-	
-	private String webappRoot = System.getProperty("catalina.base");
-	
-	private String defaultIcon = File.separator + "webapps"+ File.separator + "shopImageData"+File.separator + "products" + File.separator + "noimage.gif";
-	
-	private String noImageDecs = "no_photo";
 	
 	public String addProduct(){
 		Product product = new Product();
@@ -62,12 +53,10 @@ public class AddProductBean {
 		ProductDecription pDescr = new ProductDecription();
 		pDescr.setDescription(description);
 		Image icon = new Image();
-		if(iconImage==null){
-			iconImage = this.defaultIcon;
-			imageDesc = noImageDecs;
-		}
+		iconImage = imageDao.saveImage(imageFile, "products", this.userId);
 		icon.setImagePath(iconImage);
 		icon.setImgDecs(imageDesc);
+		imageDao.addImage(icon);
 		product.setIcon(icon);
 		User owner = userDao.getUser(userId);
 		product.setOwner(owner);
@@ -76,15 +65,6 @@ public class AddProductBean {
 		return "home";
 	}
 	
-	public void save() {
-		this.iconImage = File.separator + "webapps"+ File.separator + "shopImageData"+File.separator + "products" + File.separator + this.userId + File.separator + getFileName(imageFile);
-		try (InputStream input = imageFile.getInputStream()) {
-	        Files.copy(input, new File(webappRoot, iconImage).toPath());
-	    }
-	    catch (IOException e) {
-	        // Show faces message?
-	    }
-	}
 	public String getProductTitle() {
 		return productTitle;
 	}
@@ -108,15 +88,7 @@ public class AddProductBean {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-	public String getIconImage() {
-		return iconImage;
-	}
-
-	public void setIconImage(String iconImage) {
-		this.iconImage = iconImage;
-	}
-
+	
 	public List<Category> getCategories() {
 		return categories;
 	}
@@ -141,8 +113,6 @@ public class AddProductBean {
 		this.category = category;
 	}
 
-
-
 	public Part getImageFile() {
 		return imageFile;
 	}
@@ -151,12 +121,4 @@ public class AddProductBean {
 		this.imageFile = imageFile;
 	}
 		
-	private String getFileName(Part part) {
-	    for (String content : part.getHeader("content-disposition").split(";")) {
-	        if (content.trim().startsWith("filename")) {
-	            return content.substring(content.indexOf('=') + 1).trim().replace("\"", "");
-	        }
-	    }
-	    return null;
-	}
 }

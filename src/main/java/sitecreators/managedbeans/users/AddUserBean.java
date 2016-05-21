@@ -12,7 +12,7 @@ import sitecreators.utils.user.UserContacts;
 import sitecreators.utils.user.UserDAO;
 
 @ManagedBean(name="addUserBean")
-public class AddUser {
+public class AddUserBean {
 	
 	private String firstName;
 	
@@ -35,7 +35,7 @@ public class AddUser {
 		try {
 			pass.create(this.password);
 		} catch (NoSuchAlgorithmException e) {
-			return "intererrorpage";
+			return "internalError";
 		}
 		user.setPassword(pass);	 
 		UserDAO userDao = (UserDAO) ApplicationContextUtil.getApplicationContext().getBean("UserDAO");
