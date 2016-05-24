@@ -14,8 +14,6 @@ import sitecreators.utils.image.Image;
 import sitecreators.utils.image.ImageDAO;
 import sitecreators.utils.product.Product;
 import sitecreators.utils.product.ProductDAO;
-import sitecreators.utils.product.ProductDecription;
-import sitecreators.utils.product.ProductPrice;
 import sitecreators.utils.user.User;
 import sitecreators.utils.user.UserDAO;
 
