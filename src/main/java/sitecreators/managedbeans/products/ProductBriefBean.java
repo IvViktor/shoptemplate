@@ -15,6 +15,10 @@ public class ProductBriefBean {
 	private ProductDAO productDao = (ProductDAO) ApplicationContextUtil.getApplicationContext().getBean("ProductDAO");
 	
 	private List<Product> products;
+	
+	public String details(){
+		return "productdetails";
+	}
 
 	public List<Product> getProducts() {
 		this.products = productDao.getProducts();

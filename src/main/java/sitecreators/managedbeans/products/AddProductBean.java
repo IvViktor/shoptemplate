@@ -25,7 +25,7 @@ public class AddProductBean {
 	private ProductDAO productDao = (ProductDAO) ApplicationContextUtil.getApplicationContext().getBean("ProductDAO");
 	private UserDAO userDao = (UserDAO) ApplicationContextUtil.getApplicationContext().getBean("UserDAO");
 	private ImageDAO imageDao = (ImageDAO) ApplicationContextUtil.getApplicationContext().getBean("ImageDAO");
-	private long userId =(long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
+	private long userId = 1;//(long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
 	private List<Category> categories = categoryDao.getAllCategories();
 	
 	private String productTitle;
@@ -58,8 +58,8 @@ public class AddProductBean {
 		icon.setImgDecs(imageDesc);
 		imageDao.addImage(icon);
 		product.setIcon(icon);
-		User owner = userDao.getUser(userId);
-		product.setOwner(owner);
+		//User owner = userDao.getUser(userId);
+		//product.setOwner(owner);
 		productDao.addProduct(product);
 		
 		return "products";

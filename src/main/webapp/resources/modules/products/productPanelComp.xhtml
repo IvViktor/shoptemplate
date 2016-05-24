@@ -2,11 +2,13 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"   
    xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
    xmlns:f="http://java.sun.com/jsf/core"
    xmlns:composite="http://java.sun.com/jsf/composite">
 
    <composite:interface>
    	<composite:attribute name="productList" />
+   	<composite:attribute name="submitAction"  method-signature="java.lang.String action()"/>
    </composite:interface>
 
    <composite:implementation>
@@ -16,10 +18,10 @@
 						<h3>#{product.getProductTitle()}</h3>
 						<p>Price: #{product.getProductPrice().getAmount()}</p>
 						<img src="#{product.getIcon().getImagePath()}"
-					   	alt="product.getIcon().getImgDecs()" />
-						<form action="productdetails" method="POST">
-							<input type="hidden" value="#{product.getId()}" />
-							<button type="submit" value="Details" />
+						alt="#{product.getIcon().getImgDecs()}" />
+						<form method="POST" action="productdetails.xhtml" >
+							<input type="hidden" value="#{product.getId()}" name="productId" />
+							<input type="submit" value="details" />
 						</form>
 				</div>
 			</ui:repeat>

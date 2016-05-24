@@ -12,13 +12,14 @@
 
 	<body>
 		
-		<cm:header />
+   <!--     <cm:header />-->
 		<cm:navbar />
-		<cm:filterpanel />
+		<!--<cm:filterpanel />-->
 		<cmp:productPanelComp 
 			productList = "#{productPanelBean.products}"
+			submitAction = "#{productPanelBean.details}"
 		/>
-		<cm:footer />
+		<!--<cm:footer />-->
 
    	</body>
 

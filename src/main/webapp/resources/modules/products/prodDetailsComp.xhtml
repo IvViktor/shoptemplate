@@ -25,7 +25,7 @@ xmlns:composite="http://java.sun.com/jsf/composite">
 			<img src="#{product.getIcon().getImagePath()}" alt="product.getIcon().getImgDecs()"/>
 			<hr />
 			<ui:repeat value="#{product.getImages()}" var="image">
-				<img src="#{image.getImagePath()}" alt="#{image.getImgDecs()}">
+				<img src="#{image.getImagePath()}" alt="#{image.getImgDecs()}" />
 			</ui:repeat>
 			<hr />
 			<h4>Comments:</h4>

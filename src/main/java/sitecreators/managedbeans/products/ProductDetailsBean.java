@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 import sitecreators.utils.ApplicationContextUtil;
 import sitecreators.utils.comment.Comment;
@@ -19,7 +20,6 @@ import sitecreators.utils.user.UserDAO;
 @ManagedBean(name="prodDetailBean")
 public class ProductDetailsBean {
 	
-	@ManagedProperty(value="#{param.productId}")
 	private String productId;
 	
 	private ProductDAO productDao;
@@ -30,20 +30,14 @@ public class ProductDetailsBean {
 	
 	private UserDAO userDao;
 	
-	private ProductDetailsBean(){
+	public ProductDetailsBean(){
 		this.productDao = (ProductDAO) ApplicationContextUtil.getApplicationContext().getBean("ProductDAO");
+		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		productId=(String) req.getParameter("productId");
 		this.product = productDao.getProduct(Long.parseLong(this.productId));
-		long userId =(long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
+		long userId = 1;//(long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
 		userDao = (UserDAO) ApplicationContextUtil.getApplicationContext().getBean("UserDAO");
-		user = userDao.getUser(userId);
-	}
-
-	public String getProductId() {
-		return productId;
-	}
-
-	public void setProductId(String productId) {
-		this.productId = productId;
+		//user = userDao.getUser(userId);
 	}
 
 	public Product getProduct() {
@@ -57,7 +51,7 @@ public class ProductDetailsBean {
 	public void addComment(String body){
 		Comment comment = new Comment();
 		comment.setBody(body);
-		comment.setPublisher(user);
+		//comment.setPublisher(user);
 		comment.setPublishTime(new Timestamp(new Date().getTime()));
 		this.product.addComment(comment);
 		productDao.updateProduct(product);
@@ -67,9 +61,9 @@ public class ProductDetailsBean {
 		Order order = new Order();
 		order.setFormedTime(new Timestamp(new Date().getTime()));
 		product.addOrder(order);
-		user.addPurchase(order);
+		//user.addPurchase(order);
 		productDao.updateProduct(product);
-		userDao.updateUser(user);
+		//userDao.updateUser(user);
 	}
 
 }
