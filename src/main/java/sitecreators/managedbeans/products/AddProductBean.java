@@ -62,7 +62,7 @@ public class AddProductBean {
 		product.setOwner(owner);
 		productDao.addProduct(product);
 		
-		return "home";
+		return "products";
 	}
 	
 	public String getProductTitle() {

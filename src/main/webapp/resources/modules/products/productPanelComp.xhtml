@@ -7,11 +7,23 @@
 
    <composite:interface>
    	<composite:attribute name="productList" />
-	<composite:attribute name="buttonAction" />
    </composite:interface>
 
    <composite:implementation>
-
+		<div class="productPanel">
+			<ui:repeat value="#{cc.attrs.productList}" var="product">
+				<div class="productBrief">
+						<h3>#{product.getProductTitle()}</h3>
+						<p>Price: #{product.getProductPrice().getAmount()}</p>
+						<img src="#{product.getIcon().getImagePath()}"
+					   	alt="product.getIcon().getImgDecs()" />
+						<form action="productdetails" method="POST">
+							<input type="hidden" value="#{product.getId()}" />
+							<button type="submit" value="Details" />
+						</form>
+				</div>
+			</ui:repeat>
+		</div>
    </composite:implementation>
 
  </html>

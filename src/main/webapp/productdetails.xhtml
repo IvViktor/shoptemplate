@@ -15,15 +15,9 @@
 		<cm:header />
 		<cm:navbar />
 		<cmp:prodDetailsComp
-			productTitle="#{prodDetailBean.product.getProductTitle()}"
-			productPrice="#{prodDetailBean.product.getProductPrice()}"
-			category="#{prodDetailBean.product.getCategory()}"
-			owner="#{prodDetailBean.product.getOwner()}"
-			decsription="#{prodDetailBean.product.getDescription()}"
-			iconImage="#{prodDetailBean.product.getIcon()}"
-			images="#{prodDetailBean.product.getImages()}"
-			comments="#{prodDetailBean.product.getComments()}"
-			status="#{prodDetailBean.product.getStatus()}"
+			product="#{prodDetailBean.product}"
+			addCommentAction="#{prodDetailBean.addComment()}"
+			buyProductAction="#{prodDetailBean.buyProduct()}"
 		/>
 		<cm:footer />
 

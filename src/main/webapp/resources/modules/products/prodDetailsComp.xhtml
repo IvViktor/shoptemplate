@@ -2,25 +2,45 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"   
 xmlns:h="http://java.sun.com/jsf/html"
+xmlns:ui="http://java.sun.com/jsf/facelets"
 xmlns:f="http://java.sun.com/jsf/core"
 xmlns:composite="http://java.sun.com/jsf/composite">
 
 	<composite:interface>
-		<composite:attribute name="productTitle" />
-		<composite:attribute name="productPrice" />
-		<composite:attribute name="category" />
-		<composite:attribute name="owner" />
-		<composite:attribute name="description" />
-		<composite:attribute name="iconImage" />
-		<composite:attribute name="images" />
-		<composite:attribute name="comments" />
+		<composite:attribute name="product" />
 		<composite:attribute name="addCommentAction" />
 		<composite:attribute name="buyProductAction" />
-		<composite:attribute name="" />
 	</composite:interface>
 
 	<composite:implementation>
-
+		<div class="productdetails">
+			<ui:param name="product" value="#{cc.attrs.product}" />
+			<h2>#{product.getProductTitle()}</h2>
+			<ul>
+				<li>Price of product: #{product.getProductPrice().getAmount()}</li>
+				<li>Category: #{product.getCategory().getTitle()}</li>
+				<li>Description: #{product.getDescription().getDesription()}</li>
+			</ul>
+			<h4>Icon:</h4>
+			<img src="#{product.getIcon().getImagePath()}" alt="product.getIcon().getImgDecs()"/>
+			<hr />
+			<ui:repeat value="#{product.getImages()}" var="image">
+				<img src="#{image.getImagePath()}" alt="#{image.getImgDecs()}">
+			</ui:repeat>
+			<hr />
+			<h4>Comments:</h4>
+			<ui:repeat value="#{product.getComments()}" var="comment">
+				<ui:param name="user" value="#{comment.getPublisher().getAbout()}" />
+				<div class="comment" style="border:solid 1px #fff">
+					<p>#{comment.getBody()}</p>
+					<hr />
+					<p>#{user.getFirstName()} #{user.getSecondName()}</p>
+					<hr />
+					Published: #{comment.getPublishTime().toString()}
+				</div>
+			</ui:repeat>
+			<h:commandButton action="#{cc.attrs.buyProductAction}" value="BUY" /><br />
+			<h:commandButton action="#{cc.attrs.addCommentAction}" value="Leave comment" />
+		</div>
 	</composite:implementation>
-
 </html>   
