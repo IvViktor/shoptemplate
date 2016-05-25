@@ -48,8 +48,8 @@ public class AddProductBean {
 		ProductPrice pPrice = new ProductPrice();
 		pPrice.setAmount(productPrice);
 		product.setProductPrice(pPrice);
-		Category cat = categoryDao.getCategory(category);
-		product.setCategory(cat);
+		//Category cat = categoryDao.getCategory(category);
+		//product.setCategory(cat);
 		ProductDecription pDescr = new ProductDecription();
 		pDescr.setDescription(description);
 		Image icon = new Image();

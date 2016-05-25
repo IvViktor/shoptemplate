@@ -29,7 +29,7 @@ xmlns:composite="http://java.sun.com/jsf/composite">
 			</ui:repeat>
 			<hr />
 			<h4>Comments:</h4>
-			<ui:repeat value="#{product.getComments()}" var="comment">
+			<!--<ui:repeat value="#{product.getComments()}" var="comment">
 				<ui:param name="user" value="#{comment.getPublisher().getAbout()}" />
 				<div class="comment" style="border:solid 1px #fff">
 					<p>#{comment.getBody()}</p>
@@ -38,7 +38,7 @@ xmlns:composite="http://java.sun.com/jsf/composite">
 					<hr />
 					Published: #{comment.getPublishTime().toString()}
 				</div>
-			</ui:repeat>
+			</ui:repeat>-->
 			<h:commandButton action="#{cc.attrs.buyProductAction}" value="BUY" /><br />
 			<h:commandButton action="#{cc.attrs.addCommentAction}" value="Leave comment" />
 		</div>

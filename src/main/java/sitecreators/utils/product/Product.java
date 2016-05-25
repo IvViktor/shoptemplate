@@ -11,6 +11,7 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -50,7 +51,7 @@ public class Product {
 	@ManyToOne
 	private User owner;
 	
-    @OneToMany(mappedBy="product",cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy="product",cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
 	private List<Order> orders = new ArrayList<>();
 	
 	@Embedded
@@ -60,10 +61,10 @@ public class Product {
 	@JoinColumn(name="icon_image_id")
 	private Image icon;
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
 	private List<Image> images = new ArrayList<>();
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
 	private List<Comment> comments = new ArrayList<>();
 	
 	@Enumerated(EnumType.STRING)

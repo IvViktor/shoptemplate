@@ -20,7 +20,7 @@
 
 	<composite:implementation>
 		<div class="addnewproduct">
-			<form method="POST">
+			<h:form >
 				<h2>Add new product</h2>
 				Enter product title: <h:inputText value="#{cc.attrs.productTitle}" /><br />
 				Enter product price: <h:inputText value="#{cc.attrs.productPrice}" /><br/>
@@ -31,7 +31,7 @@
 							<option value="#{cat.getTitle()}">#{cat.getTitle()}</option>
 						</ui:repeat>	
 				</select><br />
-				<h:inputTextarea value="#{cc.attrs.desproduct.getDescription()}" cols="30" rows="7" />
+				<h:inputTextarea value="#{cc.attrs.description}" cols="30" rows="7" />
 				<br />
 				Choose picture for icon:
  				<p:fileUpload multiple="false" allowTypes="/(\.|\/)(gif|jpeg|png)$/" 
@@ -39,7 +39,7 @@
 				Enter description for your picture:
 				<h:inputText value="#{cc.attrs.iconDesc}" />
 				<h:commandButton value="Add product" action="#{cc.attrs.submitAction}" />
-			</form>
+			</h:form>
 		</div>
 		<script>
 			function setCategory(text){
