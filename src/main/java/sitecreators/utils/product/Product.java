@@ -61,7 +61,7 @@ public class Product {
 	@JoinColumn(name="icon_image_id")
 	private Image icon;
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
 	private List<Image> images = new ArrayList<>();
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
