@@ -7,29 +7,34 @@ xmlns:f="http://java.sun.com/jsf/core"
 xmlns:composite="http://java.sun.com/jsf/composite">
 
 	<composite:interface>
-		<composite:attribute name="product" />
+		<composite:attribute name="title" />
+		<composite:attribute name="price" />
+		<composite:attribute name="category" />
+		<composite:attribute name="description" />
+		<composite:attribute name="icon" />
+		<composite:attribute name="images" />
+		<composite:attribute name="comments" />
 		<composite:attribute name="addCommentAction" />
 		<composite:attribute name="buyProductAction" />
 	</composite:interface>
 
 	<composite:implementation>
 		<div class="productdetails">
-			<ui:param name="product" value="#{cc.attrs.product}" />
-			<h2>#{product.getProductTitle()}</h2>
+			<h2>#{cc.attrs.title}</h2>
 			<ul>
-				<li>Price of product: #{product.getProductPrice().getAmount()}</li>
-				<li>Category: #{product.getCategory().getTitle()}</li>
-				<li>Description: #{product.getDescription().getDesription()}</li>
+				<li>Price of product: #{cc.attrs.price}</li>
+				<li>Category: #{cc.attrs.category}</li>
+				<li>Description: #{cc.attrs.description}</li>
 			</ul>
 			<h4>Icon:</h4>
-			<img src="#{product.getIcon().getImagePath()}" alt="product.getIcon().getImgDecs()"/>
+			<img src="#{cc.attrs.icon.getImagePath()}" alt="cc.attrs.icon.getImgDecs()"/>
 			<hr />
-			<ui:repeat value="#{product.getImages()}" var="image">
+			<ui:repeat value="#{cc.attrs.images}" var="image">
 				<img src="#{image.getImagePath()}" alt="#{image.getImgDecs()}" />
 			</ui:repeat>
 			<hr />
 			<h4>Comments:</h4>
-			<!--<ui:repeat value="#{product.getComments()}" var="comment">
+			<ui:repeat value="#{cc.attrs.comments}" var="comment">
 				<ui:param name="user" value="#{comment.getPublisher().getAbout()}" />
 				<div class="comment" style="border:solid 1px #fff">
 					<p>#{comment.getBody()}</p>
@@ -38,7 +43,7 @@ xmlns:composite="http://java.sun.com/jsf/composite">
 					<hr />
 					Published: #{comment.getPublishTime().toString()}
 				</div>
-			</ui:repeat>-->
+			</ui:repeat>
 			<h:commandButton action="#{cc.attrs.buyProductAction}" value="BUY" /><br />
 			<h:commandButton action="#{cc.attrs.addCommentAction}" value="Leave comment" />
 		</div>
