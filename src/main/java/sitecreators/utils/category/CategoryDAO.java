@@ -14,4 +14,8 @@ public interface CategoryDAO {
 	
 	public void updateCategory(Category category);
 	
+	public void open();
+	
+	public void close();
+	
 }

@@ -22,5 +22,8 @@ public interface UserDAO {
 	public void updateUser(User user);
 	
 	public void removeUser(User user);
+
+	public void open();
 	
+	public void close();
 }

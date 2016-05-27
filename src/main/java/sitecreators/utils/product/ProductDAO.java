@@ -22,5 +22,9 @@ public interface ProductDAO {
 	public void updateProduct(Product product);
 	
 	public void removeProduct(Product product);
+	
+	public void open();
+	
+	public void close();
 
 }

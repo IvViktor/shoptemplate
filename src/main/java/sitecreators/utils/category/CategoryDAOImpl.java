@@ -13,19 +13,28 @@ import sitecreators.utils.SessionFactoryUtil;
 
 public class CategoryDAOImpl implements CategoryDAO {
 	
-	private SessionFactory sessionFactory; 
+	private SessionFactory sessionFactory;
+	
+	private Session session=null;
 	
 	public CategoryDAOImpl(){
-		this.sessionFactory = SessionFactoryUtil.getSessionFactory();		
+		this.sessionFactory = SessionFactoryUtil.getSessionFactory();	
+	}
+	
+	public void open(){
+		if(this.session == null) this.session = this.sessionFactory.openSession();
+	}
+	
+	public void close(){
+		this.session.close();
+		this.session=null;
 	}
 	
 	@Override
 	public Category getCategory(String title) {
 		List<Category> resultList = null;
 		Transaction tx = null;
-		Session session = null;
 		try{
-			session = this.sessionFactory.openSession();
 			tx = session.beginTransaction();
 			String hql = "FROM sitecreators.utils.category.Category Cat WHERE Cat.title = :cat_title";
 			Query query = session.createQuery(hql);
@@ -35,78 +44,60 @@ public class CategoryDAOImpl implements CategoryDAO {
 		} catch(Exception e){
 			if(tx != null) tx.rollback();
 			return null;
-		} finally {
-			session.close();
-		}
+		} 
 		if(resultList.size()==0) return null;
 		return resultList.get(0);
 	}
 
 	@Override
 	public void addCategory(Category category) {
-		Session session = null;
 		Transaction tx = null;
 		try{
-			session = this.sessionFactory.openSession();
 			tx = session.beginTransaction();
 			session.save(category);
 			tx.commit();
 		} catch (Exception e){
 			if(tx != null) tx.rollback();
-		} finally {
-			session.close();
-		}
+		} 
 	}
 
 	@Override
 	public void removeCategory(Category category) {
-		Session session = null;
 		Transaction tx = null;
 		try{
-			session = this.sessionFactory.openSession();
 			tx = session.beginTransaction();
 			session.delete(category);
 			tx.commit();
 		} catch (Exception e){
 			if(tx != null) tx.rollback();
-		} finally {
-			session.close();
-		}
+		} 
 	}
 
 	@Override
 	public List<Category> getAllCategories() {
 		List<Category> resultList = new ArrayList<>();
-		Session session = null;
 		Transaction tx = null;
 		try{
-			session = this.sessionFactory.openSession();
 			tx = session.beginTransaction();
 			Criteria cr = session.createCriteria(Category.class);
 			resultList = cr.list();
 			tx.commit();
 		} catch (Exception e){
 			if(tx !=null) tx.rollback();
-		} finally {
-			session.close();
-		}
+		} 
 		return resultList;
 	}
 
 	@Override
 	public void updateCategory(Category category) {
-		Session session = null;
 		Transaction tx = null;
 		try{
-			session = this.sessionFactory.openSession();
 			tx = session.beginTransaction();
 			session.update(category);
 			tx.commit();
 		} catch (Exception e){
 			if(tx != null) tx.rollback();
-		} finally {
-			session.close();
-		}
+		} 
 	}
 
 }
