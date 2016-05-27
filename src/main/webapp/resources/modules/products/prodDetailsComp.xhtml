@@ -24,10 +24,11 @@ xmlns:composite="http://java.sun.com/jsf/composite">
 			<ul>
 				<li>Price of product: #{cc.attrs.price}</li>
 				<li>Category: #{cc.attrs.category}</li>
-				<li>Description: #{cc.attrs.description}</li>
+				<li>Description:<h:outputText value="#{cc.attrs.description}" /> </li>
 			</ul>
 			<h4>Icon:</h4>
-			<img src="#{cc.attrs.icon.getImagePath()}" alt="#{cc.attrs.icon.getImgDecs()}"/>
+			<ui:param name="icon" value="#{cc.attrs.icon}" />
+			<img src="#{icon.getImagePath()}" alt="#{icon.getImgDecs()}"/>
 			<hr />
 			<ui:repeat value="#{cc.attrs.images}" var="image">
 				<img src="#{image.getImagePath()}" alt="#{image.getImgDecs()}" />

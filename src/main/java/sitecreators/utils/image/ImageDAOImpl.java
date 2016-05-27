@@ -103,18 +103,21 @@ private SessionFactory sessionFactory;
 
 	@Override
 	public String saveImage(Part part, String directory, long userId) {
-		String webappRoot = System.getProperty("catalina.base");
-		String defaultIcon = File.separator + "webapps"+ File.separator + "shopImageData"+File.separator + directory + File.separator + "noimage.gif";
+		String webappRoot = File.separator + "opt" +File.separator + "tomcat" +File.separator + "webapps";
+		String defaultIcon = File.separator + "shopImageData"+File.separator + directory + File.separator + "noimage.gif";
 		String fileName = getFileName(part);
 		if(fileName!=null){
-			fileName = File.separator + "webapps"+ File.separator + "shopImageData"+File.separator + directory + File.separator + userId + File.separator + fileName;
+			String filePath = File.separator + "shopImageData" + File.separator + directory + File.separator + userId;
 			try (InputStream input = part.getInputStream()) {
-		        Files.copy(input, new File(webappRoot, fileName).toPath());
+				File path = new File(webappRoot+filePath);
+				path.mkdirs();
+				File image = new File(path,fileName);
+		        Files.copy(input, image.toPath());
 		    }
 		    catch (IOException e) {
 		        return defaultIcon;
 		    }
-			return fileName;
+			return  File.separator +filePath + File.separator + fileName;
 		}
 		return defaultIcon;
 	}

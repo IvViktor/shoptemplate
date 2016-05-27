@@ -64,6 +64,7 @@ public class AddProductBean {
 		//product.setCategory(cat);
 		ProductDecription pDescr = new ProductDecription();
 		pDescr.setDescription(description);
+		product.setDescription(pDescr);
 		Image icon = new Image();
 		iconImage = imageDao.saveImage(imageFile, "products", this.userId);
 		icon.setImagePath(iconImage);

@@ -16,6 +16,8 @@ import sitecreators.utils.image.Image;
 import sitecreators.utils.order.Order;
 import sitecreators.utils.product.Product;
 import sitecreators.utils.product.ProductDAO;
+import sitecreators.utils.product.ProductDecription;
+import sitecreators.utils.product.ProductPrice;
 import sitecreators.utils.user.User;
 import sitecreators.utils.user.UserDAO;
 
@@ -54,9 +56,11 @@ public class ProductDetailsBean {
 			productDao.open();
 			this.product = productDao.getProduct(Long.parseLong(this.productId));
 			this.title = product.getProductTitle();
-			this.price = product.getProductPrice().getAmount();
+			ProductPrice pPrice = product.getProductPrice();
+			this.price = pPrice.getAmount();
 			this.category = product.getCategory().getTitle();
-			this.description = product.getDescription().getDescription();
+			ProductDecription pDescr = product.getDescription();
+			this.description = pDescr.getDescription();
 			this.icon = product.getIcon();
 			this.images = product.getImages();
 			this.comments = product.getComments();
