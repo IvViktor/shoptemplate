@@ -3,7 +3,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml"   
    xmlns:h="http://java.sun.com/jsf/html"
    xmlns:f="http://java.sun.com/jsf/core"
-   xmlns:p="http://primefaces.org/ui"  
 	xmlns:ui="http://java.sun.com/jsf/facelets"
    xmlns:composite="http://java.sun.com/jsf/composite">
 
@@ -20,7 +19,7 @@
 
 	<composite:implementation>
 		<div class="addnewproduct">
-			<h:form >
+			<h:form  enctype="multipart/form-data">
 				<h2>Add new product</h2>
 				Enter product title: <h:inputText value="#{cc.attrs.productTitle}" /><br />
 				Enter product price: <h:inputText value="#{cc.attrs.productPrice}" /><br/>
@@ -34,7 +33,7 @@
 				<h:inputTextarea value="#{cc.attrs.description}" cols="30" rows="7" />
 				<br />
 				Choose picture for icon:
- 				<p:fileUpload multiple="false" allowTypes="/(\.|\/)(gif|jpeg|png)$/" 
+ 				<h:inputFile multiple="false" allowTypes="/(\.|\/)(gif|jpeg|png)$/" 
 				value="#{cc.attrs.iconImage}" required="true" mode="simple"/><br />
 				Enter description for your picture:
 				<h:inputText value="#{cc.attrs.iconDesc}" />

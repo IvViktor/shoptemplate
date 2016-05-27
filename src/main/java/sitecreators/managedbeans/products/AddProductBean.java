@@ -21,12 +21,12 @@ import sitecreators.utils.user.UserDAO;
 @ManagedBean(name="addProductBean")
 public class AddProductBean {
 	
-	private CategoryDAO categoryDao = (CategoryDAO) ApplicationContextUtil.getApplicationContext().getBean("CategoryDAO");
-	private ProductDAO productDao = (ProductDAO) ApplicationContextUtil.getApplicationContext().getBean("ProductDAO");
-	private UserDAO userDao = (UserDAO) ApplicationContextUtil.getApplicationContext().getBean("UserDAO");
-	private ImageDAO imageDao = (ImageDAO) ApplicationContextUtil.getApplicationContext().getBean("ImageDAO");
-	private long userId = 1;//(long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
-	private List<Category> categories = categoryDao.getAllCategories();
+	private CategoryDAO categoryDao;
+	private ProductDAO productDao;
+	private UserDAO userDao;
+	private ImageDAO imageDao;
+	private long userId = 1;//
+	private List<Category> categories;
 	
 	private String productTitle;
 	
@@ -41,6 +41,18 @@ public class AddProductBean {
 	private String category;
 	
 	private Part imageFile;
+	
+	public AddProductBean(){
+		
+		categoryDao = (CategoryDAO) ApplicationContextUtil.getApplicationContext().getBean("CategoryDAO");
+		productDao = (ProductDAO) ApplicationContextUtil.getApplicationContext().getBean("ProductDAO");
+		userDao = (UserDAO) ApplicationContextUtil.getApplicationContext().getBean("UserDAO");
+		imageDao = (ImageDAO) ApplicationContextUtil.getApplicationContext().getBean("ImageDAO");
+		//userId = (long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
+		categoryDao.open();
+		categories = categoryDao.getAllCategories();
+		categoryDao.close();
+	}
 	
 	public String addProduct(){
 		Product product = new Product();
@@ -60,8 +72,9 @@ public class AddProductBean {
 		product.setIcon(icon);
 		//User owner = userDao.getUser(userId);
 		//product.setOwner(owner);
+		productDao.open();
 		productDao.addProduct(product);
-		
+		productDao.close();
 		return "products";
 	}
 	
