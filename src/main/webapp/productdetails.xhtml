@@ -15,7 +15,13 @@
    <!--     <cm:header />-->
 		<cm:navbar />
 		<cmp:prodDetailsComp
-			product="#{prodDetailBean.product}"
+			title="#{prodDetailBean.title}"
+			price="#{prodDetailBean.price}"
+			category="#{prodDetailBean.category}"
+			description="#{prodDetailBean.description}"
+			icon="#{prodDetailBean.icon}"
+			images="#{prodDetailBean.images}"
+			comments="#{prodDetailBean.comments}"
 			addCommentAction="#{prodDetailBean.addComment()}"
 			buyProductAction="#{prodDetailBean.buyProduct()}"
 		/>

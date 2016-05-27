@@ -12,16 +12,27 @@ import sitecreators.utils.product.ProductDAO;
 @ManagedBean(name="productPanelBean")
 public class ProductBriefBean {
 	
-	private ProductDAO productDao = (ProductDAO) ApplicationContextUtil.getApplicationContext().getBean("ProductDAO");
+	private ProductDAO productDao;
 	
 	private List<Product> products;
+	
+	public ProductBriefBean(){
+		this.productDao = (ProductDAO) ApplicationContextUtil.getApplicationContext().getBean("ProductDAO");
+		try{
+			productDao.open();
+			this.products = productDao.getProducts();
+		} catch (Exception e) {
+			
+		} finally{
+			productDao.close();
+		}
+	}
 	
 	public String details(){
 		return "productdetails";
 	}
 
 	public List<Product> getProducts() {
-		this.products = productDao.getProducts();
 		return products;
 	}
 

@@ -27,7 +27,7 @@ xmlns:composite="http://java.sun.com/jsf/composite">
 				<li>Description: #{cc.attrs.description}</li>
 			</ul>
 			<h4>Icon:</h4>
-			<img src="#{cc.attrs.icon.getImagePath()}" alt="cc.attrs.icon.getImgDecs()"/>
+			<img src="#{cc.attrs.icon.getImagePath()}" alt="#{cc.attrs.icon.getImgDecs()}"/>
 			<hr />
 			<ui:repeat value="#{cc.attrs.images}" var="image">
 				<img src="#{image.getImagePath()}" alt="#{image.getImgDecs()}" />
