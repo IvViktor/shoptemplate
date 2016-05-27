@@ -117,7 +117,7 @@ private SessionFactory sessionFactory;
 		    catch (IOException e) {
 		        return defaultIcon;
 		    }
-			return  File.separator +filePath + File.separator + fileName;
+			return filePath + File.separator + fileName;
 		}
 		return defaultIcon;
 	}
