@@ -7,7 +7,7 @@
         <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="hibernate.connection.password">pswd</property>
-        <property name="hibernate.connection.url">jdbc:mysql://mysql28421-env-9516471.unicloud.pl/SHOPTEMPLATE</property>
+        <property name="hibernate.connection.url">jdbc:mysql://mysql137351-env-2308352.jelastic.dogado.eu/SHOPTEMPLATE</property>
         <property name="hibernate.connection.username">dao</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="show_sql">true</property>
