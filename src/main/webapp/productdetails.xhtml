@@ -10,7 +10,7 @@
 		<title>#{prodDetailBean.product.getProductTitle()}</title>
 	</head>
 
-	<body>
+	<h:body>
 		
    <!--     <cm:header />-->
 		<cm:navbar />
@@ -24,9 +24,9 @@
 			comments="#{prodDetailBean.comments}"
 			addCommentAction="#{prodDetailBean.addComment()}"
 			buyProductAction="#{prodDetailBean.buyProduct()}"
+			closeSessionAction = "#{prodDetailBean.closeSession()}"
 		/>
 		<!--<cm:footer />-->
-
-   	</body>
+   	</h:body>
 
 </html>

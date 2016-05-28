@@ -58,20 +58,25 @@ public class ProductDetailsBean {
 			this.title = product.getProductTitle();
 			ProductPrice pPrice = product.getProductPrice();
 			this.price = pPrice.getAmount();
-			this.category = product.getCategory().getTitle();
+			//this.category = product.getCategory().getTitle();
 			ProductDecription pDescr = product.getDescription();
 			this.description = pDescr.getDescription();
 			this.icon = product.getIcon();
 			this.images = product.getImages();
 			this.comments = product.getComments();
 		} catch (Exception e){
-			
-		} finally{
+			e.printStackTrace();
 			productDao.close();
-		}
+		}/* finally{
+			productDao.close();
+		}*/
 		//long userId = 1;//(long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
 		//userDao = (UserDAO) ApplicationContextUtil.getApplicationContext().getBean("UserDAO");
 		//user = userDao.getUser(userId);
+	}
+	
+	public void closeSession(){
+		productDao.close();
 	}
 
 	public void addComment(String body){
