@@ -48,6 +48,8 @@ public class ProductDetailsBean {
 	
 	private List<Comment> comments;
 	
+	private String commentBody;
+	
 	public ProductDetailsBean(){
 		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		productId=(String) req.getParameter("productId");
@@ -79,9 +81,9 @@ public class ProductDetailsBean {
 		productDao.close();
 	}
 
-	public void addComment(String body){
+	public void addComment(){
 		Comment comment = new Comment();
-		comment.setBody(body);
+		comment.setBody(commentBody);
 		//comment.setPublisher(user);
 		comment.setPublishTime(new Timestamp(new Date().getTime()));
 		this.product.addComment(comment);
@@ -89,7 +91,7 @@ public class ProductDetailsBean {
 			productDao.open();
 			productDao.updateProduct(product);
 		} catch (Exception e){
-			
+			e.printStackTrace();
 		} finally {
 			productDao.close();
 		}
@@ -104,7 +106,7 @@ public class ProductDetailsBean {
 			productDao.open();
 			productDao.updateProduct(product);
 		} catch (Exception e){
-			
+			e.printStackTrace();
 		} finally {
 			productDao.close();
 		}		
@@ -173,6 +175,14 @@ public class ProductDetailsBean {
 
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
+	}
+
+	public String getCommentBody() {
+		return commentBody;
+	}
+
+	public void setCommentBody(String commentBody) {
+		this.commentBody = commentBody;
 	}
 
 }

@@ -14,6 +14,7 @@ xmlns:composite="http://java.sun.com/jsf/composite">
 		<composite:attribute name="icon" />
 		<composite:attribute name="images" />
 		<composite:attribute name="comments" />
+		<composite:attribute name="commentBody" />
 		<composite:attribute name="addCommentAction" />
 		<composite:attribute name="buyProductAction" />
 		<composite:attribute name="closeSessionAction" />
@@ -47,6 +48,8 @@ xmlns:composite="http://java.sun.com/jsf/composite">
 				</div>
 			</ui:repeat>
 			<h:commandButton action="#{cc.attrs.buyProductAction}" value="BUY" /><br />
+			Leave your comment here:<br />
+			<h:inputTextarea value="#{cc.attrs.commentBody}" cols="30" rows="7" /><br />
 			<h:commandButton action="#{cc.attrs.addCommentAction}" value="Leave comment" />
 		</div>
 		<script type="text/javascript">
