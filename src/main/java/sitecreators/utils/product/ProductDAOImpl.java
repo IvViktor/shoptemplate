@@ -110,9 +110,11 @@ public class ProductDAOImpl implements ProductDAO {
 
 	@Override
 	public void close() {
-		this.session.close();
-		this.session = null;
-		System.out.println("productDAO session closed");
+		if(this.session != null){
+			this.session.close();
+			this.session = null;
+			System.out.println("productDAO session closed");
+		}
 	}
 
 }

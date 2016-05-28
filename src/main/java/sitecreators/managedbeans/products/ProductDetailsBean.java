@@ -185,4 +185,12 @@ public class ProductDetailsBean {
 		this.commentBody = commentBody;
 	}
 
+	public String getProductId() {
+		return productId;
+	}
+
+	public void setProductId(String productId) {
+		this.productId = productId;
+	}
+
 }

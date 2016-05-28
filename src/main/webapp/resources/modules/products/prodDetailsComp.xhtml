@@ -8,6 +8,7 @@ xmlns:composite="http://java.sun.com/jsf/composite">
 
 	<composite:interface>
 		<composite:attribute name="title" />
+		<composite:attribute name="productId" />
 		<composite:attribute name="price" />
 		<composite:attribute name="category" />
 		<composite:attribute name="description" />
@@ -15,8 +16,8 @@ xmlns:composite="http://java.sun.com/jsf/composite">
 		<composite:attribute name="images" />
 		<composite:attribute name="comments" />
 		<composite:attribute name="commentBody" />
-		<composite:attribute name="addCommentAction" />
-		<composite:attribute name="buyProductAction" />
+		<composite:attribute name="addCommentAction" method-signature="void action()" />
+		<composite:attribute name="buyProductAction" method-signature="void action()" />
 		<composite:attribute name="closeSessionAction" />
 	</composite:interface>
 
@@ -47,10 +48,16 @@ xmlns:composite="http://java.sun.com/jsf/composite">
 					Published: #{comment.getPublishTime().toString()}
 				</div>
 			</ui:repeat>
+			<h:form>			
+			<input type="hidden" value="#{cc.attrs.productId}" name="productId" />
 			<h:commandButton action="#{cc.attrs.buyProductAction}" value="BUY" /><br />
+			</h:form>
+			<h:form>
 			Leave your comment here:<br />
+			<input type="hidden" value="#{cc.attrs.productId}" name="productId" />
 			<h:inputTextarea value="#{cc.attrs.commentBody}" cols="30" rows="7" /><br />
 			<h:commandButton action="#{cc.attrs.addCommentAction}" value="Leave comment" />
+			</h:form>
 		</div>
 		<script type="text/javascript">
 			function closeSession(){ #{cc.attrs.closeSessionAction}}
