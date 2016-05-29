@@ -23,11 +23,15 @@ public class CategoryDAOImpl implements CategoryDAO {
 	
 	public void open(){
 		if(this.session == null) this.session = this.sessionFactory.openSession();
+		System.out.println("categoryDAO session opened");
 	}
 	
 	public void close(){
-		this.session.close();
-		this.session=null;
+		if(session != null){
+			this.session.close();
+			this.session=null;
+			System.out.println("categoryDAO session closed");
+		}
 	}
 	
 	@Override

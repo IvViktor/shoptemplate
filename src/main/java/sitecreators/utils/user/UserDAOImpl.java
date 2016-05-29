@@ -111,12 +111,16 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public void open() {
 		if(session == null) this.session = this.sessionFactory.openSession();
+		System.out.println("userDAO session opened");
 	}
 
 	@Override
 	public void close() {
-		this.session.close();
-		this.session = null;
+		if(session != null){
+			this.session.close();
+			this.session = null;
+			System.out.println("categoryDAO session opened");
+		}
 	}
 
 }
