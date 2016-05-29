@@ -23,6 +23,10 @@
 							<input type="hidden" value="#{product.getId()}" name="productId" />
 							<input type="submit" value="details" />
 						</form>
+						<form method="POST" action="producteditor.xhtml" >
+							<input type="hidden" value="#{product.getId()}" name="productId" />
+							<input type="submit" value="edit" />
+						</form>
 				</div>
 			</ui:repeat>
 		</div>

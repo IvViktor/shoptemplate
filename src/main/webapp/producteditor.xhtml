@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:cm="http://java.sun.com/jsf/composite/modules"
+	  xmlns:cmp="http://java.sun.com/jsf/composite/modules/products">
+	<head>
+		<title>Product editor</title>
+	</head>
+
+	<body>
+		
+		<!--<cm:header />-->
+		<cm:navbar />
+		<cmp:editProductComp
+			productId="#{editProductBean.productId}"
+			productTitle="#{editProductBean.title}"
+			productPrice="#{editProductBean.price}"
+			category="#{editProductBean.category}"
+			categories="#{editProductBean.categories}"
+			description="#{editProductBean.description}"
+			icon="#{editProductBean.icon}"
+			images="#{editProductBean.images}"
+			comments="#{editProductBean.comments}"
+			newImage="#{editProductBean.imageFile}"
+			newImageDesc="#{editProductBean.imageDesc}"
+			addImageAction="#{editProductBean.addImage()}"
+			setIconAction="#{editProductBean.setNewIcon()}"
+			deleteCommentAction="#{editProductBean.removeComment()}"
+			closeSessionAction="#{editProductBean.closeSession()}"
+			submitAction="#{editProductBean.save()}"
+			changeCategory="#{editProductBean.changeCategory()}"
+		/>
+		<!--<cm:footer />-->
+
+   	</body>
+
+</html>

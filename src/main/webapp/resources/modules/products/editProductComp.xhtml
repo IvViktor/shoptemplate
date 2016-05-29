@@ -7,18 +7,82 @@ xmlns:f="http://java.sun.com/jsf/core"
 xmlns:composite="http://java.sun.com/jsf/composite">
 
 	<composite:interface>
+		<composite:attribute name="productId" />
 		<composite:attribute name="productTitle" />
 		<composite:attribute name="productPrice" />
 		<composite:attribute name="category" />
 		<composite:attribute name="categories" />
 		<composite:attribute name="description" />
-		<composite:attribute name="iconImage" />
+		<composite:attribute name="icon" />
 		<composite:attribute name="images" />
+		<composite:attribute name="newImage" />
+		<composite:attribute name="newImageDesc" />
 		<composite:attribute name="comments" />
+		<composite:attribute name="addImageAction" method-signature="void action()"/>
+		<composite:attribute name="setIconAction" method-signature="void action()"/>
+		<composite:attribute name="submitAction" method-signature="java.lang.String action()"/>
+		<composite:attribute name="deleteCommentAction" method-signature="void action()"/>
+		<composite:attribute name="changeCategory" method-signature="void action()"/>
+		<composite:attribute name="closeSessionAction" />
+
 	</composite:interface>
 
 	<composite:implementation>
+		<div class="producteditor" onload="closeSession()">
+			<h2>Product editor</h2>
+			<h:form enctype="multipart/form-data">
+				<input type="hidden" value="#{cc.attrs.productId}" name="productId"/>
+				Title: <h:inputText value="#{cc.attrs.productTitle}" /><br />
+				Price: <h:inputText value="#{cc.attrs.productPrice}" /><br />
+				Description: <h:inputTextarea value="#{cc.attrs.description}" cols="30" rows="7" /><br />
+				Category: <!--<h:outputText value="#{cc.attrs.category}" /><br />-->
+				<h:selectOneMenu value="#{cc.attrs.category}" onchange="setCategory(this.value)" >
+					<ui:repeat value="#{cc.attrs.categories}" var="cat">
+						<f:selectItem itemValue="#{cat.getTitle()}" itemLabel="#{cat.getTitle()}" />
+					</ui:repeat> 
+				</h:selectOneMenu><br />
+				<h3>Icon</h3>
+				<img src="#{cc.attrs.icon.getImagePath()}" alt="#{cc.attrs.icon.getImgDecs()}" />
+				<hr />
+				<h3>Add new image</h3>
+				<h:inputFile multiple="false" allowTypes="/(\.|\/)(gif|jpeg|png)$/" 
+				value="#{cc.attrs.newImage}" required="false" mode="simple"/><br />
+				Enter description for your picture:<h:inputText value="#{cc.attrs.newImageDesc}" /><br />
+				<h:commandButton value="Add image" action="#{cc.attrs.addImageAction}" />
+				<hr />
+				<h3>Images</h3>
+				<hr />
+				<ui:repeat value="#{cc.attrs.images}" var="image">
+					<img src="#{image.getImagePath()}" alt="#{image.getImgDecs()}" />
+					<h:commandButton value="Set as icon" action="#{cc.attrs.setIconAction}" />
+					<hr />
+				</ui:repeat>
+				<ui:repeat value="#{cc.attrs.comments}" var="comment">
+				<div>
+				<!--<ui:param name="user" value="#{comment.getPublisher().getAbout()}" />-->
+					<div class="comment" style="border:1px solid #fff;display: inline-block;">
+						<p>#{comment.getBody()}</p>
+						<!--<hr />
+						<p>#{user.getFirstName()} #{user.getSecondName()}</p>
+						<hr />-->
+						Published: #{comment.getPublishTime().toString()}
+					</div>
+					<h:commandButton value="Delete comment" action="#{cc.attrs.deleteCommentAction}" />
+				</div>		
+				</ui:repeat>
+				<h:commandButton action="#{cc.attrs.submitAction}" value="Save changes" />
+			</h:form>
+		</div>
 
+		<script type="text/javascript">
+			function closeSession(){ 
+				#{cc.attrs.closeSessionAction}
+			}
+
+			function setCategory(value){
+				#{cc.attrs.changeCategory}
+			}
+		</script>
 	</composite:implementation>
 
 </html>   
