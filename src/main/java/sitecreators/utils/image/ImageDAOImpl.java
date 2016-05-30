@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 import javax.servlet.http.Part;
@@ -112,7 +113,7 @@ private SessionFactory sessionFactory;
 				File path = new File(webappRoot+filePath);
 				path.mkdirs();
 				File image = new File(path,fileName);
-		        Files.copy(input, image.toPath());
+		        Files.copy(input, image.toPath(),StandardCopyOption.REPLACE_EXISTING);
 		    }
 		    catch (IOException e) {
 		        return defaultIcon;
