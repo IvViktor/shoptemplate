@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
@@ -60,6 +61,11 @@ public class EditProductBean {
 	
 	private String imageDesc;
 	
+	private Image newIcon;
+	
+	private Comment deletedComment;
+	
+	private ExternalContext exc;
 	
 	
 	public EditProductBean(){
@@ -68,7 +74,8 @@ public class EditProductBean {
 		userDao = (UserDAO) ApplicationContextUtil.getApplicationContext().getBean("UserDAO");
 		imageDao = (ImageDAO) ApplicationContextUtil.getApplicationContext().getBean("ImageDAO");
 		//userId =(long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
-		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		exc = FacesContext.getCurrentInstance().getExternalContext();
+		HttpServletRequest req = (HttpServletRequest) exc.getRequest();
 		productId=(String) req.getParameter("productId");
 		try{
 			productDao.open();
@@ -114,33 +121,43 @@ public class EditProductBean {
 		newImage.setImagePath(filePath);
 		newImage.setImgDecs(imageDesc);
 		imageDao.addImage(newImage);
-		images.add(newImage);
+		product.addImage(newImage);
 	}
 	
-	public void setNewIcon(Image newIcon){
-		images.add(icon);
+	public void setNewIcon(){
 		product.setIcon(newIcon);
-		images.remove(newIcon);
 	}
 	
-	public void changeCategory(String title){
-		categoryDao.open();
-		Category cat = categoryDao.getCategory(title);
-		categoryDao.close();
-		product.setCategory(cat);
+	private void changeCategory(String title){
+		try{
+			categoryDao.open();
+			Category cat = categoryDao.getCategory(title);
+			categoryDao.close();
+			product.setCategory(cat);
+		} catch (Exception e){
+			e.printStackTrace();
+		}
 	}
 	
-	public void removeComment(Comment comment){
-		comments.remove(comment);
+	public void removeComment(){
+		product.removeComment(deletedComment);
 	}
 	
 	public String save(){
+		//changeCategory(category);
+		product.setProductTitle(title);
+		ProductPrice pPrice = product.getProductPrice();
+		if(pPrice == null) pPrice = new ProductPrice();
+		pPrice.setAmount(price);
+		ProductDecription pDescr = product.getDescription();
+		if (pDescr == null) pDescr = new ProductDecription();
+		pDescr.setDescription(description);
 		try{
 			this.productDao.open();
 			this.productDao.updateProduct(this.product);
 		} catch (Exception e){
-			
-		} finally{
+			e.printStackTrace();
+		} finally {
 		this.productDao.close();
 		}
 		return "products";
@@ -232,6 +249,22 @@ public class EditProductBean {
 
 	public void setImageDesc(String imageDesc) {
 		this.imageDesc = imageDesc;
+	}
+
+	public Image getNewIcon() {
+		return newIcon;
+	}
+
+	public void setNewIcon(Image newIcon) {
+		this.newIcon = newIcon;
+	}
+
+	public Comment getDeletedComment() {
+		return deletedComment;
+	}
+
+	public void setDeletedComment(Comment deletedComment) {
+		this.deletedComment = deletedComment;
 	}
 
 			

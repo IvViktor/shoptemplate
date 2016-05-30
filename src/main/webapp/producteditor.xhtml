@@ -22,6 +22,8 @@
 			categories="#{editProductBean.categories}"
 			description="#{editProductBean.description}"
 			icon="#{editProductBean.icon}"
+			newIcon="#{editProductBean.newIcon}"
+			deletedComment="#{editProductBean.deletedComment}"
 			images="#{editProductBean.images}"
 			comments="#{editProductBean.comments}"
 			newImage="#{editProductBean.imageFile}"
@@ -31,7 +33,6 @@
 			deleteCommentAction="#{editProductBean.removeComment()}"
 			closeSessionAction="#{editProductBean.closeSession()}"
 			submitAction="#{editProductBean.save()}"
-			changeCategory="#{editProductBean.changeCategory()}"
 		/>
 		<!--<cm:footer />-->
 

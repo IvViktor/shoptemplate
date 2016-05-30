@@ -14,16 +14,17 @@ xmlns:composite="http://java.sun.com/jsf/composite">
 		<composite:attribute name="categories" />
 		<composite:attribute name="description" />
 		<composite:attribute name="icon" />
+		<composite:attribute name="newIcon" />
 		<composite:attribute name="images" />
 		<composite:attribute name="newImage" />
 		<composite:attribute name="newImageDesc" />
 		<composite:attribute name="comments" />
+		<composite:attribute name="deletedComment" />
 		<composite:attribute name="addImageAction" method-signature="void action()"/>
 		<composite:attribute name="setIconAction" method-signature="void action()"/>
 		<composite:attribute name="submitAction" method-signature="java.lang.String action()"/>
 		<composite:attribute name="deleteCommentAction" method-signature="void action()"/>
-		<composite:attribute name="changeCategory" method-signature="void action()"/>
-		<composite:attribute name="closeSessionAction" />
+		<composite:attribute name="closeSessionAction"  method-signature="void action()"/>
 
 	</composite:interface>
 
@@ -35,8 +36,8 @@ xmlns:composite="http://java.sun.com/jsf/composite">
 				Title: <h:inputText value="#{cc.attrs.productTitle}" /><br />
 				Price: <h:inputText value="#{cc.attrs.productPrice}" /><br />
 				Description: <h:inputTextarea value="#{cc.attrs.description}" cols="30" rows="7" /><br />
-				Category: <!--<h:outputText value="#{cc.attrs.category}" /><br />-->
-				<h:selectOneMenu value="#{cc.attrs.category}" onchange="setCategory(this.value)" >
+				Category: <h:outputText value="#{cc.attrs.category}" /><br />
+				<h:selectOneMenu value="#{cc.attrs.category}" >
 					<ui:repeat value="#{cc.attrs.categories}" var="cat">
 						<f:selectItem itemValue="#{cat.getTitle()}" itemLabel="#{cat.getTitle()}" />
 					</ui:repeat> 
@@ -54,7 +55,9 @@ xmlns:composite="http://java.sun.com/jsf/composite">
 				<hr />
 				<ui:repeat value="#{cc.attrs.images}" var="image">
 					<img src="#{image.getImagePath()}" alt="#{image.getImgDecs()}" />
-					<h:commandButton value="Set as icon" action="#{cc.attrs.setIconAction}" />
+					<h:commandButton value="Set as icon" action="#{cc.attrs.setIconAction}">
+						<f:setPropertyActionListener target="#{cc.attrs.newIcon}" value="#{image}" />
+					</h:commandButton>
 					<hr />
 				</ui:repeat>
 				<ui:repeat value="#{cc.attrs.comments}" var="comment">
@@ -67,7 +70,9 @@ xmlns:composite="http://java.sun.com/jsf/composite">
 						<hr />-->
 						Published: #{comment.getPublishTime().toString()}
 					</div>
-					<h:commandButton value="Delete comment" action="#{cc.attrs.deleteCommentAction}" />
+					<h:commandButton value="Delete comment" action="#{cc.attrs.deleteCommentAction}" >
+						<f:setPropertyActionListener target="#{cc.attrs.deletedComment}" value="#{comment}" />
+					</h:commandButton>
 				</div>		
 				</ui:repeat>
 				<h:commandButton action="#{cc.attrs.submitAction}" value="Save changes" />
