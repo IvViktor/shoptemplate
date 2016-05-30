@@ -87,6 +87,7 @@ public class ProductDAOImpl implements ProductDAO {
 			tx.commit();
 		} catch (Exception e){
 			if(tx != null) tx.rollback();
+			e.printStackTrace();
 		} 
 	}
 
