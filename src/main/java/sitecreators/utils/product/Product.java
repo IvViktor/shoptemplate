@@ -57,7 +57,7 @@ public class Product {
 	@Embedded
 	private ProductDecription description;
 	
-	@OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="icon_image_id")
 	private Image icon;
 	
@@ -159,6 +159,10 @@ public class Product {
 
 	public void addComment(Comment comment){
 		this.comments.add(comment);
+	}
+	
+	public void removeComment(Comment comment){
+		this.comments.remove(comment);
 	}
 	
 	public ProductStatus getStatus() {
