@@ -73,9 +73,14 @@ public class AddProductBean {
 		product.setIcon(icon);
 		//User owner = userDao.getUser(userId);
 		//product.setOwner(owner);
-		productDao.open();
-		productDao.addProduct(product);
-		productDao.close();
+		try{
+			productDao.open();
+			product.addImage(icon);
+			productDao.addProduct(product);
+			productDao.close();
+		} catch (Exception e){
+			e.printStackTrace();
+		}
 		return "products";
 	}
 	
