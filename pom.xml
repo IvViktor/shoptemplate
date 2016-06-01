@@ -4,7 +4,7 @@
   <groupId>sitecreators</groupId>
   <artifactId>shoptemplate</artifactId>
   <packaging>war</packaging>
-  <version>1.1</version>
+  <version>1.1.2</version>
   <name>shoptemplate</name>
   <url>http://maven.apache.org</url>
 
