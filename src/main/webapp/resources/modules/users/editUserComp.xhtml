@@ -3,21 +3,96 @@
 <html xmlns="http://www.w3.org/1999/xhtml"   
    xmlns:h="http://java.sun.com/jsf/html"
    xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
    xmlns:composite="http://java.sun.com/jsf/composite">
 
 	<composite:interface>
-		<composite:attribute name="about" />
-		<composite:attribute name="contacts" />
-		<composite:attribute name="changePassAction" />
+		<composite:attribute name="firstName" />
+		<composite:attribute name="secondName" />
+		<composite:attribute name="userAbout" />
+		<composite:attribute name="pnoneNumber" />
+		<composite:attribute name="email" />
+		<composite:attribute name="oldPassword" />
+		<composite:attribute name="newPassword" />
+		<composite:attribute name="comments" />
+		<composite:attribute name="selectedComment" />
+		<composite:attribute name="newIcon" />
+		<composite:attribute name="newImage" />
+		<composite:attribute name="newImageDesc" />
 		<composite:attribute name="icon" />
 		<composite:attribute name="images" />
-		<composite:attribute name="submitAction" />
-		<composite:attribute name="addImageAction" />
-		<composite:attribute name="" />
+		<composite:attribute name="changePasswordAction" method-signature="void action()" />
+		<composite:attribute name="addImageAction" method-signature="void action()" />
+		<composite:attribute name="setNewIconAction" method-signature="void action()" />
+		<composite:attribute name="removeCommentAction" method-signature="void action()" />
+		<composite:attribute name="closeSessionAction" method-signature="void action()" />
+		<composite:attribute name="submitAction" method-signature="java.lang.String action()" />
 	</composite:interface>
 
 	<composite:implementation>
+		<div class="usereditor" onload="closeSession()">
+			<h2>User editor page</h2>
+			<h:form enctype="multipart/form-data">
+				User first name: <h:inputText value="#{cc.attrs.firstName}" /><br />
+				User second name: <h:inputText value="#{cc.attrs.secondName}" /><br />
+				User about info: <h:inputTextarea value="#{cc.attrs.userAbout}" cols="10" rows="7"/><br />
+				User email: <h:inputText value="#{cc.attrs.email}">
+								<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+							</h:inputText><br />
+				User phone number: <h:inputText value="#{cc.attrs.pnoneNumber}" /><br />
+				<hr />
+				
+				<h3>Changing password</h3>
+				Enter old password here: <h:inputSecret value="#{cc.attrs.oldPassword}" /><br />
+				Enter new password here: <h:inputSecret value="#{cc.attrs.newPassword}" /><br />
+				<h:commandButton value="Change password" action="#{cc.attrs.changePasswordAction}" />
+				<hr />
+				
+				<h3>Icon:</h3>
+				<img src="#{cc.attrs.icon.getImagePath()}" alt="#{cc.attrs.icon.getImgDecs()}" />
+				<hr />
+				
+				<h3>Add new image</h3>
+				<h:inputFile multiple="false" allowTypes="/(\.|\/)(gif|jpeg|png)$/" 
+				value="#{cc.attrs.newImage}" required="false" mode="simple"/><br />
+				Enter description for your picture:<h:inputText value="#{cc.attrs.newImageDesc}" /><br />
+				<h:commandButton value="Add image" action="#{cc.attrs.addImageAction}" />
+				<hr />
+				
+				<h3>Images</h3>
+				<hr />
+				<ui:repeat value="#{cc.attrs.images}" var="image">
+					<img src="#{image.getImagePath()}" alt="#{image.getImgDecs()}" />
+					<h:commandButton value="Set as icon" action="#{cc.attrs.setNewIconAction}">
+						<f:setPropertyActionListener target="#{cc.attrs.newIcon}" value="#{image}" />
+					</h:commandButton>
+					<hr />
+				</ui:repeat>
 
+				<ui:repeat value="#{cc.attrs.comments}" var="comment">
+				<div>
+				<!--<ui:param name="user" value="#{comment.getPublisher().getAbout()}" />-->
+					<div class="comment" style="border:1px solid #fff;display: inline-block;">
+						<p>#{comment.getBody()}</p>
+						<ui:param name="user" value="#{comment.getPublisher().getAbout()}" />
+						<p>#{user.getFirstName()} #{user.getSecondName()}</p>
+						<p>Published: #{comment.getPublishTime().toString()}</p>
+					</div>
+					<h:commandButton value="Delete comment" action="#{cc.attrs.removeCommentAction}" >
+						<f:setPropertyActionListener target="#{cc.attrs.selectedComment}" value="#{comment}" />
+					</h:commandButton>
+				</div>		
+				</ui:repeat>
+
+				<h:commandButton action="#{cc.attrs.submitAction}" value="Save changes" />
+
+			</h:form>
+		</div>
+		<script type="text/javascript">
+			function closeSession(){ 
+				#{cc.attrs.closeSessionAction}
+			}
+		</script>
 	</composite:implementation>
 
 </html>   

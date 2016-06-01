@@ -2,7 +2,8 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"   
    xmlns:h="http://java.sun.com/jsf/html"
-   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
    xmlns:composite="http://java.sun.com/jsf/composite">
 
 	<composite:interface>
@@ -10,12 +11,23 @@
 		<composite:attribute name="secondName" />
 		<composite:attribute name="email" />
 		<composite:attribute name="password" />
-		<composite:attribute name="submitAction" />
-		<composite:attribute name="" />
+		<composite:attribute name="submitAction" method-siganture="java.lang.String action()"/>
 	</composite:interface>
 
 	<composite:implementation>
-
+		<div class="newuserpage">
+		<h:form>
+			Enter your first name: <h:inputText value="#{cc.attrs.firstName}" required="true"/><br />
+			Enter your second name: <h:inputText value="#{cc.attrs.secondName}" required="true"/><br />
+			Enter your email address: 
+			<h:inputText value="#{cc.attrs.email}" required="true">
+				<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+			</h:inputText>
+			<br />
+			Enter your password: <h:inputSecret value="#{cc.attrs.password}" required="true"/><br />
+			<h:commandButton value="Add new user" action="#{cc.attrs.submitAction}" />
+		</h:form>
+		</div>	
 	</composite:implementation>
 
 </html>   
