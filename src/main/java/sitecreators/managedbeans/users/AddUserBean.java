@@ -37,9 +37,16 @@ public class AddUserBean {
 		} catch (NoSuchAlgorithmException e) {
 			return "internalError";
 		}
-		user.setPassword(pass);	 
-		UserDAO userDao = (UserDAO) ApplicationContextUtil.getApplicationContext().getBean("UserDAO");
-		userDao.addUser(user);
+		user.setPassword(pass);
+		try{
+			UserDAO userDao = (UserDAO) ApplicationContextUtil.getApplicationContext().getBean("UserDAO");
+			userDao.open();
+			userDao.addUser(user);
+			userDao.close();
+		} catch (Exception e){
+			e.printStackTrace();
+			return "internalError";
+		}
 		
 		return "home";
 	}
