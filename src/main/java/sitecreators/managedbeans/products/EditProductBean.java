@@ -101,13 +101,13 @@ public class EditProductBean {
 			e.printStackTrace();
 		}
 		
-		/*try{
+		try{
 			userDao.open();
 			this.user = userDao.getUser(userId);
 			userDao.close();
 		}catch (Exception e){
 			e.printStackTrace();
-		}*/
+		}
 		
 	}
 	
@@ -117,7 +117,7 @@ public class EditProductBean {
 	
 	public void addImage(){
 		Image newImage = new Image();
-		String filePath = imageDao.saveImage(imageFile, "products",this.userId);//this.user.getId()
+		String filePath = imageDao.saveImage(imageFile, "products",this.user.getId());//
 		newImage.setImagePath(filePath);
 		newImage.setImgDecs(imageDesc);
 		imageDao.addImage(newImage);

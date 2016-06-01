@@ -72,9 +72,15 @@ public class ProductDetailsBean {
 		}/* finally{
 			productDao.close();
 		}*/
-		//long userId = 1;//(long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
-		//userDao = (UserDAO) ApplicationContextUtil.getApplicationContext().getBean("UserDAO");
-		//user = userDao.getUser(userId);
+		long userId = 1;//(long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
+		userDao = (UserDAO) ApplicationContextUtil.getApplicationContext().getBean("UserDAO");
+		try{
+			userDao.open();
+			user = userDao.getUser(userId);
+			userDao.close();
+		} catch (Exception e){
+			e.printStackTrace();
+		}
 	}
 	
 	public void closeSession(){
@@ -84,7 +90,7 @@ public class ProductDetailsBean {
 	public void addComment(){
 		Comment comment = new Comment();
 		comment.setBody(commentBody);
-		//comment.setPublisher(user);
+		comment.setPublisher(user);
 		comment.setPublishTime(new Timestamp(new Date().getTime()));
 		this.product.addComment(comment);
 		try{
@@ -99,18 +105,21 @@ public class ProductDetailsBean {
 	
 	public void buyProduct(){
 		Order order = new Order();
+		order.setCustomer(user);
 		order.setFormedTime(new Timestamp(new Date().getTime()));
-		product.addOrder(order);
-		//user.addPurchase(order);
 		try{
 			productDao.open();
+			product.addOrder(order);
 			productDao.updateProduct(product);
+			userDao.open();
+			user.addPurchase(order);
+			userDao.updateUser(user);
 		} catch (Exception e){
 			e.printStackTrace();
 		} finally {
 			productDao.close();
+			userDao.close();
 		}		
-		//userDao.updateUser(user);
 	}
 
 	public Product getProduct() {

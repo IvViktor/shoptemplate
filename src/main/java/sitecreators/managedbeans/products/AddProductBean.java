@@ -71,8 +71,14 @@ public class AddProductBean {
 		icon.setImgDecs(imageDesc);
 		imageDao.addImage(icon);
 		product.setIcon(icon);
-		//User owner = userDao.getUser(userId);
-		//product.setOwner(owner);
+		try{
+			userDao.open();
+			User owner = userDao.getUser(userId);
+			product.setOwner(owner);
+			userDao.close();
+		} catch (Exception e){
+			e.printStackTrace();
+		}
 		try{
 			productDao.open();
 			product.addImage(icon);

@@ -1,10 +1,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"   
-xmlns:ui="http://java.sun.com/jsf/facelets"
-xmlns:h="http://java.sun.com/jsf/html"
-xmlns:f="http://java.sun.com/jsf/core"
-xmlns:composite="http://java.sun.com/jsf/composite">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:composite="http://java.sun.com/jsf/composite">
 
 	<composite:interface>
 		<composite:attribute name="productId" />
@@ -62,13 +62,11 @@ xmlns:composite="http://java.sun.com/jsf/composite">
 				</ui:repeat>
 				<ui:repeat value="#{cc.attrs.comments}" var="comment">
 				<div>
-				<!--<ui:param name="user" value="#{comment.getPublisher().getAbout()}" />-->
+				<ui:param name="user" value="#{comment.getPublisher().getAbout()}" />
 					<div class="comment" style="border:1px solid #fff;display: inline-block;">
 						<p>#{comment.getBody()}</p>
-						<!--<hr />
 						<p>#{user.getFirstName()} #{user.getSecondName()}</p>
-						<hr />-->
-						Published: #{comment.getPublishTime().toString()}
+						<p>Published: #{comment.getPublishTime().toString()}</p>
 					</div>
 					<h:commandButton value="Delete comment" action="#{cc.attrs.deleteCommentAction}" >
 						<f:setPropertyActionListener target="#{cc.attrs.deletedComment}" value="#{comment}" />
