@@ -3,19 +3,68 @@
 <html xmlns="http://www.w3.org/1999/xhtml"   
    xmlns:h="http://java.sun.com/jsf/html"
    xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
    xmlns:composite="http://java.sun.com/jsf/composite">
 
 	<composite:interface>
-		<composite:attribute name="about" />
-		<composite:attribute name="contacts" />
+		<composite:attribute name="userId" />
+		<composite:attribute name="firstName" />
+		<composite:attribute name="secondName" />
+		<composite:attribute name="userAbout" />
+		<composite:attribute name="pnoneNumber" />
+		<composite:attribute name="email" />
+		<composite:attribute name="comments" />
+		<composite:attribute name="newComment" />
 		<composite:attribute name="icon" />
 		<composite:attribute name="images" />
-		<composite:attribute name="comments" />
-		<composite:attribute name="addCommentAction" />
+		<composite:attribute name="addCommentAction" method-signature="void action()" />
+		<composite:attribute name="closeSessionAction" method-signature="void action()" />
 	</composite:interface>
 
 	<composite:implementation>
-
+		<div class="usereditor" onload="closeSession()">
+			<h2>User details page</h2>
+				User first name: <h:outputText value="#{cc.attrs.firstName}" /><br />
+				User second name: <h:outputText value="#{cc.attrs.secondName}" /><br />
+				User about info: <h:outputText value="#{cc.attrs.userAbout}"/><br />
+				User email: <h:outputText value="#{cc.attrs.email}"/><br />
+				User phone number: <h:outputText value="#{cc.attrs.pnoneNumber}" /><br />
+				<hr />
+				
+				<h3>Icon:</h3>
+				<img src="#{cc.attrs.icon.getImagePath()}" alt="#{cc.attrs.icon.getImgDecs()}" />
+				<hr />
+				
+				<h3>Images</h3>
+				<hr />
+				<ui:repeat value="#{cc.attrs.images}" var="image">
+					<img src="#{image.getImagePath()}" alt="#{image.getImgDecs()}" />
+					<hr />
+				</ui:repeat>
+					<h3>Comments:</h3>
+				<ui:repeat value="#{cc.attrs.comments}" var="comment">
+				<div>
+					<div class="comment" style="border:1px solid #fff;display: inline-block;">
+						<p>#{comment.getBody()}</p>
+						<ui:param name="user" value="#{comment.publisher}" />
+						<h:link outcome="home" value="#{user.about.firstName} #{user.about.secondName}" >
+							<f:param name="userId" value="#{user.id}" />
+						</h:link>						
+					<p>Published: #{comment.getPublishTime().toString()}</p>
+					</div>
+				</div>		
+				</ui:repeat>
+			<h:form>
+				<input type="hidden" value="#{cc.attrs.productId}" name="productId"/>
+				<h:inputTextarea value="#{cc.attrs.newComment}" cols="30" rows="7" /><br />
+				<h:commandButton action="#{cc.attrs.addCommentAction}" value="Leave comment" />
+			</h:form>
+		</div>
+		<script type="text/javascript">
+			function closeSession(){ 
+				#{cc.attrs.closeSessionAction}
+			}
+		</script>
 	</composite:implementation>
 
 </html>   

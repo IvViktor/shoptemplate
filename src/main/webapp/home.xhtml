@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:cm="http://java.sun.com/jsf/composite/modules"
+	  xmlns:cmu="http://java.sun.com/jsf/composite/modules/users">
+	<head>
+		<title>User editor page</title>
+	</head>
+
+	<body>
+		
+		<!--<cm:header />-->
+		<cm:navbar />
+		<cmu:showUserInfo
+			firstName="#{showUserInfoBean.firstName}"
+			secondName="#{showUserInfoBean.secondName}"
+			userAbout="#{showUserInfoBean.userAbout}"
+			pnoneNumber="#{showUserInfoBean.pnoneNumber}"
+			email="#{showUserInfoBean.email}"
+			comments="#{showUserInfoBean.comments}"
+			newComment="#{showUserInfoBean.newComment}"
+			icon="#{showUserInfoBean.icon}"
+			images="#{showUserInfoBean.images}"
+			addCommentAction="#{showUserInfoBean.addComment}"
+			closeSessionAction="#{showUserInfoBean.closeSession}"
+		/>
+		<!--<cm:footer />-->
+
+   	</body>
+
+</html>
