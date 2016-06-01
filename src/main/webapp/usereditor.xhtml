@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:cm="http://java.sun.com/jsf/composite/modules"
+	  xmlns:cmu="http://java.sun.com/jsf/composite/modules/users">
+	<head>
+		<title>User editor page</title>
+	</head>
+
+	<body>
+		
+		<!--<cm:header />-->
+		<cm:navbar />
+		<cmu:editUserComp
+			firstName="#{editUserBean.firstName}"
+			secondName="#{editUserBean.secondName}"
+			userAbout="#{editUserBean.userAbout}"
+			pnoneNumber="#{editUserBean.pnoneNumber}"
+			email="#{editUserBean.email}"
+			oldPassword="#{editUserBean.oldPassword}"
+			newPassword="#{editUserBean.newPassword}"
+			comments="#{editUserBean.comments}"
+			selectedComment="#{editUserBean.selectedComment}"
+			newIcon="#{editUserBean.newIcon}"
+			newImage="#{editUserBean.newImage}"
+			newImageDesc="#{editUserBean.newImageDesc}"
+			icon="#{editUserBean.icon}"
+			images="#{editUserBean.images}"
+			changePasswordAction="#{editUserBean.changePassword}"
+			addImageAction="#{editUserBean.addImage}"
+			setNewIconAction="#{editUserBean.setNewIcon}"
+			removeCommentAction="#{editUserBean.removeComment}"
+			closeSessionAction="#{editUserBean.closeSession}"
+			submitAction="#{editUserBean.save}"
+		/>
+		<!--<cm:footer />-->
+
+   	</body>
+
+</html>
