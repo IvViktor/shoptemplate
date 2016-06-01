@@ -39,11 +39,13 @@ xmlns:composite="http://java.sun.com/jsf/composite">
 			<hr />
 			<h4>Comments:</h4>
 			<ui:repeat value="#{cc.attrs.comments}" var="comment">
-				<ui:param name="user" value="#{comment.getPublisher().getAbout()}" />
+				<ui:param name="user" value="#{comment.publisher}" />
 				<div class="comment" style="border:1px solid #fff">
 					<p>#{comment.getBody()}</p>
 					<hr />
-					<p>#{user.getFirstName()} #{user.getSecondName()}</p>
+					<h:link outcome="home" value="#{user.about.firstName} #{user.about.secondName}" >
+						<f:param name="userId" value="#{user.id}" />
+					</h:link>
 					<hr />
 					Published: #{comment.getPublishTime().toString()}
 				</div>

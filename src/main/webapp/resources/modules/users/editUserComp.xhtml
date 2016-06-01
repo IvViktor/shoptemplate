@@ -71,11 +71,12 @@
 
 				<ui:repeat value="#{cc.attrs.comments}" var="comment">
 				<div>
-				<!--<ui:param name="user" value="#{comment.getPublisher().getAbout()}" />-->
 					<div class="comment" style="border:1px solid #fff;display: inline-block;">
 						<p>#{comment.getBody()}</p>
-						<ui:param name="user" value="#{comment.getPublisher().getAbout()}" />
-						<p>#{user.getFirstName()} #{user.getSecondName()}</p>
+						<ui:param name="user" value="#{comment.publisher}" />
+						<h:link outcome="home" value="#{user.about.firstName} #{user.about.secondName}" >
+							<f:param name="userId" value="#{user.id}" />
+						</h:link>
 						<p>Published: #{comment.getPublishTime().toString()}</p>
 					</div>
 					<h:commandButton value="Delete comment" action="#{cc.attrs.removeCommentAction}" >
