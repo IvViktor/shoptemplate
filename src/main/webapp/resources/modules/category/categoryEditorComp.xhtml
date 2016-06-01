@@ -2,18 +2,40 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"   
    xmlns:h="http://java.sun.com/jsf/html"
-   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
    xmlns:composite="http://java.sun.com/jsf/composite">
 
 	<composite:interface>
 		<composite:attribute name="categories"/>
-		<composite:attribute name="addAction"/>
-		<composite:attribute name="updateAction"/>
-		<composite:attribute name="removeAction"/>
-		<composite:attribute name=""/>
+		<composite:attribute name="addAction" method-signature="void action()"/>
+		<composite:attribute name="updateAction" method-signature="void action()"/>
+		<composite:attribute name="removeAction" method-signature="void action()"/>
+		<composite:attribute name="newTitle"/>
+		<composite:attribute name="selectedCategory"/>
 	</composite:interface>
 
 	<composite:implementation>
+		<div class="categoryeditor">
+			<h2>Category editor</h2>
+			<h:form>
+			<ui:repeat value="#{cc.attrs.categories}" var="category">
+				<div class="categoryeditor_item">
+					#{category.title} 
+					<h:commandButton type="submit" value="Edit" action="#{cc.attrs.updateAction}">
+						<f:setPropertyActionListener target="#{cc.attrs.selectedCategory}" value="#{category}" />
+					</h:commandButton>
+					<h:commandButton type="submit" value="Remove" action="#{cc.attrs.removeAction}">
+						<f:setPropertyActionListener target="#{cc.attrs.selectedCategory}" value="#{category}" />
+					</h:commandButton>
+				</div>
+			</ui:repeat>
+			</h:form>
+				<h:form>
+				<h:inputText value="#{cc.attrs.newTitle}" />
+				<h:commandButton value="Add category" action="#{cc.attrs.addAction}" />
+				</h:form>
+		</div>
 
 	</composite:implementation>
 

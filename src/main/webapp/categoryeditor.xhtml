@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:cm="http://java.sun.com/jsf/composite/modules"
+	  xmlns:cmc="http://java.sun.com/jsf/composite/modules/category">
+	<head>
+		<title>Category editor</title>
+	</head>
+
+	<body>
+		
+		<!--<cm:header />-->
+		<cm:navbar />
+		<cmc:categoryEditorComp
+			categories="#{categoryEditorBean.categories}"
+			newTitle="#{categoryEditorBean.newCategoryTitle}"
+			selectedCategory="#{categoryEditorBean.selectedCategory}"
+			addAction="#{categoryEditorBean.add}"
+			updateAction="#{categoryEditorBean.update}"
+			removeAction="#{categoryEditorBean.remove}"
+		/>
+		<!--<cm:footer />-->
+
+   	</body>
+
+</html>
