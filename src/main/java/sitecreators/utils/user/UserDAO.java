@@ -22,6 +22,8 @@ public interface UserDAO {
 	public void updateUser(User user);
 	
 	public void removeUser(User user);
+	
+	public User getUser(String email);
 
 	public void open();
 	

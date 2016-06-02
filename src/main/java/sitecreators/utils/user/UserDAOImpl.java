@@ -123,4 +123,23 @@ public class UserDAOImpl implements UserDAO {
 		}
 	}
 
+	@Override
+	public User getUser(String email) {
+		Transaction tx = null;
+		List<User> users = new LinkedList<>();
+		try{
+			tx = session.beginTransaction();
+			String hql = "FROM sitecreators.utils.user.User U WHERE U.contacts.email = :login";
+			Query query = session.createQuery(hql);
+			query.setParameter("login", email);
+			users.addAll((List<User>) query.list());
+			tx.commit();
+		} catch (Exception e){
+			if(tx != null) tx.rollback();
+			e.printStackTrace();
+		} 
+		if(users.size() > 0) return users.get(0);
+		return null;
+	}
+
 }
