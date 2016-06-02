@@ -7,10 +7,49 @@
 
 	<composite:interface>
 		<composite:attribute name="orders"/>
+		<composite:attribute name="closeSessionAction" method-signature="void action()"/>
 	</composite:interface>
 
 	<composite:implementation>
+		<div onload="closeSession()">
+			<h2>Orders list</h2>
+			<h:dataTable value="#{cc.attrs.orders}" var="order">
+				<h:column>
+					<f:facet name="header" >Number of order</f:facet>
+					#{order.id}
+				</h:column>
+				<h:column>
+					<f:facet name="header">Product title</f:facet>
+					<h:link outcome="productdetails" value="#{order.product.productTitle}">
+						<f:param name="productId" value="#{order.product.id}" />
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Product ID</f:facet>
+					#{order.product.id}
+				</h:column>
+				<h:column>
+					<f:facet name="header">Customer</f:facet>
+					<h:link outcome="home" value="#{order.customer.about.firstName} #{order.customer.about.secondName}">
+						<f:param name="userId" value="#{order.customer.id}" />
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Customer email address</f:facet>
+					#{order.customer.contacts.email}
+				</h:column>
+				<h:column>
+					<f:facet name="header">Customer phone number</f:facet>
+					#{order.customer.contacts.pnoneNumber}
+				</h:column>
+			</h:dataTable>
 
+		</div>
+		<script type="text/javascript">
+			function closeSession(){ 
+				#{cc.attrs.closeSessionAction}
+			}
+		</script>
 	</composite:implementation>
 
 </html>   
