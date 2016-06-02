@@ -47,6 +47,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 			tx.commit();
 		} catch(Exception e){
 			if(tx != null) tx.rollback();
+			e.printStackTrace();
 			return null;
 		} 
 		if(resultList.size()==0) return null;
@@ -62,6 +63,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 			tx.commit();
 		} catch (Exception e){
 			if(tx != null) tx.rollback();
+			e.printStackTrace();
 		} 
 	}
 
@@ -74,6 +76,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 			tx.commit();
 		} catch (Exception e){
 			if(tx != null) tx.rollback();
+			e.printStackTrace();
 		} 
 	}
 
@@ -88,6 +91,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 			tx.commit();
 		} catch (Exception e){
 			if(tx !=null) tx.rollback();
+			e.printStackTrace();
 		} 
 		return resultList;
 	}
@@ -101,6 +105,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 			tx.commit();
 		} catch (Exception e){
 			if(tx != null) tx.rollback();
+			e.printStackTrace();
 		} 
 	}
 

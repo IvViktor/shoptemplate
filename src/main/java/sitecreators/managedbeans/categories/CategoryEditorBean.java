@@ -21,30 +21,52 @@ public class CategoryEditorBean {
 	
 	public CategoryEditorBean(){
 		categoryDao = (CategoryDAO) ApplicationContextUtil.getApplicationContext().getBean("CategoryDAO");
-		categoryDao.open();
-		categories = categoryDao.getAllCategories();
-		categoryDao.close();
+		try{
+			categoryDao.open();
+			categories = categoryDao.getAllCategories();
+		} catch (Exception e){
+			e.printStackTrace();
+		} finally {
+			categoryDao.close();
+		}
 	}
 	
 	public void add(){
 		Category category = new Category();
 		category.setTitle(newCategoryTitle);
 		categories.add(category);
-		categoryDao.open();
-		categoryDao.addCategory(category);
-		categoryDao.close();
+		try{
+			categoryDao.open();
+			categoryDao.addCategory(category);
+		} catch (Exception e){
+			e.printStackTrace();
+		} finally{
+			categoryDao.close();
+		}
+		newCategoryTitle="";
 	}
 	
 	public void update(){
+		selectedCategory.setTitle(newCategoryTitle);
+		try{
 		categoryDao.open();
 		categoryDao.updateCategory(selectedCategory);
-		categoryDao.close();
+		} catch (Exception e){
+			e.printStackTrace();
+		} finally {
+			categoryDao.close();
+		}
 	}
 	
 	public void remove(){
-		categoryDao.open();
-		categoryDao.removeCategory(selectedCategory);
-		categoryDao.close();
+		try{
+			categoryDao.open();
+			categoryDao.removeCategory(selectedCategory);
+		} catch (Exception e){
+			e.printStackTrace();
+		} finally {
+			categoryDao.close();
+		}
 	}
 
 	public List<Category> getCategories() {
