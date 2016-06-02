@@ -31,6 +31,7 @@ public class OrderDAOImpl implements OrderDAO {
 			tx.commit();
 		} catch (Exception e){
 			if(tx !=null) tx.rollback();
+			e.printStackTrace();
 		} finally {
 			session.close();
 		}
