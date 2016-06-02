@@ -7,7 +7,7 @@
 	  xmlns:cm="http://java.sun.com/jsf/composite/modules"
 	  xmlns:cmu="http://java.sun.com/jsf/composite/modules/users">
 	<head>
-		<title>User editor page</title>
+		<title>User home page</title>
 	</head>
 
 	<body>
@@ -15,6 +15,7 @@
 		<!--<cm:header />-->
 		<cm:navbar />
 		<cmu:showUserInfo
+			userId="#{showUserInfoBean.id}"
 			firstName="#{showUserInfoBean.firstName}"
 			secondName="#{showUserInfoBean.secondName}"
 			userAbout="#{showUserInfoBean.userAbout}"

@@ -41,6 +41,10 @@
 					<img src="#{image.getImagePath()}" alt="#{image.getImgDecs()}" />
 					<hr />
 				</ui:repeat>
+				<h3>Purchases:</h3>
+				<h:link outcome="orders" value="watch list of purchases of the user">
+					<f:param name="userId" value="#{cc.attrs.userId}" />
+				</h:link>
 					<h3>Comments:</h3>
 				<ui:repeat value="#{cc.attrs.comments}" var="comment">
 				<div>
@@ -55,7 +59,7 @@
 				</div>		
 				</ui:repeat>
 			<h:form>
-				<input type="hidden" value="#{cc.attrs.productId}" name="productId"/>
+				<input type="hidden" value="#{cc.attrs.userId}" name="userId"/>
 				<h:inputTextarea value="#{cc.attrs.newComment}" cols="30" rows="7" /><br />
 				<h:commandButton action="#{cc.attrs.addCommentAction}" value="Leave comment" />
 			</h:form>

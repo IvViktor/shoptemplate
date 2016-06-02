@@ -37,6 +37,12 @@ xmlns:composite="http://java.sun.com/jsf/composite">
 				<img src="#{image.getImagePath()}" alt="#{image.getImgDecs()}" />
 			</ui:repeat>
 			<hr />
+			
+			<h3>Orders:</h3>
+			<h:link outcome="orders" value="watch list of orders for this product">
+				<f:param name="productId" value="#{cc.attrs.productId}" />
+			</h:link>
+
 			<h4>Comments:</h4>
 			<ui:repeat value="#{cc.attrs.comments}" var="comment">
 				<ui:param name="user" value="#{comment.publisher}" />
@@ -60,6 +66,7 @@ xmlns:composite="http://java.sun.com/jsf/composite">
 			<h:inputTextarea value="#{cc.attrs.commentBody}" cols="30" rows="7" /><br />
 			<h:commandButton action="#{cc.attrs.addCommentAction}" value="Leave comment" />
 			</h:form>
+
 		</div>
 		<script type="text/javascript">
 			function closeSession(){ #{cc.attrs.closeSessionAction}}
