@@ -5,6 +5,7 @@
 	  xmlns:ui="http://java.sun.com/jsf/facelets"
 	  xmlns:f="http://java.sun.com/jsf/core"
 	  xmlns:cm="http://java.sun.com/jsf/composite/modules"
+	  xmlns:cmu="http://java.sun.com/jsf/composite/modules/users"
 	  xmlns:cmp="http://java.sun.com/jsf/composite/modules/products">
 	<head>
     	<title>shoptemplate</title>
@@ -14,6 +15,11 @@
 		
    <!--     <cm:header />-->
 		<cm:navbar />
+		<cmu:loginComp
+			email="#{loginBean.email}"
+			password="#{loginBean.password}"
+			loginAction="#{loginBean.login}"
+		/>
 		<!--<cm:filterpanel />-->
 		<cmp:productPanelComp 
 			productList = "#{productPanelBean.products}"

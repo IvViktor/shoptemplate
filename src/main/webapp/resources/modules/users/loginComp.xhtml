@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:composite="http://java.sun.com/jsf/composite">
+
+	<composite:interface>
+		<composite:attribute name="email"/>
+		<composite:attribute name="password"/>
+		<composite:attribute name="loginAction" method-signature="java.lang.String action()"/>
+	</composite:interface>
+
+	<composite:implementation>
+		<div class="logincomponent" style="width:200px;height: 150px;border: 1px solid black;"> 
+			<h:form>
+				<h:inputText value="#{cc.attrs.email}" placeholder="Enter email address" required="true" /><br/>
+				<h:inputSecret value="#{cc.attrs.password}" placeholder="Enter password" required="true" /><br />
+				<h:commandButton value="Login" action="#{cc.attrs.loginAction}" />
+			</h:form>	
+		</div>
+		
+			
+	</composite:implementation>
+
+</html>   

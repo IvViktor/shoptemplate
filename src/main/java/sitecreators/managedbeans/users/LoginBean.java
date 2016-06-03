@@ -32,7 +32,8 @@ public class LoginBean {
 			User user = userDao.getUser(email);
 			Password pswd = user.getPassword();
 			if(pswd.check(password)){
-				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userId", user.getId());
+				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userID", user.getId());
+				System.out.println("password accepted");
 			}
 		} catch (Exception e){
 			e.printStackTrace();

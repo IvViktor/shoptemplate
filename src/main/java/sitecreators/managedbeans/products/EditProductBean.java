@@ -33,7 +33,7 @@ public class EditProductBean {
 	
 	private ImageDAO imageDao;
 	
-	private long userId =1;
+	private long userId;
 	
 	private List<Category> categories;
 	
@@ -73,7 +73,7 @@ public class EditProductBean {
 		productDao = (ProductDAO) ApplicationContextUtil.getApplicationContext().getBean("ProductDAO");
 		userDao = (UserDAO) ApplicationContextUtil.getApplicationContext().getBean("UserDAO");
 		imageDao = (ImageDAO) ApplicationContextUtil.getApplicationContext().getBean("ImageDAO");
-		//userId =(long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
+		userId =(long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
 		exc = FacesContext.getCurrentInstance().getExternalContext();
 		HttpServletRequest req = (HttpServletRequest) exc.getRequest();
 		productId=(String) req.getParameter("productId");
@@ -85,7 +85,8 @@ public class EditProductBean {
 			this.price = pPrice.getAmount();
 			ProductDecription pDescr = this.product.getDescription();
 			if(pDescr != null) this.description = pDescr.getDescription();
-			//this.category = this.product.getCategory().getTitle();
+			Category tempcat = product.getCategory();
+			if(tempcat != null) this.category = tempcat.getTitle();
 			this.icon = product.getIcon();
 			this.images = product.getImages();
 			this.comments = product.getComments();

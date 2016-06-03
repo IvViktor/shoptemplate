@@ -59,7 +59,7 @@ public class EditUserBean {
 	public EditUserBean(){
 		this.userDao = (UserDAO) ApplicationContextUtil.getApplicationContext().getBean("UserDAO");
 		this.imageDao = (ImageDAO) ApplicationContextUtil.getApplicationContext().getBean("ImageDAO");
-		long userId = 1;//(long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
+		long userId = (long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
 		try{
 			userDao.open();
 			this.user = userDao.getUser(userId);

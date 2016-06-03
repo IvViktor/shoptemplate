@@ -34,7 +34,7 @@ public class OrderListBean {
 		userDao = (UserDAO) ApplicationContextUtil.getApplicationContext().getBean("UserDAO");
 		orderDao = (OrderDAO) ApplicationContextUtil.getApplicationContext().getBean("OrderDAO");
 		productDao = (ProductDAO) ApplicationContextUtil.getApplicationContext().getBean("ProductDAO");
-		long userId = 1;//(long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
+		long userId = (long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
 		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		String productId = (String) req.getParameter("productId");
 		String customerId = (String) req.getParameter("customerId");

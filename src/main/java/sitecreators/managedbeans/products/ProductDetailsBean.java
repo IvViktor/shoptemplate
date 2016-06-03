@@ -11,6 +11,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
 import sitecreators.utils.ApplicationContextUtil;
+import sitecreators.utils.category.Category;
 import sitecreators.utils.comment.Comment;
 import sitecreators.utils.image.Image;
 import sitecreators.utils.order.Order;
@@ -60,7 +61,8 @@ public class ProductDetailsBean {
 			this.title = product.getProductTitle();
 			ProductPrice pPrice = product.getProductPrice();
 			this.price = pPrice.getAmount();
-			//this.category = product.getCategory().getTitle();
+			Category tempcat = product.getCategory();
+			if(tempcat != null) this.category = tempcat.getTitle();
 			ProductDecription pDescr = product.getDescription();
 			this.description = pDescr.getDescription();
 			this.icon = product.getIcon();
@@ -72,7 +74,7 @@ public class ProductDetailsBean {
 		}/* finally{
 			productDao.close();
 		}*/
-		long userId = 1;//(long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
+		long userId = (long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
 		userDao = (UserDAO) ApplicationContextUtil.getApplicationContext().getBean("UserDAO");
 		try{
 			userDao.open();

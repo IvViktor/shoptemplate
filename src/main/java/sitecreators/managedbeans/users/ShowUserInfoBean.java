@@ -51,7 +51,7 @@ public class ShowUserInfoBean {
 	
 	public ShowUserInfoBean(){
 		this.userDao = (UserDAO) ApplicationContextUtil.getApplicationContext().getBean("UserDAO");
-		long visitorId = 1;//(long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
+		long visitorId = (long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
 		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		this.id = (String) req.getParameter("userId");
 		long userId = Long.parseLong(this.id);
