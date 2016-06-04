@@ -20,7 +20,7 @@ public class ProductBriefBean {
 		this.productDao = (ProductDAO) ApplicationContextUtil.getApplicationContext().getBean("ProductDAO");
 		try{
 			productDao.open();
-			this.products = productDao.getProducts();
+			this.products = productDao.getProducts(0,20);
 		} catch (Exception e) {
 			
 		} finally{

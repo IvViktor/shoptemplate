@@ -10,6 +10,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import sitecreators.utils.SessionFactoryUtil;
+import sitecreators.utils.category.Category;
 
 public class ProductDAOImpl implements ProductDAO {
 
@@ -36,12 +37,14 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public List<Product> getProducts() {
+	public List<Product> getProducts(int startNum, int length) {
 		List<Product> resultList = new ArrayList<>();
 		Transaction tx = null;
 		try{
 			tx = session.beginTransaction();
 			Criteria cr = session.createCriteria(Product.class);
+			cr.setFirstResult(startNum);
+			cr.setMaxResults(length);
 			resultList = cr.list();
 			tx.commit();
 		} catch (Exception e){
@@ -116,6 +119,23 @@ public class ProductDAOImpl implements ProductDAO {
 			this.session = null;
 			System.out.println("productDAO session closed");
 		}
+	}
+
+	@Override
+	public List<Product> getProducts(Category category, double minPrice, double maxPrice) {
+		List<Product> resultList = new ArrayList<>();
+		Transaction tx = null;
+		try{
+			tx = session.beginTransaction();
+			Criteria cr = session.createCriteria(Product.class);
+			if(category != null) cr.add(Restrictions.eq("category", category));
+			if(maxPrice != 0)  cr.add(Restrictions.between("productPrice.amount", minPrice, maxPrice));
+			resultList = cr.list();
+			tx.commit();
+		} catch (Exception e){
+			if(tx !=null) tx.rollback();
+		}
+		return resultList;
 	}
 
 }
