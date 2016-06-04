@@ -7,8 +7,11 @@
    xmlns:composite="http://java.sun.com/jsf/composite">
 
    <composite:interface>
-   	<composite:attribute name="productList" />
-   	<composite:attribute name="submitAction"  method-signature="java.lang.String action()"/>
+	   	<composite:attribute name="productList" />
+		<composite:attribute name="totalPages" />
+	   	<composite:attribute name="prodPerPage" />
+	   	<composite:attribute name="pageNumber" />
+		<composite:attribute name="submitAction"  method-signature="java.lang.String action()"/>
    </composite:interface>
 
    <composite:implementation>

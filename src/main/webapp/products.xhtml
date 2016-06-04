@@ -15,6 +15,14 @@
 		
    <!--     <cm:header />-->
 		<cm:navbar />
+		<cm:filterpanel
+			categories="#{productPanelBean.categories}"
+			selectedCategory="#{productPanelBean.selectedCategory}"
+			minPrice="#{productPanelBean.minPrice}"
+			maxPrice="#{productPanelBean.maxPrice}"
+			submitAction="#{productPanelBean.filter}"
+			resetAction="#{productPanelBean.reset}"
+		/>
 		<cmu:loginComp
 			email="#{loginBean.email}"
 			password="#{loginBean.password}"
@@ -24,6 +32,9 @@
 		<cmp:productPanelComp 
 			productList = "#{productPanelBean.products}"
 			submitAction = "#{productPanelBean.details}"
+			totalPages="#{productPanelBean.totalPages}"
+			prodPerPage="#{productPanelBean.prodPerPage}"
+			pageNumber="#{productPanelBean.pageNumber}"
 		/>
 		<!--<cm:footer />-->
 

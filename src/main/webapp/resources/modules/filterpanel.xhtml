@@ -6,10 +6,30 @@
    xmlns:composite="http://java.sun.com/jsf/composite">
 
 	<composite:interface>
-		<composite:attribute name="" />
+		<composite:attribute name="categories" />
+		<composite:attribute name="selectedCategory" />
+		<composite:attribute name="minPrice" />
+		<composite:attribute name="maxPrice" />
+		<composite:attribute name="submitAction" method-signature="void action()"/>
+		<composite:attribute name="resetAction"  method-signature="void action()"/>
 	</composite:interface>
 
 	<composite:implementation>
+		<div class="filterpanel"> 
+				<h:form>
+					Choose the category:
+					<h:selectOneRadio value="#{cc.attrs.selectedCategory}">
+						<f:selectItems value="#{cc.attrs.categories}" var="category" itemLabel="#{category.title}" 
+						itemValue="#{category.title}" />
+					</h:selectOneRadio>
+					<br />
+					Select the price range:<br />
+					MIN:<h:inputText value="#{cc.attrs.minPrice}" name="minprice"/><br />
+					MAX:<h:inputText value="#{cc.attrs.maxPrice}" name="maxprice"/><br />
+					<h:commandButton value="Filter" action="#{cc.attrs.submitAction}"/><br />
+					<h:commandButton value="Reset" action="#{cc.attrs.resetAction}" />
+				</h:form>
+		</div>
 
 	</composite:implementation>
 
