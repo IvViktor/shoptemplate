@@ -26,13 +26,14 @@
 		<h:form>
 			<input type="hidden" name="category" value="#{cc.attrs.selectedCategory}" />
 			<input type="hidden" name="minprice" value="#{cc.attrs.minPrice}" />
-			<input type="hidden" name="maxPrice" value="#{cc.attrs.maxPrice}" />
-			<select name="ppp" onchange="submit()">
-				<option value="5">5</option>
-				<option value="10">10</option>
-				<option value="20">20</option>
-				<option value="50">50</option>
-			</select>
+			<input type="hidden" name="maxprice" value="#{cc.attrs.maxPrice}" />
+			<input id="pppvalue" type="hidden" name="ppp" value="#{cc.attrs.prodPerPage}" />
+			<h:selectOneMenu value="#{cc.attrs.prodPerPage}" onchange="document.getElementById('pppvalue').value=this.value;submit();" >
+			   	<f:selectItem itemValue="5" itemLabel="5" />
+			   	<f:selectItem itemValue="10" itemLabel="10" />
+			   	<f:selectItem itemValue="20" itemLabel="20" />
+			   	<f:selectItem itemValue="50" itemLabel="50" />
+			</h:selectOneMenu>
 		</h:form>
 			<ui:repeat value="#{cc.attrs.productList}" var="product">
 				<div class="productBrief">
