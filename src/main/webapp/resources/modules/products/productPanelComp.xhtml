@@ -52,15 +52,23 @@
 				</div>
 			</ui:repeat>
 			<hr />
-			<!--<c:forEach begin="1" end="#{cc.attrs.totalPages}" var="pageNum">
+			<c:forEach begin="1" end="#{cc.attrs.totalPages}" var="pageNum">
 				<h:link value="#{pageNum}">
-					<f:param name="category" value="#{cc.attrs.selectedCategory}" />
-					<f:param name="minprice" value="#{cc.attrs.minPrice}" />
-					<f:param name="maxPrice" value="#{cc.attrs.maxPrice}" />
-					<f:param name="ppp" value="#{cc.attrs.prodPerPage}" />
+					<c:if test="#{cc.attrs.selectedCategory != null}">
+						<f:param name="category" value="#{cc.attrs.selectedCategory}" />
+					</c:if>
+					<c:if test="#{cc.attrs.minPrice != null}">
+						<f:param name="minprice" value="#{cc.attrs.minPrice}" />
+					</c:if>
+					<c:if test="#{cc.attrs.maxPrice != null}">
+						<f:param name="maxPrice" value="#{cc.attrs.maxPrice}" />
+					</c:if>
+					<c:if test="#{cc.attrs.prodPerPage != null}">
+						<f:param name="ppp" value="#{cc.attrs.prodPerPage}" />
+					</c:if>
 					<f:param name="page" value="#{pageNum}" />
-				</h:link>
-			</c:forEach>-->
+				</h:link>&nbsp;
+			</c:forEach>
 		</div>
    </composite:implementation>
 

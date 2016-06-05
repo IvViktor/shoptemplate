@@ -15,8 +15,6 @@ import sitecreators.utils.product.ProductDAO;
 @ManagedBean(name="productPanelBean")
 public class ProductBriefBean {
 	
-	private int pagesAmount;
-	
 	private ProductDAO productDao;
 	
 	private CategoryDAO categoryDao;
@@ -55,6 +53,7 @@ public class ProductBriefBean {
 			ppp = Integer.parseInt(prodPerPage);
 		} catch (Exception e){ ppp=20;}
 		if(pageNumber != null) page = Integer.parseInt(pageNumber);
+		else pageNumber = "20";
 		Category filterCategory = null;
 		double min=0 ,max=0;
 		try{
@@ -181,14 +180,6 @@ public class ProductBriefBean {
 
 	public void setPageNumber(String pageNumber) {
 		this.pageNumber = pageNumber;
-	}
-
-	public int getPagesAmount() {
-		return pagesAmount;
-	}
-
-	public void setPagesAmount(int pagesAmount) {
-		this.pagesAmount = pagesAmount;
 	}
 
 	public int getTotalPages() {
