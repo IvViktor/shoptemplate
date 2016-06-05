@@ -134,7 +134,7 @@ public class EditProductBean {
 			categoryDao.open();
 			Category cat = categoryDao.getCategory(title);
 			categoryDao.close();
-			product.setCategory(cat);
+			if(cat != null) product.setCategory(cat);
 		} catch (Exception e){
 			e.printStackTrace();
 		}
@@ -145,7 +145,7 @@ public class EditProductBean {
 	}
 	
 	public String save(){
-		//changeCategory(category);
+		changeCategory(category);
 		product.setProductTitle(title);
 		ProductPrice pPrice = product.getProductPrice();
 		if(pPrice == null) pPrice = new ProductPrice();

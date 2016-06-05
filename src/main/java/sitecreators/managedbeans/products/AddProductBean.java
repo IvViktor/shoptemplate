@@ -60,8 +60,14 @@ public class AddProductBean {
 		ProductPrice pPrice = new ProductPrice();
 		pPrice.setAmount(productPrice);
 		product.setProductPrice(pPrice);
-		//Category cat = categoryDao.getCategory(category);
-		//product.setCategory(cat);
+		try{
+			categoryDao.open();
+			Category cat = categoryDao.getCategory(category);
+			categoryDao.close();
+			if(cat != null) product.setCategory(cat);
+		} catch (Exception e){
+			e.printStackTrace();
+		}
 		ProductDecription pDescr = new ProductDecription();
 		pDescr.setDescription(description);
 		product.setDescription(pDescr);
@@ -71,6 +77,7 @@ public class AddProductBean {
 		icon.setImgDecs(imageDesc);
 		imageDao.addImage(icon);
 		product.setIcon(icon);
+		if(imageFile != null) product.addImage(icon);
 		try{
 			userDao.open();
 			User owner = userDao.getUser(userId);
@@ -81,7 +88,7 @@ public class AddProductBean {
 		}
 		try{
 			productDao.open();
-			product.addImage(icon);
+			if(imageFile != null) product.addImage(icon);
 			productDao.addProduct(product);
 			productDao.close();
 		} catch (Exception e){

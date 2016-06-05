@@ -6,6 +6,8 @@ import javax.faces.bean.ManagedBean;
 
 import sitecreators.utils.ApplicationContextUtil;
 import sitecreators.utils.auth.Password;
+import sitecreators.utils.image.Image;
+import sitecreators.utils.image.ImageDAO;
 import sitecreators.utils.user.User;
 import sitecreators.utils.user.UserAbout;
 import sitecreators.utils.user.UserContacts;
@@ -38,6 +40,13 @@ public class AddUserBean {
 			return "internalError";
 		}
 		user.setPassword(pass);
+		ImageDAO imageDao = (ImageDAO) ApplicationContextUtil.getApplicationContext().getBean("ImageDAO");
+		Image icon = new Image();
+		String filePath = imageDao.saveImage(null, "users", 0);
+		icon.setImagePath(filePath);
+		icon.setImgDecs("no image");
+		imageDao.addImage(icon);
+		user.setIcon(icon);
 		try{
 			UserDAO userDao = (UserDAO) ApplicationContextUtil.getApplicationContext().getBean("UserDAO");
 			userDao.open();
