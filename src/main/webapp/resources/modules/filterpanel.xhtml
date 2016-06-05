@@ -11,13 +11,15 @@
 		<composite:attribute name="selectedCategory" />
 		<composite:attribute name="minPrice" />
 		<composite:attribute name="maxPrice" />
+		<composite:attribute name="prodPerPage" />
 		<composite:attribute name="submitAction" method-signature="void action()"/>
 		<composite:attribute name="resetAction"  method-signature="void action()"/>
 	</composite:interface>
 
 	<composite:implementation>
 		<div class="filterpanel"> 
-				<h:form method="GET">
+				<h:form>
+					<input type="hidden" name="ppp" value="#{cc.attrs.prodPerPage}" />
 					Choose the category:<br/>
 					<ui:repeat value="#{cc.attrs.categories}" var="category">
 						<input type="radio" name="category" value="#{category.title}" />#{category.title}<br />

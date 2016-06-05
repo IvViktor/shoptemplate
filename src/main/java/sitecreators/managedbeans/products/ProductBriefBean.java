@@ -25,9 +25,9 @@ public class ProductBriefBean {
 	
 	private String selectedCategory;
 	
-	private String minPrice = null;
+	private String minPrice;
 	
-	private String maxPrice = null;
+	private String maxPrice;
 	
 	private String searchText = null;
 	
@@ -51,7 +51,9 @@ public class ProductBriefBean {
 		int ppp = 20;
 		int page = 1;
 		int productAmount = 0;
-		if(prodPerPage != null) ppp = Integer.parseInt(prodPerPage);
+		try{
+			ppp = Integer.parseInt(prodPerPage);
+		} catch (Exception e){ ppp=20;}
 		if(pageNumber != null) page = Integer.parseInt(pageNumber);
 		Category filterCategory = null;
 		double min=0 ,max=0;

@@ -4,6 +4,7 @@
    xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
    xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:c="http://java.sun.com/jsp/jstl/core"
    xmlns:composite="http://java.sun.com/jsf/composite">
 
    <composite:interface>
@@ -11,11 +12,28 @@
 		<composite:attribute name="totalPages" />
 	   	<composite:attribute name="prodPerPage" />
 	   	<composite:attribute name="pageNumber" />
+		<composite:attribute name="selectedCategory" />
+		<composite:attribute name="minPrice" />
+		<composite:attribute name="maxPrice" />
 		<composite:attribute name="submitAction"  method-signature="java.lang.String action()"/>
+		<composite:attribute name="updateAction" method-signature="void action()"/>
+
    </composite:interface>
 
    <composite:implementation>
 		<div class="productPanel">
+		<h2>Products panel</h2>
+		<h:form>
+			<input type="hidden" name="category" value="#{cc.attrs.selectedCategory}" />
+			<input type="hidden" name="minprice" value="#{cc.attrs.minPrice}" />
+			<input type="hidden" name="maxPrice" value="#{cc.attrs.maxPrice}" />
+			<select name="ppp" onchange="submit()">
+				<option value="5">5</option>
+				<option value="10">10</option>
+				<option value="20">20</option>
+				<option value="50">50</option>
+			</select>
+		</h:form>
 			<ui:repeat value="#{cc.attrs.productList}" var="product">
 				<div class="productBrief">
 						<h3>#{product.getProductTitle()}</h3>
@@ -32,6 +50,16 @@
 						</form>
 				</div>
 			</ui:repeat>
+			<hr />
+			<!--<c:forEach begin="1" end="#{cc.attrs.totalPages}" var="pageNum">
+				<h:link value="#{pageNum}">
+					<f:param name="category" value="#{cc.attrs.selectedCategory}" />
+					<f:param name="minprice" value="#{cc.attrs.minPrice}" />
+					<f:param name="maxPrice" value="#{cc.attrs.maxPrice}" />
+					<f:param name="ppp" value="#{cc.attrs.prodPerPage}" />
+					<f:param name="page" value="#{pageNum}" />
+				</h:link>
+			</c:forEach>-->
 		</div>
    </composite:implementation>
 
