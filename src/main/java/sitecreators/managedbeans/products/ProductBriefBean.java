@@ -51,9 +51,11 @@ public class ProductBriefBean {
 		int productAmount = 0;
 		try{
 			ppp = Integer.parseInt(prodPerPage);
-		} catch (Exception e){ ppp=20;}
+		} catch (Exception e){ 
+			ppp=20;
+			prodPerPage = "20";
+		}
 		if(pageNumber != null) page = Integer.parseInt(pageNumber);
-		else pageNumber = "20";
 		Category filterCategory = null;
 		double min=0 ,max=0;
 		try{
