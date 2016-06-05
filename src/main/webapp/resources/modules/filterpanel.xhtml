@@ -2,7 +2,8 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"   
    xmlns:h="http://java.sun.com/jsf/html"
-   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   	xmlns:f="http://java.sun.com/jsf/core"
    xmlns:composite="http://java.sun.com/jsf/composite">
 
 	<composite:interface>
@@ -16,17 +17,16 @@
 
 	<composite:implementation>
 		<div class="filterpanel"> 
-				<h:form>
-					Choose the category:
-					<h:selectOneRadio value="#{cc.attrs.selectedCategory}">
-						<f:selectItems value="#{cc.attrs.categories}" var="category" itemLabel="#{category.title}" 
-						itemValue="#{category.title}" />
-					</h:selectOneRadio>
+				<h:form method="GET">
+					Choose the category:<br/>
+					<ui:repeat value="#{cc.attrs.categories}" var="category">
+						<input type="radio" name="category" value="#{category.title}" />#{category.title}<br />
+					</ui:repeat>
 					<br />
 					Select the price range:<br />
-					MIN:<h:inputText value="#{cc.attrs.minPrice}" name="minprice"/><br />
-					MAX:<h:inputText value="#{cc.attrs.maxPrice}" name="maxprice"/><br />
-					<h:commandButton value="Filter" action="#{cc.attrs.submitAction}"/><br />
+					MIN:<input type="text" value="#{cc.attrs.minPrice}" name="minprice"/><br />
+					MAX:<input type="text" value="#{cc.attrs.maxPrice}" name="maxprice"/><br />
+					<h:commandButton value="Filter" action="#{cc.attrs.submitAction}" /><br />
 					<h:commandButton value="Reset" action="#{cc.attrs.resetAction}" />
 				</h:form>
 		</div>

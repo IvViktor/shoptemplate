@@ -47,6 +47,7 @@ public class ProductBriefBean {
 		this.pageNumber = (String) req.getParameter("page");
 		this.minPrice = (String) req.getParameter("minprice");
 		this.maxPrice = (String) req.getParameter("maxprice");
+		this.selectedCategory = (String) req.getParameter("category");
 		int ppp = 20;
 		int page = 1;
 		int productAmount = 0;
@@ -60,8 +61,14 @@ public class ProductBriefBean {
 				categoryDao.open();
 				filterCategory = categoryDao.getCategory(selectedCategory);
 			}
-			if(maxPrice != null){ max = Double.parseDouble(maxPrice);System.out.println("parsed maxPrice "+max);}
-			if(minPrice != null){ min = Double.parseDouble(minPrice);System.out.println("parsed minPrice"+min);}
+			try{
+				max = Double.parseDouble(maxPrice);
+				System.out.println("parsed maxPrice "+max);
+			} catch (Exception e){ max = 0;}
+			try{
+				min = Double.parseDouble(minPrice);
+				System.out.println("parsed minPrice"+min);
+			} catch (Exception e){ min = 0;}
 			if(searchText == null){
 				productAmount = ((Number) productDao.getProductsNumber(filterCategory, min, max)).intValue();
 				this.products = productDao.getProducts(filterCategory,min,max,(page-1)*ppp,ppp);
