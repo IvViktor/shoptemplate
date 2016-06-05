@@ -37,11 +37,9 @@
 				Price: <h:inputText value="#{cc.attrs.productPrice}" /><br />
 				Description: <h:inputTextarea value="#{cc.attrs.description}" cols="30" rows="7" /><br />
 				Category: <h:outputText value="#{cc.attrs.category}" /><br />
-				<h:selectOneMenu value="#{cc.attrs.category}" >
-					<ui:repeat value="#{cc.attrs.categories}" var="cat">
-						<f:selectItem itemValue="#{cat.getTitle()}" itemLabel="#{cat.getTitle()}" />
-					</ui:repeat> 
-				</h:selectOneMenu><br />
+				<h:selectOneMenu value="#{cc.attrs.category}">
+				   	<f:selectItems value="#{cc.attrs.categories}" var="cat" itemValue="#{cat.title}" itemLabel="#{cat.title}" />
+				</h:selectOneMenu> <br /><hr />
 				<h3>Icon</h3>
 				<img src="#{cc.attrs.icon.getImagePath()}" alt="#{cc.attrs.icon.getImgDecs()}" />
 				<hr />

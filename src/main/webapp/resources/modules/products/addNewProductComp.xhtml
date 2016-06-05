@@ -25,11 +25,9 @@
 				Enter product price: <h:inputText value="#{cc.attrs.productPrice}" /><br/>
 				Select product category:
 				<input type="hidden" id="selectedcategory" value="#{cc.attrs.category}"/>
-			   	<select onchange="setCategory(this.value);">
-						<ui:repeat value="#{cc.attrs.categories}" val="cat">
-							<option value="#{cat.getTitle()}">#{cat.getTitle()}</option>
-						</ui:repeat>	
-				</select><br />
+			    <h:selectOneMenu value="#{cc.attrs.category}" required="true">
+				   	<f:selectItems value="#{cc.attrs.categories}" var="cat" itemValue="#{cat.title}" itemLabel="#{cat.title}" />
+				</h:selectOneMenu> <br />
 				<h:inputTextarea value="#{cc.attrs.description}" cols="30" rows="7" />
 				<br />
 				Choose picture for icon:
