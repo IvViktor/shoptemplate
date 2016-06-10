@@ -17,13 +17,13 @@ public interface ProductDAO {
 	
 	public Number getProductsNumber(Category category, double minPrice, double maxPrice);
 	
-	public Number getProductsNumber(String titleRegExp);
+	public Number getProductsNumber(Category category,String titleRegExp);
 
 	public List<Product> getProducts();
 	
 	public List<Product> getProducts(int startNum, int length);
 	
-	public List<Product> getProducts(String titleRegExp);
+	public List<Product> getProducts(Category category, String titleRegExp);
 	
 	public List<Product> getProducts(Category category,double minPrice,double maxPrice,int startNum, int length);
 	

@@ -55,13 +55,14 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public List<Product> getProducts(String titleRegExp) {
+	public List<Product> getProducts(Category category, String titleRegExp) {
 		List<Product> resultList = new ArrayList<>();
 		Transaction tx = null;
 		try{
 			tx = session.beginTransaction();
 			Criteria cr = session.createCriteria(Product.class);
-			cr.add(Restrictions.like("productTitle", titleRegExp));
+			if(category != null) cr.add(Restrictions.eq("category", category));
+			if(titleRegExp != null) cr.add(Restrictions.like("productTitle", titleRegExp));
 			resultList = cr.list();
 			tx.commit();
 		} catch (Exception e){
@@ -179,13 +180,14 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public Number getProductsNumber(String titleRegExp) {
+	public Number getProductsNumber(Category category,String titleRegExp) {
 		Number number = null;
 		Transaction tx = null;
 		try{
 			tx = session.beginTransaction();
 			Criteria cr = session.createCriteria(Product.class);
-			cr.add(Restrictions.like("productTitle", titleRegExp));
+			if(category != null) cr.add(Restrictions.eq("category", category));
+			if(titleRegExp != null) cr.add(Restrictions.like("productTitle", titleRegExp));
 			cr.setProjection(Projections.rowCount());
 			number = (Number) cr.uniqueResult();
 			tx.commit();

@@ -76,8 +76,8 @@ public class ProductBriefBean {
 				productAmount = ((Number) productDao.getProductsNumber(filterCategory, min, max)).intValue();
 				this.products = productDao.getProducts(filterCategory,min,max,(page-1)*ppp,ppp);
 			} else {
-				this.products = productDao.getProducts(searchText);
-				productAmount = ((Number) productDao.getProductsNumber(searchText)).intValue();
+				this.products = productDao.getProducts(filterCategory,searchText);
+				productAmount = ((Number) productDao.getProductsNumber(filterCategory,searchText)).intValue();
 			}
 			this.totalPages = productAmount / ppp;
 			if((productAmount % ppp) > 0) totalPages++;
