@@ -38,7 +38,7 @@
     <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png"/>
 	<style type="text/css" id="enject"></style>
   </head>
-<body>
+<body onload="#{indexBean.closeSession}">
 <div id="header">
 <div class="container">
 <c:if test="#{indexBean.userId != 0}">
@@ -332,79 +332,34 @@
 		</div>
 		<h4>Latest Products </h4>
 			  <ul class="thumbnails">
-				<li class="span3">
-				  <div class="thumbnail">
-					<a  href="product_details.html"><img src="themes/images/products/6.jpg" alt=""/></a>
-					<div class="caption">
-					  <h5>Product name</h5>
-					  <p> 
-						Lorem Ipsum is simply dummy text. 
-					  </p>
-					 
-					  <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
-					</div>
-				  </div>
-				</li>
-				<li class="span3">
-				  <div class="thumbnail">
-					<a  href="product_details.html"><img src="themes/images/products/7.jpg" alt=""/></a>
-					<div class="caption">
-					  <h5>Product name</h5>
-					  <p> 
-						Lorem Ipsum is simply dummy text. 
-					  </p>
-					 <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
-					</div>
-				  </div>
-				</li>
-				<li class="span3">
-				  <div class="thumbnail">
-					<a  href="product_details.html"><img src="themes/images/products/8.jpg" alt=""/></a>
-					<div class="caption">
-					  <h5>Product name</h5>
-					  <p> 
-						Lorem Ipsum is simply dummy text. 
-					  </p>
-					   <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
-					</div>
-				  </div>
-				</li>
-				<li class="span3">
-				  <div class="thumbnail">
-					<a  href="product_details.html"><img src="themes/images/products/9.jpg" alt=""/></a>
-					<div class="caption">
-					  <h5>Product name</h5>
-					  <p> 
-						Lorem Ipsum is simply dummy text. 
-					  </p>
-					  <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
-					</div>
-				  </div>
-				</li>
-				<li class="span3">
-				  <div class="thumbnail">
-					<a  href="product_details.html"><img src="themes/images/products/10.jpg" alt=""/></a>
-					<div class="caption">
-					  <h5>Product name</h5>
-					  <p> 
-						Lorem Ipsum is simply dummy text. 
-					  </p>
-					  <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
-					</div>
-				  </div>
-				</li>
-				<li class="span3">
-				  <div class="thumbnail">
-					<a  href="product_details.html"><img src="themes/images/products/11.jpg" alt=""/></a>
-					<div class="caption">
-					  <h5>Product name</h5>
-					  <p> 
-						Lorem Ipsum is simply dummy text. 
-					  </p>
-					   <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
-					</div>
-				  </div>
-				</li>
+				<ui:repeat value="#{indexBean.products}" var="product">
+					<li class="span3">
+					  <div class="thumbnail">
+						<h:link outcome="productdetails">
+							<img src="#{product.icon.imagePath}" alt="#{product.icon.imgDecs}"/>
+							<f:param name="productId" value="#{product.id}" />
+						</h:link>						
+						<div class="caption">
+						  <h5>#{product.productTitle}</h5>
+						  <p> 
+							#{product.description.description} 
+						  </p>
+						   <h4 style="text-align:center">
+						   	<h:link class="btn" outcome="productdetails">
+						   	 <i class="icon-zoom-in"></i>
+						   	 <f:param name="productId" value="#{product.id}" />
+						   	</h:link> 
+						   	<c:if test="#{indexBean.userId != 0}">
+							   	<h:button class="btn" onclick="#{indexBean.addToCart('#{product.id}')}">Add to 
+							   		<i class="icon-shopping-cart"></i>
+							   	</h:button>
+						   	</c:if>
+						   	<a class="btn btn-primary" href="#">$222.00</a>
+						   </h4>
+						</div>
+					  </div>
+					</li>
+				</ui:repeat>
 			  </ul>	
 
 		</div>
