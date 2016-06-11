@@ -9,6 +9,6 @@ package sitecreators.utils.product;
  */
 public enum ProductStatus {
 	
-	INSTOCK, SALED;
+	INSTOCK, SALED,FEATURED;
 
 }

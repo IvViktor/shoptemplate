@@ -21,6 +21,10 @@ public interface ProductDAO {
 
 	public List<Product> getProducts();
 	
+	public List<Product> getFeaturedProducts();
+	
+	public List<Product> getLatestProducts();
+	
 	public List<Product> getProducts(int startNum, int length);
 	
 	public List<Product> getProducts(String titleRegExp);

@@ -7,6 +7,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
@@ -194,6 +195,41 @@ public class ProductDAOImpl implements ProductDAO {
 			e.printStackTrace();
 		}
 		return number;
+	}
+
+	@Override
+	public List<Product> getFeaturedProducts() {
+		List<Product> resultList = new ArrayList<>();
+		Transaction tx = null;
+		try{
+			tx = session.beginTransaction();
+			Criteria cr = session.createCriteria(Product.class);
+			cr.add(Restrictions.eq("status", ProductStatus.FEATURED));
+			resultList = cr.list();
+			tx.commit();
+		} catch (Exception e){
+			if(tx !=null) tx.rollback();
+			e.printStackTrace();
+		}
+		return resultList;
+	}
+
+	@Override
+	public List<Product> getLatestProducts() {
+		List<Product> resultList = new ArrayList<>();
+		Transaction tx = null;
+		try{
+			tx = session.beginTransaction();
+			Criteria cr = session.createCriteria(Product.class);
+			cr.addOrder(Order.desc("id"));
+			cr.setFirstResult(0);
+			cr.setMaxResults(9);
+			resultList = cr.list();
+			tx.commit();
+		} catch (Exception e){
+			if(tx !=null) tx.rollback();
+		} 
+		return resultList;
 	}
 
 }
