@@ -27,7 +27,7 @@
     <link href="themes/css/base.css" rel="stylesheet" media="screen"/>
 <!-- Bootstrap style responsive -->	
 	<link href="themes/css/bootstrap-responsive.min.css" rel="stylesheet"/>
-	<link href="themes/css/font-awesome.css" rel="stylesheet" type="text/css">
+	<link href="themes/css/font-awesome.css" rel="stylesheet" type="text/css"/>
 <!-- Google-code-prettify -->	
 	<link href="themes/js/google-code-prettify/prettify.css" rel="stylesheet"/>
 <!-- fav and touch icons -->
@@ -41,7 +41,7 @@
 <body onload="#{indexBean.closeSession}">
 <div id="header">
 <div class="container">
-<c:if test="#{indexBean.userId != 0}">
+<c:if test="#{indexBean.userId ne 0}">
 	<div id="welcomeLine" class="row">
 		<div class="span6">Welcome!<strong> #{indexBean.userName}</strong></div>
 		<div class="span6">
@@ -54,7 +54,7 @@
 				<span class="btn btn-mini">$155.00</span>
 				<a href="product_summary.html"><span class="">$</span></a>-->
 			</ui:remove>
-			<a href="product_summary.html"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> 
+			<a href="product_summary.xhtml"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> 
 			[ #{indexBean.cart.size()} ] Itemes in your cart </span> </a> 
 		</div>
 		</div>
@@ -68,8 +68,8 @@
 	<span class="icon-bar"></span>
 </a>
   <div class="navbar-inner">
-    <a class="brand" href="index.html"><img src="themes/images/logo.png" alt="Bootsshop"/></a>
-		<form class="form-inline navbar-search" method="post" action="products.html" >
+    <a class="brand" href="index.xhtml"><img src="themes/images/logo.png" alt="Bootsshop"/></a>
+		<form class="form-inline navbar-search" method="post" action="products.xhtml" >
 		<input id="srchFld" class="srchTxt" type="text" name="searchText"/>
 			<select class="srchTxt" name="selectedCategory">
 				<option value="all">All</option>
@@ -80,40 +80,42 @@
 		  <button type="submit" id="submitButton" class="btn btn-primary">Go</button>
     </form>
     <ul id="topMenu" class="nav pull-right">
-	 <li class=""><a href="special_offer.html">Specials Offer</a></li>
-	 <li class=""><a href="normal.html">Delivery</a></li>
-	 <li class=""><a href="contact.html">Contact</a></li>
-	 <li class="">
-	 <a href="#login" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">Login</span></a>
-	<div id="login" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >
-		  <div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3>Login Block</h3>
-		  </div>
-		  <div class="modal-body">
-			<h:form class="form-horizontal loginFrm">
-			  <div class="control-group">								
-				<input type="text" id="inputEmail" placeholder="Email" value="#{indexBean.loginEmail}">
+	 <li class=""><a href="special_offer.xhtml">Specials Offer</a></li>
+	 <li class=""><a href="normal.xhtml">Delivery</a></li>
+	 <li class=""><a href="contact.xhtml">Contact</a></li>
+	 <!--<c:if test="#{indexBean.userId eq 0}">-->
+		 <li class="">
+		 <a href="#login" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">Login</span></a>
+		<div id="login" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >
+			  <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h3>Login Block</h3>
 			  </div>
-			  <div class="control-group">
-				<input type="password" id="inputPassword" placeholder="Password" value="#{indexBean.loginPassword}">
+			  <div class="modal-body">
+				<h:form class="form-horizontal loginFrm">
+				  <div class="control-group">								
+					<input type="text" id="inputEmail" placeholder="Email" value="#{indexBean.loginEmail}"/>
+				  </div>
+				  <div class="control-group">
+					<input type="password" id="inputPassword" placeholder="Password" value="#{indexBean.loginPassword}"/>
+				  </div>
+				  <ui:remove>
+					  <!--<div class="control-group">
+						<label class="checkbox">
+						<input type="checkbox"> Remember me
+						</label>
+					  </div>-->
+				  </ui:remove>
+				  <h:commandButton value="Sign in" class="btn btn-success" action="#{indexBean.login}" />
+				</h:form>		
+				<ui:remove>
+					<!--<button type="submit" class="btn btn-success">Sign in</button>
+					<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>-->
+				</ui:remove>
 			  </div>
-			  <ui:remove>
-				  <!--<div class="control-group">
-					<label class="checkbox">
-					<input type="checkbox"> Remember me
-					</label>
-				  </div>-->
-			  </ui:remove>
-			  <h:commandButton value="Sign in" class="btn btn-success" action="#{indexBean.login}" />
-			</h:form>		
-			<ui:remove>
-				<!--<button type="submit" class="btn btn-success">Sign in</button>
-				<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>-->
-			</ui:remove>
-		  </div>
-	</div>
-	</li>
+		</div>
+		</li>
+	<!--</c:if>-->
     </ul>
   </div>
 </div>
@@ -125,7 +127,7 @@
 		<div class="carousel-inner">
 		  <div class="item active">
 		  <div class="container">
-			<a href="register.html"><img style="width:100%" src="themes/images/carousel/1.png" alt="special offers"/></a>
+			<a href="register.xhtml"><img style="width:100%" src="themes/images/carousel/1.png" alt="special offers"/></a>
 			<div class="carousel-caption">
 				  <h4>Second Thumbnail label</h4>
 				  <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
@@ -134,7 +136,7 @@
 		  </div>
 		  <div class="item">
 		  <div class="container">
-			<a href="register.html"><img style="width:100%" src="themes/images/carousel/2.png" alt=""/></a>
+			<a href="register.xhtml"><img style="width:100%" src="themes/images/carousel/2.png" alt=""/></a>
 				<div class="carousel-caption">
 				  <h4>Second Thumbnail label</h4>
 				  <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
@@ -143,7 +145,7 @@
 		  </div>
 		  <div class="item">
 		  <div class="container">
-			<a href="register.html"><img src="themes/images/carousel/3.png" alt=""/></a>
+			<a href="register.xhtml"><img src="themes/images/carousel/3.png" alt=""/></a>
 			<div class="carousel-caption">
 				  <h4>Second Thumbnail label</h4>
 				  <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
@@ -153,7 +155,7 @@
 		  </div>
 		   <div class="item">
 		   <div class="container">
-			<a href="register.html"><img src="themes/images/carousel/4.png" alt=""/></a>
+			<a href="register.xhtml"><img src="themes/images/carousel/4.png" alt=""/></a>
 			<div class="carousel-caption">
 				  <h4>Second Thumbnail label</h4>
 				  <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
@@ -163,7 +165,7 @@
 		  </div>
 		   <div class="item">
 		   <div class="container">
-			<a href="register.html"><img src="themes/images/carousel/5.png" alt=""/></a>
+			<a href="register.xhtml"><img src="themes/images/carousel/5.png" alt=""/></a>
 			<div class="carousel-caption">
 				  <h4>Second Thumbnail label</h4>
 				  <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
@@ -172,7 +174,7 @@
 		  </div>
 		   <div class="item">
 		   <div class="container">
-			<a href="register.html"><img src="themes/images/carousel/6.png" alt=""/></a>
+			<a href="register.xhtml"><img src="themes/images/carousel/6.png" alt=""/></a>
 			<div class="carousel-caption">
 				  <h4>Second Thumbnail label</h4>
 				  <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
@@ -189,12 +191,12 @@
 	<div class="row">
 <!-- Sidebar ================================================== -->
 	<div id="sidebar" class="span3">
-		<c:if test="#{indexBean.userId != 0}">
-			<div class="well well-small"><a id="myCart" href="product_summary.html"><img src="themes/images/ico-cart.png" alt="cart">
+		<c:if test="#{indexBean.userId ne 0}">
+			<div class="well well-small"><a id="myCart" href="product_summary.xhtml"><img src="themes/images/ico-cart.png" alt="cart"/>
 			#{indexBean.cart.size()} Items in your cart  <span class="badge badge-warning pull-right">$155.00</span></a></div>
 		</c:if>
 		<ul id="sideManu" class="nav nav-tabs nav-stacked">
-			<ui:repeat value="#{indexBean.categories}" var="category"/>
+			<ui:repeat value="#{indexBean.categories}" var="category">
 				<li>
 					<h:link outcome="products" value="#{category.title}">
 						<f:param name="selectedCategory" value="#{category.title}" />
@@ -256,7 +258,7 @@
 			</div><br/>-->
 		</ui:remove>
 			<div class="thumbnail">
-				<img src="themes/images/payment_methods.png" title="Bootshop Payment Methods" alt="Payments Methods">
+				<img src="themes/images/payment_methods.png" title="Bootshop Payment Methods" alt="Payments Methods"/>
 				<div class="caption">
 				  <h5>Payment Methods</h5>
 				</div>
@@ -272,8 +274,8 @@
 			  <c:set var="startIndex" value="0" />
 			  <c:set var="endIndex" value="4" />
 			  <c:set var="listSize" value="#{indexBean.featuredProducts.size()}" />
-			  <c:set var="featuredPages" value="${((listSize % endIndex) > 0) ? (listSize / endIndex) +1 : (listSize / endIndex)}" />
-			  <c:if test="${listSize < endIndex}">
+			  <c:set var="featuredPages" value="${((listSize % endIndex) gt 0) ? (listSize / endIndex) +1 : (listSize / endIndex)}" />
+			  <c:if test="${listSize lt endIndex}">
 			  	<c:set var="endIndex" value="${listSize}" />
 			  </c:if>
 			  <div class="item active">
@@ -297,10 +299,10 @@
 				</ui:repeat>
 			  </ul>
 			  </div>
-			  <c:if test="${featuredPages > 1}">
+			  <c:if test="${featuredPages gt 1}">
 			  	<c:forEach var="i" begin="1" end="${featuredPages}">
 			  	 <c:set var="startIndex" value="${i*4}" />
-			  	 <c:set var="endIndex" value="${(((i*4)+4) < listSize) ? ((i*4)+4) : listSize}" />
+			  	 <c:set var="endIndex" value="${(((i*4)+4) lt listSize) ? ((i*4)+4) : listSize}" />
 				  <div class="item">
 				  <ul class="thumbnails">
 					<ui:repeat value="#{indexBean.featuredProducts.subList(startIndex,endIndex)}" var="product">
@@ -372,25 +374,25 @@
 		<div class="row">
 			<div class="span3">
 				<h5>ACCOUNT</h5>
-				<a href="login.html">YOUR ACCOUNT</a>
-				<a href="login.html">PERSONAL INFORMATION</a> 
-				<a href="login.html">ADDRESSES</a> 
-				<a href="login.html">DISCOUNT</a>  
-				<a href="login.html">ORDER HISTORY</a>
+				<a href="login.xhtml">YOUR ACCOUNT</a>
+				<a href="login.xhtml">PERSONAL INFORMATION</a> 
+				<a href="login.xhtml">ADDRESSES</a> 
+				<a href="login.xhtml">DISCOUNT</a>  
+				<a href="login.xhtml">ORDER HISTORY</a>
 			 </div>
 			<div class="span3">
 				<h5>INFORMATION</h5>
-				<a href="contact.html">CONTACT</a>  
-				<a href="register.html">REGISTRATION</a>  
-				<a href="legal_notice.html">LEGAL NOTICE</a>  
-				<a href="tac.html">TERMS AND CONDITIONS</a> 
-				<a href="faq.html">FAQ</a>
+				<a href="contact.xhtml">CONTACT</a>  
+				<a href="register.xhtml">REGISTRATION</a>  
+				<a href="legal_notice.xhtml">LEGAL NOTICE</a>  
+				<a href="tac.xhtml">TERMS AND CONDITIONS</a> 
+				<a href="faq.xhtml">FAQ</a>
 			 </div>
 			<div class="span3">
 				<h5>OUR OFFERS</h5>
 				<a href="#">NEW PRODUCTS</a> 
 				<a href="#">TOP SELLERS</a>  
-				<a href="special_offer.html">SPECIAL OFFERS</a>  
+				<a href="special_offer.xhtml">SPECIAL OFFERS</a>  
 				<a href="#">MANUFACTURERS</a> 
 				<a href="#">SUPPLIERS</a> 
 			 </div>
@@ -420,48 +422,48 @@
 	<div id="hideme" class="themeTitle">Style Selector</div>
 	<div class="themeName">Oregional Skin</div>
 	<div class="images style">
-	<a href="themes/css/#" name="bootshop"><img src="themes/switch/images/clr/bootshop.png" alt="bootstrap business templates" class="active"></a>
-	<a href="themes/css/#" name="businessltd"><img src="themes/switch/images/clr/businessltd.png" alt="bootstrap business templates" class="active"></a>
+	<a href="themes/css/#" name="bootshop"><img src="themes/switch/images/clr/bootshop.png" alt="bootstrap business templates" class="active"/></a>
+	<a href="themes/css/#" name="businessltd"><img src="themes/switch/images/clr/businessltd.png" alt="bootstrap business templates" class="active"/></a>
 	</div>
 	<div class="themeName">Bootswatch Skins (11)</div>
 	<div class="images style">
-		<a href="themes/css/#" name="amelia" title="Amelia"><img src="themes/switch/images/clr/amelia.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="spruce" title="Spruce"><img src="themes/switch/images/clr/spruce.png" alt="bootstrap business templates" ></a>
-		<a href="themes/css/#" name="superhero" title="Superhero"><img src="themes/switch/images/clr/superhero.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="cyborg"><img src="themes/switch/images/clr/cyborg.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="cerulean"><img src="themes/switch/images/clr/cerulean.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="journal"><img src="themes/switch/images/clr/journal.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="readable"><img src="themes/switch/images/clr/readable.png" alt="bootstrap business templates"></a>	
-		<a href="themes/css/#" name="simplex"><img src="themes/switch/images/clr/simplex.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="slate"><img src="themes/switch/images/clr/slate.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="spacelab"><img src="themes/switch/images/clr/spacelab.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="united"><img src="themes/switch/images/clr/united.png" alt="bootstrap business templates"></a>
+		<a href="themes/css/#" name="amelia" title="Amelia"><img src="themes/switch/images/clr/amelia.png" alt="bootstrap business templates"/></a>
+		<a href="themes/css/#" name="spruce" title="Spruce"><img src="themes/switch/images/clr/spruce.png" alt="bootstrap business templates" /></a>
+		<a href="themes/css/#" name="superhero" title="Superhero"><img src="themes/switch/images/clr/superhero.png" alt="bootstrap business templates"/></a>
+		<a href="themes/css/#" name="cyborg"><img src="themes/switch/images/clr/cyborg.png" alt="bootstrap business templates"/></a>
+		<a href="themes/css/#" name="cerulean"><img src="themes/switch/images/clr/cerulean.png" alt="bootstrap business templates"/></a>
+		<a href="themes/css/#" name="journal"><img src="themes/switch/images/clr/journal.png" alt="bootstrap business templates"/></a>
+		<a href="themes/css/#" name="readable"><img src="themes/switch/images/clr/readable.png" alt="bootstrap business templates"/></a>	
+		<a href="themes/css/#" name="simplex"><img src="themes/switch/images/clr/simplex.png" alt="bootstrap business templates"/></a>
+		<a href="themes/css/#" name="slate"><img src="themes/switch/images/clr/slate.png" alt="bootstrap business templates"/></a>
+		<a href="themes/css/#" name="spacelab"><img src="themes/switch/images/clr/spacelab.png" alt="bootstrap business templates"/></a>
+		<a href="themes/css/#" name="united"><img src="themes/switch/images/clr/united.png" alt="bootstrap business templates"/></a>
 		<p style="margin:0;line-height:normal;margin-left:-10px;display:none;"><small>These are just examples and you can build your own color scheme in the backend.</small></p>
 	</div>
 	<div class="themeName">Background Patterns </div>
 	<div class="images patterns">
-		<a href="themes/css/#" name="pattern1"><img src="themes/switch/images/pattern/pattern1.png" alt="bootstrap business templates" class="active"></a>
-		<a href="themes/css/#" name="pattern2"><img src="themes/switch/images/pattern/pattern2.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern3"><img src="themes/switch/images/pattern/pattern3.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern4"><img src="themes/switch/images/pattern/pattern4.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern5"><img src="themes/switch/images/pattern/pattern5.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern6"><img src="themes/switch/images/pattern/pattern6.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern7"><img src="themes/switch/images/pattern/pattern7.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern8"><img src="themes/switch/images/pattern/pattern8.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern9"><img src="themes/switch/images/pattern/pattern9.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern10"><img src="themes/switch/images/pattern/pattern10.png" alt="bootstrap business templates"></a>
+		<a href="themes/css/#" name="pattern1"><img src="themes/switch/images/pattern/pattern1.png" alt="bootstrap business templates" class="active"/></a>
+		<a href="themes/css/#" name="pattern2"><img src="themes/switch/images/pattern/pattern2.png" alt="bootstrap business templates"/></a>
+		<a href="themes/css/#" name="pattern3"><img src="themes/switch/images/pattern/pattern3.png" alt="bootstrap business templates"/></a>
+		<a href="themes/css/#" name="pattern4"><img src="themes/switch/images/pattern/pattern4.png" alt="bootstrap business templates"/></a>
+		<a href="themes/css/#" name="pattern5"><img src="themes/switch/images/pattern/pattern5.png" alt="bootstrap business templates"/></a>
+		<a href="themes/css/#" name="pattern6"><img src="themes/switch/images/pattern/pattern6.png" alt="bootstrap business templates"/></a>
+		<a href="themes/css/#" name="pattern7"><img src="themes/switch/images/pattern/pattern7.png" alt="bootstrap business templates"/></a>
+		<a href="themes/css/#" name="pattern8"><img src="themes/switch/images/pattern/pattern8.png" alt="bootstrap business templates"/></a>
+		<a href="themes/css/#" name="pattern9"><img src="themes/switch/images/pattern/pattern9.png" alt="bootstrap business templates"/></a>
+		<a href="themes/css/#" name="pattern10"><img src="themes/switch/images/pattern/pattern10.png" alt="bootstrap business templates"/></a>
 		
-		<a href="themes/css/#" name="pattern11"><img src="themes/switch/images/pattern/pattern11.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern12"><img src="themes/switch/images/pattern/pattern12.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern13"><img src="themes/switch/images/pattern/pattern13.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern14"><img src="themes/switch/images/pattern/pattern14.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern15"><img src="themes/switch/images/pattern/pattern15.png" alt="bootstrap business templates"></a>
+		<a href="themes/css/#" name="pattern11"><img src="themes/switch/images/pattern/pattern11.png" alt="bootstrap business templates"/></a>
+		<a href="themes/css/#" name="pattern12"><img src="themes/switch/images/pattern/pattern12.png" alt="bootstrap business templates"/></a>
+		<a href="themes/css/#" name="pattern13"><img src="themes/switch/images/pattern/pattern13.png" alt="bootstrap business templates"/></a>
+		<a href="themes/css/#" name="pattern14"><img src="themes/switch/images/pattern/pattern14.png" alt="bootstrap business templates"/></a>
+		<a href="themes/css/#" name="pattern15"><img src="themes/switch/images/pattern/pattern15.png" alt="bootstrap business templates"/></a>
 		
-		<a href="themes/css/#" name="pattern16"><img src="themes/switch/images/pattern/pattern16.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern17"><img src="themes/switch/images/pattern/pattern17.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern18"><img src="themes/switch/images/pattern/pattern18.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern19"><img src="themes/switch/images/pattern/pattern19.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern20"><img src="themes/switch/images/pattern/pattern20.png" alt="bootstrap business templates"></a>
+		<a href="themes/css/#" name="pattern16"><img src="themes/switch/images/pattern/pattern16.png" alt="bootstrap business templates"/></a>
+		<a href="themes/css/#" name="pattern17"><img src="themes/switch/images/pattern/pattern17.png" alt="bootstrap business templates"/></a>
+		<a href="themes/css/#" name="pattern18"><img src="themes/switch/images/pattern/pattern18.png" alt="bootstrap business templates"/></a>
+		<a href="themes/css/#" name="pattern19"><img src="themes/switch/images/pattern/pattern19.png" alt="bootstrap business templates"/></a>
+		<a href="themes/css/#" name="pattern20"><img src="themes/switch/images/pattern/pattern20.png" alt="bootstrap business templates"/></a>
 		 
 	</div>
 	</div>
