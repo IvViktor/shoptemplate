@@ -2,8 +2,6 @@ package sitecreators.managedbeans.bootshop;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -22,7 +20,6 @@ import sitecreators.utils.product.ProductDAO;
 import sitecreators.utils.user.User;
 import sitecreators.utils.user.UserAbout;
 import sitecreators.utils.user.UserDAO;
-import sun.security.pkcs11.P11TlsKeyMaterialGenerator;
 
 @ManagedBean(name="productsBean")
 public class ProductsBean {

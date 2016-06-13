@@ -75,7 +75,6 @@ public class SpecialOfferBean {
 			prodPerPage = "9";
 		}
 		if(pageNum != null) page = Integer.parseInt(pageNum);
-		double min=0 ,max=0;
 		try{
 			productDao.open();
 			productAmount = ((Number) productDao.getDiscountProductsNumber()).intValue();

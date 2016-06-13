@@ -16,8 +16,8 @@ import sitecreators.utils.user.User;
 import sitecreators.utils.user.UserAbout;
 import sitecreators.utils.user.UserDAO;
 
-@ManagedBean(name="deliveryBean")
-public class DeliveryPageBean {
+@ManagedBean(name="cartBean")
+public class CartBean {
 	
 	private User user;
 
@@ -37,7 +37,11 @@ public class DeliveryPageBean {
 	
 	private String loginPassword;
 	
-	public DeliveryPageBean(){
+	private int totalPrice;
+	
+	private int totalDiscount;
+	
+	public CartBean(){
 		this.userDao = (UserDAO) ApplicationContextUtil.getApplicationContext().getBean("UserDAO");
 		this.categoryDao =(CategoryDAO) ApplicationContextUtil.getApplicationContext().getBean("CategoryDAO");
 		userId = (long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
@@ -72,6 +76,46 @@ public class DeliveryPageBean {
 				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userID", user.getId());
 				System.out.println("password accepted");
 			}
+		} catch (Exception e){
+			e.printStackTrace();
+		} finally {
+			userDao.close();
+		}
+	}
+	
+	public void incOrder(Order order){
+		int amount = order.getProductsNumber();
+		amount--;
+		order.setProductsNumber(amount);
+		try{
+			userDao.open();
+			userDao.updateUser(user);
+		} catch (Exception e){
+			e.printStackTrace();
+		} finally {
+			userDao.close();
+		}
+	}
+	
+	public void decOrder(Order order){
+		int amount = order.getProductsNumber();
+		amount++;
+		order.setProductsNumber(amount);
+		try{
+			userDao.open();
+			userDao.updateUser(user);
+		} catch (Exception e){
+			e.printStackTrace();
+		} finally {
+			userDao.close();
+		}
+	}
+	
+	public void removeOrder(Order order){
+		order.setStatus(OrderStatus.DEFFERED);
+		try{
+			userDao.open();
+			userDao.updateUser(user);
 		} catch (Exception e){
 			e.printStackTrace();
 		} finally {
@@ -138,6 +182,22 @@ public class DeliveryPageBean {
 
 	public void setLoginPassword(String loginPassword) {
 		this.loginPassword = loginPassword;
+	}
+
+	public int getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
+	public int getTotalDiscount() {
+		return totalDiscount;
+	}
+
+	public void setTotalDiscount(int totalDiscount) {
+		this.totalDiscount = totalDiscount;
 	}
 		
 }
