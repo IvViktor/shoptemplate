@@ -306,7 +306,7 @@
 						Leave your comment here:<br />
 						<input type="hidden" value="#{productDetailsBean.productId}" name="productId" />
 						<h:inputTextarea value="#{productDetailsBean.commentBody}" cols="30" rows="7" /><br />
-						<h:commandButton action="#{productDetailsBean.addCommentAction}" value="Leave comment" />
+						<h:commandButton action="#{productDetailsBean.addComment}" value="Leave comment" />
 					</h:form>
 				</c:if>
                 <!--<table class="table table-bordered">
@@ -427,7 +427,7 @@
 	<hr class="soft"/>
 	</div>
 </div>
-				<br class="clr">
+				<br class="clr"/>
 					 </div>
 		</div>
           </div>

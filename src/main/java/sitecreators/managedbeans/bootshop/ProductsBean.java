@@ -71,6 +71,7 @@ public class ProductsBean {
 		this.productDao = (ProductDAO) ApplicationContextUtil.getApplicationContext().getBean("ProductDAO");
 		this.userDao = (UserDAO) ApplicationContextUtil.getApplicationContext().getBean("UserDAO");
 		this.categoryDao =(CategoryDAO) ApplicationContextUtil.getApplicationContext().getBean("CategoryDAO");
+		userId = (long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
 		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		this.prodPerPage = (String) req.getParameter("ppp");
 		this.pageNum = (String) req.getParameter("page");
