@@ -15,6 +15,8 @@ public interface ProductDAO {
 	
 	public Product getProduct(long id);
 	
+	public Number getDiscountProductsNumber();
+	
 	public Number getProductsNumber(Category category, double minPrice, double maxPrice);
 	
 	public Number getProductsNumber(String titleRegExp);
@@ -25,6 +27,8 @@ public interface ProductDAO {
 	
 	public List<Product> getLatestProducts();
 	
+	public List<Product> getDiscountProducts(int start,int end);
+
 	public List<Product> getProducts(int startNum, int length);
 	
 	public List<Product> getProducts(String titleRegExp);

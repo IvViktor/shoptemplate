@@ -232,4 +232,41 @@ public class ProductDAOImpl implements ProductDAO {
 		return resultList;
 	}
 
+	@Override
+	public Number getDiscountProductsNumber() {
+		Number number = null;
+		Transaction tx = null;
+		try{
+			tx = session.beginTransaction();
+			Criteria cr = session.createCriteria(Product.class);
+			cr.add(Restrictions.eq("status", ProductStatus.DISCOUNT));
+			cr.setProjection(Projections.rowCount());
+			number = (Number) cr.uniqueResult();
+			tx.commit();
+		} catch (Exception e){
+			if(tx !=null) tx.rollback();
+			e.printStackTrace();
+		} 
+		return number;
+	}
+
+	@Override
+	public List<Product> getDiscountProducts(int start, int end) {
+		List<Product> resultList = new ArrayList<>();
+		Transaction tx = null;
+		try{
+			tx = session.beginTransaction();
+			Criteria cr = session.createCriteria(Product.class);
+			cr.add(Restrictions.eq("status", ProductStatus.DISCOUNT));
+			cr.setFirstResult(start);
+			cr.setMaxResults(end);
+			resultList = cr.list();
+			tx.commit();
+		} catch (Exception e){
+			if(tx !=null) tx.rollback();
+			e.printStackTrace();
+		}
+		return resultList;
+	}
+
 }
