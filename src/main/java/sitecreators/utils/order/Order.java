@@ -34,6 +34,8 @@ public class Order {
 	
 	private Timestamp formedTime;
 	
+	private int productsNumber = 1;
+	
 	@Enumerated(EnumType.STRING)
 	@Column(name="`order_status`")
 	private OrderStatus status;
@@ -76,6 +78,14 @@ public class Order {
 
 	public void setStatus(OrderStatus status) {
 		this.status = status;
+	}
+
+	public int getProductsNumber() {
+		return productsNumber;
+	}
+
+	public void setProductsNumber(int productsNumber) {
+		this.productsNumber = productsNumber;
 	}
 	
 }
