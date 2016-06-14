@@ -38,12 +38,12 @@
     <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png"/>
 	<style type="text/css" id="enject"></style>
   </head>
-<body onload="#{deliveryBean.closeSession}">
+<body onload="#{loginBean.closeSession}">
 <div id="header">
 <div class="container">
-<c:if test="#{deliveryBean.userId ne 0}">
+<c:if test="#{loginBean.userId ne 0}">
 	<div id="welcomeLine" class="row">
-		<div class="span6">Welcome!<strong> #{deliveryBean.userName}</strong></div>
+		<div class="span6">Welcome!<strong> #{loginBean.userName}</strong></div>
 		<div class="span6">
 		<div class="pull-right">
 			<ui:remove>
@@ -55,7 +55,7 @@
 				<a href="product_summary.html"><span class="">$</span></a>-->
 			</ui:remove>
 			<a href="product_summary.xhtml"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> 
-			[ #{deliveryBean.cart.size()} ] Itemes in your cart </span> </a> 
+			[ #{loginBean.cart.size()} ] Itemes in your cart </span> </a> 
 		</div>
 		</div>
 	</div>
@@ -73,7 +73,7 @@
 		<input id="srchFld" class="srchTxt" type="text" name="searchText"/>
 			<select class="srchTxt" name="selectedCategory">
 				<option value="all">All</option>
-				<ui:repeat value="#{deliveryBean.categories}" var="category">
+				<ui:repeat value="#{loginBean.categories}" var="category">
 					<option value="#{category.title}">#{category.title}</option>
 				</ui:repeat>
 			</select> 
@@ -83,21 +83,21 @@
 	 <li class=""><a href="special_offer.xhtml">Specials Offer</a></li>
 	 <li class=""><a href="normal.xhtml">Delivery</a></li>
 	 <li class=""><a href="contact.xhtml">Contact</a></li>
-	 <!--<c:if test="#{deliveryBean.userId eq 0}">-->
+	 <!--<c:if test="#{loginBean.userId eq 0}">-->
 		 <li class="">
 		 <a href="#login" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">Login</span></a>
 		<div id="login" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >
 			  <div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">Ã—</button>
 				<h3>Login Block</h3>
 			  </div>
 			  <div class="modal-body">
 				<h:form class="form-horizontal loginFrm">
 				  <div class="control-group">								
-					<input type="text" id="inputEmail" placeholder="Email" value="#{deliveryBean.loginEmail}"/>
+					<input type="text" id="inputEmail" placeholder="Email" value="#{loginBean.loginEmail}"/>
 				  </div>
 				  <div class="control-group">
-					<input type="password" id="inputPassword" placeholder="Password" value="#{deliveryBean.loginPassword}"/>
+					<input type="password" id="inputPassword" placeholder="Password" value="#{loginBean.loginPassword}"/>
 				  </div>
 				  <ui:remove>
 					  <!--<div class="control-group">
@@ -106,7 +106,7 @@
 						</label>
 					  </div>-->
 				  </ui:remove>
-				  <h:commandButton value="Sign in" class="btn btn-success" action="#{deliveryBean.login}" />
+				  <h:commandButton value="Sign in" class="btn btn-success" action="#{loginBean.login}" />
 				</h:form>		
 				<ui:remove>
 					<!--<button type="submit" class="btn btn-success">Sign in</button>
@@ -127,12 +127,12 @@
 	<div class="row">
 <!-- Sidebar ================================================== -->
 	<div id="sidebar" class="span3">
-		<c:if test="#{deliveryBean.userId ne 0}">
+		<c:if test="#{loginBean.userId ne 0}">
 			<div class="well well-small"><a id="myCart" href="product_summary.xhtml"><img src="themes/images/ico-cart.png" alt="cart"/>
-			#{deliveryBean.cart.size()} Items in your cart  <span class="badge badge-warning pull-right">$155.00</span></a></div>
+			#{loginBean.cart.size()} Items in your cart  <span class="badge badge-warning pull-right">$155.00</span></a></div>
 		</c:if>
 		<ul id="sideManu" class="nav nav-tabs nav-stacked">
-			<ui:repeat value="#{deliveryBean.categories}" var="category">
+			<ui:repeat value="#{loginBean.categories}" var="category">
 				<li>
 					<h:link outcome="products" value="#{category.title}">
 						<f:param name="selectedCategory" value="#{category.title}" />
@@ -218,19 +218,19 @@
 				<label class="control-label" for="inputEmail1">Email</label>
 				<div class="controls">
 				  <input class="span3"  type="text" id="inputEmail1" placeholder="Email" 
-				  value="#{deliveryBean.loginEmail}"/>
+				  value="#{loginBean.loginEmail}"/>
 				</div>
 			  </div>
 			  <div class="control-group">
 				<label class="control-label" for="inputPassword1">Password</label>
 				<div class="controls">
 				  <input type="password" class="span3"  id="inputPassword1" placeholder="Password"
-				   value="#{deliveryBean.loginPassword}"/>
+				   value="#{loginBean.loginPassword}"/>
 				</div>
 			  </div>
 			  <div class="control-group">
 				<div class="controls">
-				  <h:commandButton class="btn" value="Sign in" action="#{deliveryBean.login}"/>
+				  <h:commandButton class="btn" value="Sign in" action="#{loginBean.login}"/>
 				   <a href="forgetpass.xhtml">Forget password?</a>
 				</div>
 			  </div>
