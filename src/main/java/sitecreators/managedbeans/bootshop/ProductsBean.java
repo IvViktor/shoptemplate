@@ -68,7 +68,11 @@ public class ProductsBean {
 		this.productDao = (ProductDAO) ApplicationContextUtil.getApplicationContext().getBean("ProductDAO");
 		this.userDao = (UserDAO) ApplicationContextUtil.getApplicationContext().getBean("UserDAO");
 		this.categoryDao =(CategoryDAO) ApplicationContextUtil.getApplicationContext().getBean("CategoryDAO");
-		userId = (long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
+		try{
+			userId = (long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
+		} catch (NullPointerException e){
+			userId = 0;
+		}
 		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		this.prodPerPage = (String) req.getParameter("ppp");
 		this.pageNum = (String) req.getParameter("page");
@@ -140,7 +144,7 @@ public class ProductsBean {
 		} catch (Exception e){
 			e.printStackTrace();
 		}
-		
+		if(sortType == null) sortType="";
 		if(sortType.equalsIgnoreCase("nasc")){
 			products.sort((Product p1, Product p2) -> p1.getProductTitle().compareTo(p2.getProductTitle()));
 		} else if(sortType.equalsIgnoreCase("ndesc")){
@@ -150,9 +154,11 @@ public class ProductsBean {
 		} else {
 			products.sort((Product p1,Product p2) -> (int)(p1.getId() - p2.getId())*(-1));
 		}
+		
 	}
 	
-	public void addToCart(long productId){
+	public void addToCart(String id){
+		long productId = Long.parseLong(id);
 		Order order = new Order();
 		order.setCustomer(user);
 		order.setFormedTime(new Timestamp(new Date().getTime()));

@@ -63,8 +63,8 @@ public class AddProductBean {
 		try{
 			categoryDao.open();
 			Category cat = categoryDao.getCategory(category);
-			categoryDao.close();
 			if(cat != null) product.setCategory(cat);
+			categoryDao.close();
 		} catch (Exception e){
 			e.printStackTrace();
 		}
@@ -88,7 +88,6 @@ public class AddProductBean {
 		}
 		try{
 			productDao.open();
-			if(imageFile != null) product.addImage(icon);
 			productDao.addProduct(product);
 			productDao.close();
 		} catch (Exception e){

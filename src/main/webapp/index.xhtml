@@ -38,7 +38,7 @@
     <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png"/>
 	<style type="text/css" id="enject"></style>
   </head>
-<body onload="#{indexBean.closeSession}">
+<body onload="#{indexBean.closeSession()}">
 <div id="header">
 <div class="container">
 <c:if test="#{indexBean.userId ne 0}">

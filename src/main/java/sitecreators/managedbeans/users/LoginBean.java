@@ -9,7 +9,7 @@ import sitecreators.utils.auth.Password;
 import sitecreators.utils.user.User;
 import sitecreators.utils.user.UserDAO;
 
-@ManagedBean(name="loginBean")
+//@ManagedBean(name="loginBean")
 public class LoginBean {
 	
 	private String email;

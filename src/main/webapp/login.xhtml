@@ -38,7 +38,7 @@
     <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png"/>
 	<style type="text/css" id="enject"></style>
   </head>
-<body onload="#{loginBean.closeSession}">
+<body onload="#{loginBean.closeSession()}">
 <div id="header">
 <div class="container">
 <c:if test="#{loginBean.userId ne 0}">
@@ -213,18 +213,18 @@
 		<div class="span4">
 			<div class="well">
 			<h5>ALREADY REGISTERED ?</h5>
-			<form>
+			<h:form>
 			  <div class="control-group">
 				<label class="control-label" for="inputEmail1">Email</label>
 				<div class="controls">
-				  <input class="span3"  type="text" id="inputEmail1" placeholder="Email" 
+				  <h:inputText class="span3"  type="text" id="inputEmail1" placeholder="Email" 
 				  value="#{loginBean.loginEmail}"/>
 				</div>
 			  </div>
 			  <div class="control-group">
 				<label class="control-label" for="inputPassword1">Password</label>
 				<div class="controls">
-				  <input type="password" class="span3"  id="inputPassword1" placeholder="Password"
+				  <h:inputSecret type="password" class="span3"  id="inputPassword1" placeholder="Password"
 				   value="#{loginBean.loginPassword}"/>
 				</div>
 			  </div>
@@ -234,7 +234,7 @@
 				   <a href="forgetpass.xhtml">Forget password?</a>
 				</div>
 			  </div>
-			</form>
+			</h:form>
 		</div>
 		</div>
 	</div>	

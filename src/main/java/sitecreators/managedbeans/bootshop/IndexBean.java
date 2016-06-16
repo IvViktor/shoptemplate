@@ -51,7 +51,11 @@ public class IndexBean {
 		this.userDao = (UserDAO) ApplicationContextUtil.getApplicationContext().getBean("UserDAO");
 		this.productDao = (ProductDAO) ApplicationContextUtil.getApplicationContext().getBean("ProductDAO");
 		this.categoryDao =(CategoryDAO) ApplicationContextUtil.getApplicationContext().getBean("CategoryDAO");
-		userId = (long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
+		try{
+			userId = (long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
+		} catch (NullPointerException e){
+			userId = 0;
+		}
 		try{
 			userDao.open();
 			this.user = userDao.getUser(userId);
@@ -97,7 +101,8 @@ public class IndexBean {
 		}
 	}
 	
-	public void addToCart(long productId){
+	public void addToCart(String id){
+		long productId = Long.parseLong(id);
 		Order order = new Order();
 		order.setCustomer(user);
 		order.setFormedTime(new Timestamp(new Date().getTime()));

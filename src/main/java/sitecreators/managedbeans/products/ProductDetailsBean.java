@@ -22,7 +22,7 @@ import sitecreators.utils.product.ProductPrice;
 import sitecreators.utils.user.User;
 import sitecreators.utils.user.UserDAO;
 
-@ManagedBean(name="prodDetailBean")
+//@ManagedBean(name="prodDetailBean")
 public class ProductDetailsBean {
 	
 	private String productId;

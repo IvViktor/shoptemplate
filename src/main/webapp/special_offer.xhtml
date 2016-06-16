@@ -38,7 +38,7 @@
     <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png"/>
 	<style type="text/css" id="enject"></style>
   </head>
-<body onload="#{specialOfferBean.closeSession}">
+<body onload="#{specialOfferBean.closeSession()}">
 <div id="header">
 <div class="container">
 <c:if test="#{specialOfferBean.userId ne 0}">
@@ -216,8 +216,12 @@
 	</p>
 	<hr class="soft"/>
 	<form class="form-horizontal span6" method="GET" onchange="submit();">
-		<input id="sortByType" type="hidden" name="sortBy" value="#{specialOfferBean.sortType}" />
-		<input id="pppvalue" type="hidden" name="ppp" value="#{specialOfferBean.prodPerPage}" />
+		<c:if test="#{specialOfferBean.sortType ne null}">
+			<input id="sortByType" type="hidden" name="sortBy" value="#{specialOfferBean.sortType}" />
+		</c:if>
+		<c:if test="#{specialOfferBean.prodPerPage ne null}">
+			<input id="pppvalue" type="hidden" name="ppp" value="#{specialOfferBean.prodPerPage}" />
+		</c:if>
 		<div class="control-group">
 		  <label class="control-label alignL">Sort By </label>
 			<h:selectOneMenu value="#{specialOfferBean.sortType}"
@@ -287,6 +291,7 @@
 
 	<div class="tab-pane  active" id="blockView">
 		<ul class="thumbnails">
+		<ui:repeat value="#{specialOfferBean.products}" var="product">
 			<li class="span3">
 			  <div class="thumbnail">
 				<h:link outcome="productdetails" >
@@ -313,6 +318,7 @@
 				</div>
 			  </div>
 			</li>
+			</ui:repeat>
 		 </ul>
 	<hr class="soft"/>
 	</div>

@@ -104,7 +104,7 @@ private SessionFactory sessionFactory;
 
 	@Override
 	public String saveImage(Part part, String directory, long userId) {
-		String webappRoot = File.separator + "opt" +File.separator + "tomcat" +File.separator + "webapps";
+		String webappRoot = System.getProperty("catalina.base") + File.separator + "webapps";//File.separator + "opt" +File.separator + "tomcat" +File.separator + "webapps";
 		String defaultIcon = File.separator + "shopImageData"+File.separator + directory + File.separator + "noimage.gif";
 		String fileName = getFileName(part);
 		if(fileName!=null){

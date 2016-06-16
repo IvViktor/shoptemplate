@@ -53,7 +53,11 @@ public class RegisterBean {
 	public RegisterBean(){
 		this.userDao = (UserDAO) ApplicationContextUtil.getApplicationContext().getBean("UserDAO");
 		this.categoryDao =(CategoryDAO) ApplicationContextUtil.getApplicationContext().getBean("CategoryDAO");
-		userId = (long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
+		try{
+			userId = (long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
+		} catch (NullPointerException e){
+			userId = 0;
+		}
 		try{
 			userDao.open();
 			this.user = userDao.getUser(userId);
@@ -102,6 +106,7 @@ public class RegisterBean {
 		try{
 			userDao.open();
 			userDao.addUser(user);
+			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userID",user.getId());
 		} catch (Exception e){
 			e.printStackTrace();
 			return "internalError";

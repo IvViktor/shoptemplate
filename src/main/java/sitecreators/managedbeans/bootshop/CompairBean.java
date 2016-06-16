@@ -40,7 +40,11 @@ public class CompairBean {
 	public CompairBean(){
 		this.userDao = (UserDAO) ApplicationContextUtil.getApplicationContext().getBean("UserDAO");
 		this.categoryDao =(CategoryDAO) ApplicationContextUtil.getApplicationContext().getBean("CategoryDAO");
-		userId = (long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
+		try{
+			userId = (long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
+		} catch (NullPointerException e){
+			userId = 0;
+		}
 		try{
 			userDao.open();
 			this.user = userDao.getUser(userId);

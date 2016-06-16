@@ -38,7 +38,7 @@
     <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png"/>
 	<style type="text/css" id="enject"></style>
   </head>
-<body onload="#{productsBean.closeSession}">
+<body onload="#{productsBean.closeSession()}">
 <div id="header">
 <div class="container">
 <c:if test="#{productsBean.userId ne 0}">
@@ -214,8 +214,12 @@
 	</p>
 	<hr class="soft"/>
 	<form class="form-horizontal span6" method="GET" onchange="submit();">
-		<input id="sortByType" type="hidden" name="sortBy" value="#{productsBean.sortType}" />
-		<input id="pppvalue" type="hidden" name="ppp" value="#{productsBean.prodPerPage}" />
+		<c:if test="#{productsBean.sortType ne null}">
+			<input id="sortByType" type="hidden" name="sortBy" value="#{productsBean.sortType}" />
+		</c:if>
+		<c:if test="#{productsBean.prodPerPage ne null}">
+			<input id="pppvalue" type="hidden" name="ppp" value="#{productsBean.prodPerPage}" />
+		</c:if>
 		<div class="control-group">
 		  <label class="control-label alignL">Sort By </label>
 			<h:selectOneMenu value="#{productsBean.sortType}"
@@ -294,6 +298,7 @@
 
 	<div class="tab-pane  active" id="blockView">
 		<ul class="thumbnails">
+			<ui:repeat value="#{productsBean.products}" var="product">
 			<li class="span3">
 			  <div class="thumbnail">
 				<h:link outcome="productdetails" >
@@ -320,6 +325,7 @@
 				</div>
 			  </div>
 			</li>
+			</ui:repeat>
 		 </ul>
 	<hr class="soft"/>
 	</div>

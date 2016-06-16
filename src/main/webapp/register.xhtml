@@ -38,7 +38,7 @@
     <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png"/>
 	<style type="text/css" id="enject"></style>
   </head>
-<body onload="#{registerBean.closeSession}">
+<body onload="#{registerBean.closeSession()}">
 <div id="header">
 <div class="container">
 <c:if test="#{registerBean.userId ne 0}">
@@ -226,27 +226,27 @@
 		<div class="control-group">
 			<label class="control-label" for="inputFname1">First name <sup>*</sup></label>
 			<div class="controls">
-			  <input type="text" id="inputFname1" placeholder="First Name" reqiured="true"
+			  <h:inputText type="text" id="inputFname1" placeholder="First Name" required="true"
 			   value="#{registerBean.firstName}"/>
 			</div>
 		 </div>
 		 <div class="control-group">
 			<label class="control-label" for="inputLnam">Last name <sup>*</sup></label>
 			<div class="controls">
-			  <input type="text" id="inputLnam" placeholder="Last Name" reqiured="true"  
+			  <h:inputText type="text" id="inputLnam" placeholder="Last Name" required="true"  
 			  value="#{registerBean.secondName}"/>
 			</div>
 		 </div>
 		<div class="control-group">
 		<label class="control-label" for="input_email">Email <sup>*</sup></label>
 		<div class="controls">
-		  <input type="text" id="input_email" placeholder="Email" reqiured="true"  value="#{registerBean.email}"/>
+		  <h:inputText type="text" id="input_email" placeholder="Email" required="true"  value="#{registerBean.email}"/>
 		</div>
 	  </div>	  
 	<div class="control-group">
 		<label class="control-label" for="inputPassword1">Password <sup>*</sup></label>
 		<div class="controls">
-		  <input type="password" id="inputPassword1" placeholder="Password" reqiured="true" 
+		  <h:inputSecret type="password" id="inputPassword1" placeholder="Password" required="true" 
 		   value="#{registerBean.password}"/>
 		</div>
 	  </div>	  

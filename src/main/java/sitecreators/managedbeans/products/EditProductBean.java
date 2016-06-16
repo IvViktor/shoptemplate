@@ -22,7 +22,7 @@ import sitecreators.utils.product.ProductPrice;
 import sitecreators.utils.user.User;
 import sitecreators.utils.user.UserDAO;
 
-@ManagedBean(name="editProductBean")
+//@ManagedBean(name="editProductBean")
 public class EditProductBean {
 	
 	private CategoryDAO categoryDao;

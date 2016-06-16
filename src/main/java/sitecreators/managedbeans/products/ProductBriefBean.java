@@ -12,7 +12,7 @@ import sitecreators.utils.category.CategoryDAO;
 import sitecreators.utils.product.Product;
 import sitecreators.utils.product.ProductDAO;
 
-@ManagedBean(name="productPanelBean")
+//@ManagedBean(name="productPanelBean")
 public class ProductBriefBean {
 	
 	private ProductDAO productDao;
