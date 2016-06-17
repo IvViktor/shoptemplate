@@ -37,8 +37,13 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="themes/images/ico/apple-touch-icon-72-precomposed.png"/>
     <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png"/>
 	<style type="text/css" id="enject"></style>
+	<script type="text/javascript">
+		function closeSession(){
+			#{cartBean.closeSession()}
+		}
+	</script>
   </head>
-<body onload="#{cartBean.closeSession()}">
+<body onload="closeSession()">
 <div id="header">
 <div class="container">
 <c:if test="#{cartBean.userId ne 0}">
@@ -94,10 +99,10 @@
 			  <div class="modal-body">
 				<h:form class="form-horizontal loginFrm">
 				  <div class="control-group">								
-					<input type="text" id="inputEmail" placeholder="Email" value="#{cartBean.loginEmail}"/>
+					<h:inputText type="text" id="inputEmail" placeholder="Email" value="#{cartBean.loginEmail}"/>
 				  </div>
 				  <div class="control-group">
-					<input type="password" id="inputPassword" placeholder="Password" value="#{cartBean.loginPassword}"/>
+					<h:inputSecret type="password" id="inputPassword" placeholder="Password" value="#{cartBean.loginPassword}"/>
 				  </div>
 				  <ui:remove>
 					  <!--<div class="control-group">
@@ -257,19 +262,21 @@
               <ui:repeat value="#{cartBean.cart}" var="order">
                 <tr>
                   <td> <img width="60" src="#{order.product.icon.imagePath}" alt="#{order.product.icon.imgDecs}"/></td>
-                  <td>#{cartBean.product.productTitle}</td>
+                  <td>#{order.product.productTitle}</td>
 				  <td>
 					<div class="input-append">
-						<button class="btn" type="button" onclick="#{cartBean.decOrder('#{order}')}">
+					<h:form>
+						<h:commandButton class="btn" type="button" action="#{cartBean.decOrder(order)}">
 							<i class="icon-minus"></i>
-						</button>
-						<button class="btn" type="button" style="line-height: 1.1em;">#{order.productsNumber}</button>
-						<button class="btn" type="button" onclick="#{cartBean.incOrder('#{order}')}">
+						</h:commandButton>
+						<h:commandButton class="btn" type="button" style="line-height: 1.1em;">#{order.productsNumber}</h:commandButton>
+						<h:commandButton class="btn" type="button" action="#{cartBean.incOrder(order)}">
 							<i class="icon-plus"></i>
-						</button>
-						<button class="btn btn-danger" type="button" onclick="#{cartBean.removeOrder('#{order}')}">
+						</h:commandButton>
+						<h:commandButton class="btn btn-danger" type="button" action="#{cartBean.removeOrder(order)}">
 							<i class="icon-remove icon-white"></i>
-						</button>
+						</h:commandButton>
+					</h:form>
 					</div>
 				  </td>
                   <td>#{order.product.productPrice.amount}</td>

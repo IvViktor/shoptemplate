@@ -126,8 +126,7 @@ public class SpecialOfferBean {
 		}
 	}
 	
-	public void addToCart(String id){
-		long productId = Long.parseLong(id);
+	public void addToCart(long productId){
 		Order order = new Order();
 		order.setCustomer(user);
 		order.setFormedTime(new Timestamp(new Date().getTime()));

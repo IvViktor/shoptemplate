@@ -37,8 +37,13 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="themes/images/ico/apple-touch-icon-72-precomposed.png"/>
     <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png"/>
 	<style type="text/css" id="enject"></style>
+	<script type="text/javascript">
+		function closeSession(){
+			#{deliveryBean.closeSession()}
+		}
+	</script>
   </head>
-<body onload="#{deliveryBean.closeSession()}">
+<body onload="closeSession()">
 <div id="header">
 <div class="container">
 <c:if test="#{deliveryBean.userId ne 0}">
@@ -94,10 +99,10 @@
 			  <div class="modal-body">
 				<h:form class="form-horizontal loginFrm">
 				  <div class="control-group">								
-					<input type="text" id="inputEmail" placeholder="Email" value="#{deliveryBean.loginEmail}"/>
+					<h:inputText id="inputEmail" placeholder="Email" value="#{deliveryBean.loginEmail}"/>
 				  </div>
 				  <div class="control-group">
-					<input type="password" id="inputPassword" placeholder="Password" value="#{deliveryBean.loginPassword}"/>
+					<h:inputSecret id="inputPassword" placeholder="Password" value="#{deliveryBean.loginPassword}"/>
 				  </div>
 				  <ui:remove>
 					  <!--<div class="control-group">

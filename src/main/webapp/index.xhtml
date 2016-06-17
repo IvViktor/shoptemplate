@@ -37,8 +37,13 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="themes/images/ico/apple-touch-icon-72-precomposed.png"/>
     <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png"/>
 	<style type="text/css" id="enject"></style>
+	<script type="text/javascript">
+		function closeSession(){
+			#{indexBean.closeSession()}
+		}
+	</script>
   </head>
-<body onload="#{indexBean.closeSession()}">
+<body onload="closeSession()">
 <div id="header">
 <div class="container">
 <c:if test="#{indexBean.userId ne 0}">
@@ -94,10 +99,10 @@
 			  <div class="modal-body">
 				<h:form class="form-horizontal loginFrm">
 				  <div class="control-group">								
-					<input type="text" id="inputEmail" placeholder="Email" value="#{indexBean.loginEmail}"/>
+					<h:inputText id="inputEmail" placeholder="Email" value="#{indexBean.loginEmail}"/>
 				  </div>
 				  <div class="control-group">
-					<input type="password" id="inputPassword" placeholder="Password" value="#{indexBean.loginPassword}"/>
+					<h:inputSecret id="inputPassword" placeholder="Password" value="#{indexBean.loginPassword}"/>
 				  </div>
 				  <ui:remove>
 					  <!--<div class="control-group">
@@ -352,9 +357,11 @@
 						   	 <f:param name="productId" value="#{product.id}" />
 						   	</h:link> 
 						   	<c:if test="#{indexBean.userId != 0}">
-							   	<h:button class="btn" onclick="#{indexBean.addToCart('#{product.id}')}">Add to 
-							   		<i class="icon-shopping-cart"></i>
-							   	</h:button>
+							   	<h:form>
+								   	<h:commandButton class="btn" action="#{indexBean.addToCart(product.id)}">Add to 
+								   		<i class="icon-shopping-cart"></i>
+								   	</h:commandButton>
+								</h:form>
 						   	</c:if>
 						   	<a class="btn btn-primary" href="#">$222.00</a>
 						   </h4>

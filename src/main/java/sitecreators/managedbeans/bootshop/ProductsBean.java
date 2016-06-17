@@ -78,7 +78,7 @@ public class ProductsBean {
 		this.pageNum = (String) req.getParameter("page");
 		this.minPrice = (String) req.getParameter("minprice");
 		this.maxPrice = (String) req.getParameter("maxprice");
-		this.selectedCategory = (String) req.getParameter("category");
+		this.selectedCategory = (String) req.getParameter("selectedCategory");
 		this.sortType = (String) req.getParameter("sortBy");
 		int ppp = 6;
 		int page = 1;
@@ -157,8 +157,7 @@ public class ProductsBean {
 		
 	}
 	
-	public void addToCart(String id){
-		long productId = Long.parseLong(id);
+	public void addToCart(long productId){
 		Order order = new Order();
 		order.setCustomer(user);
 		order.setFormedTime(new Timestamp(new Date().getTime()));

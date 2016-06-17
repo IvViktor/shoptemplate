@@ -37,8 +37,13 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="themes/images/ico/apple-touch-icon-72-precomposed.png"/>
     <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png"/>
 	<style type="text/css" id="enject"></style>
+	<script type="text/javascript">
+		function closeSession(){
+			#{specialOfferBean.closeSession()}
+		}
+	</script>
   </head>
-<body onload="#{specialOfferBean.closeSession()}">
+<body onload="closeSession()">
 <div id="header">
 <div class="container">
 <c:if test="#{specialOfferBean.userId ne 0}">
@@ -94,10 +99,10 @@
 			  <div class="modal-body">
 				<h:form class="form-horizontal loginFrm">
 				  <div class="control-group">								
-					<input type="text" id="inputEmail" placeholder="Email" value="#{specialOfferBean.loginEmail}"/>
+					<h:inputText type="text" id="inputEmail" placeholder="Email" value="#{specialOfferBean.loginEmail}"/>
 				  </div>
 				  <div class="control-group">
-					<input type="password" id="inputPassword" placeholder="Password" value="#{specialOfferBean.loginPassword}"/>
+					<h:inputSecret type="password" id="inputPassword" placeholder="Password" value="#{specialOfferBean.loginPassword}"/>
 				  </div>
 				  <ui:remove>
 					  <!--<div class="control-group">
@@ -274,9 +279,11 @@
 						</label><br/>
 						
 						<c:if test="#{specialOfferBean.userId != 0}">
-							<h:button class="btn" onclick="#{specialOfferBean.addToCart('#{product.id}')}">Add to 
-								<i class="icon-shopping-cart"></i>
-							</h:button>
+							<h:form>
+								<h:commandButton class="btn" action="#{specialOfferBean.addToCart(product.id)}">Add to 
+									<i class="icon-shopping-cart"></i>
+								</h:commandButton>
+							</h:form>
 						</c:if>
 						  <h:link outcome="productdetails" class="btn btn-large">
 						  	<i class="icon-zoom-in"></i>
@@ -309,9 +316,9 @@
 						<f:param name="productId" value="#{product.id}" />
 					</h:link> 
 					<c:if test="#{specialOfferBean.userId != 0}">
-						<h:button class="btn" onclick="#{specialOfferBean.addToCart('#{product.id}')}">Add to 
+						<h:commandButton class="btn" action="#{specialOfferBean.addToCart(product.id)}">Add to 
 							<i class="icon-shopping-cart"></i>
-						</h:button>
+						</h:commandButton>
 					</c:if>
 					<a class="btn btn-primary" href="#">$222.00</a>
 				</h4>

@@ -37,8 +37,13 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="themes/images/ico/apple-touch-icon-72-precomposed.png"/>
     <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png"/>
 	<style type="text/css" id="enject"></style>
+	<script type="text/javascript">
+		function closeSession(){
+			#{productDetailsBean.closeSession()}
+		}
+	</script>
   </head>
-<body onload="#{productDetailsBean.closeSession()}">
+<body onload="closeSession()">
 <div id="header">
 <div class="container">
 <c:if test="#{productDetailsBean.userId ne 0}">
@@ -94,10 +99,10 @@
 			  <div class="modal-body">
 				<h:form class="form-horizontal loginFrm">
 				  <div class="control-group">								
-					<input type="text" id="inputEmail" placeholder="Email" value="#{productDetailsBean.loginEmail}"/>
+					<h:inputText type="text" id="inputEmail" placeholder="Email" value="#{productDetailsBean.loginEmail}"/>
 				  </div>
 				  <div class="control-group">
-					<input type="password" id="inputPassword" placeholder="Password" value="#{productDetailsBean.loginPassword}"/>
+					<h:inputSecret type="password" id="inputPassword" placeholder="Password" value="#{productDetailsBean.loginPassword}"/>
 				  </div>
 				  <ui:remove>
 					  <!--<div class="control-group">
@@ -249,7 +254,9 @@
 					<label class="control-label"><span>$ #{productDetailsBean.price}</span></label>
 					<div class="controls">
 					<!--<input type="number" class="span1" placeholder="Qty."/>-->
-					  <h:button onclick="#{productDetailsBean.addToCart()}" class="btn btn-large btn-primary pull-right"> Add to cart <i class=" icon-shopping-cart"></i></h:button>
+					<h:form>
+					  <h:commandButton action="#{productDetailsBean.addToCart()}" class="btn btn-large btn-primary pull-right"> Add to cart <i class=" icon-shopping-cart"></i></h:commandButton>
+					</h:form>
 					</div>
 				  </div>
 				</form>
@@ -380,9 +387,11 @@
 						</label><br/>
 						
 						<c:if test="#{productDetailsBean.userId != 0}">
-							<h:button class="btn" onclick="#{productDetailsBean.addToCart('#{product.id}')}">Add to 
-								<i class="icon-shopping-cart"></i>
-							</h:button>
+							<h:form>
+								<h:commandButton class="btn" onclick="#{productDetailsBean.addToCart(product.id)}">Add to 
+									<i class="icon-shopping-cart"></i>
+								</h:commandButton>
+							</h:form>
 						</c:if>
 						  <h:link outcome="productdetails" class="btn btn-large">
 						  	<i class="icon-zoom-in"></i>
@@ -397,6 +406,7 @@
 
 	<div class="tab-pane  active" id="blockView">
 		<ul class="thumbnails">
+		<ui:repeat value="#{productDetailsBean.products}" var="product">
 			<li class="span3">
 			  <div class="thumbnail">
 				<h:link outcome="productdetails" >
@@ -414,15 +424,18 @@
 						<f:param name="productId" value="#{product.id}" />
 					</h:link> 
 					<c:if test="#{productDetailsBean.userId != 0}">
-						<h:button class="btn" onclick="#{productDetailsBean.addToCart('#{product.id}')}">Add to 
-							<i class="icon-shopping-cart"></i>
-						</h:button>
+						<h:form>
+							<h:commandButton class="btn" action="#{productDetailsBean.addToCart(product.id)}">Add to 
+								<i class="icon-shopping-cart"></i>
+							</h:commandButton>
+						</h:form>
 					</c:if>
 					<a class="btn btn-primary" href="#">$222.00</a>
 				</h4>
 				</div>
 			  </div>
 			</li>
+		</ui:repeat>
 		 </ul>
 	<hr class="soft"/>
 	</div>
