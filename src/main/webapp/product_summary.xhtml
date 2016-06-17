@@ -266,14 +266,14 @@
 				  <td>
 					<div class="input-append">
 					<h:form>
-						<h:commandButton class="btn" type="button" action="#{cartBean.decOrder(order)}">
+						<h:commandButton class="btn" action="#{cartBean.decOrder(order)}">
 							<i class="icon-minus"></i>
 						</h:commandButton>
-						<h:commandButton class="btn" type="button" style="line-height: 1.1em;">#{order.productsNumber}</h:commandButton>
-						<h:commandButton class="btn" type="button" action="#{cartBean.incOrder(order)}">
+						<h:commandButton class="btn" style="line-height: 1.1em;" value="#{order.productsNumber}"/>
+						<h:commandButton class="btn" action="#{cartBean.incOrder(order)}">
 							<i class="icon-plus"></i>
 						</h:commandButton>
-						<h:commandButton class="btn btn-danger" type="button" action="#{cartBean.removeOrder(order)}">
+						<h:commandButton class="btn btn-danger" action="#{cartBean.removeOrder(order)}">
 							<i class="icon-remove icon-white"></i>
 						</h:commandButton>
 					</h:form>

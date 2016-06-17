@@ -388,7 +388,7 @@
 						
 						<c:if test="#{productDetailsBean.userId != 0}">
 							<h:form>
-								<h:commandButton class="btn" onclick="#{productDetailsBean.addToCart(product.id)}">Add to 
+								<h:commandButton class="btn" action="#{productDetailsBean.addToCart(product.id)}">Add to 
 									<i class="icon-shopping-cart"></i>
 								</h:commandButton>
 							</h:form>
