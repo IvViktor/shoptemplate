@@ -91,7 +91,7 @@ public class CartBean {
 	
 	public void incOrder(Order order){
 		int amount = order.getProductsNumber();
-		amount--;
+		amount++;
 		order.setProductsNumber(amount);
 		try{
 			userDao.open();
@@ -105,7 +105,7 @@ public class CartBean {
 	
 	public void decOrder(Order order){
 		int amount = order.getProductsNumber();
-		amount++;
+		amount--;
 		order.setProductsNumber(amount);
 		try{
 			userDao.open();
