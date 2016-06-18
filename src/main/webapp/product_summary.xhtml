@@ -86,7 +86,7 @@
 	 <li class=""><a href="special_offer.xhtml">Specials Offer</a></li>
 	 <li class=""><a href="normal.xhtml">Delivery</a></li>
 	 <li class=""><a href="contact.xhtml">Contact</a></li>
-	 <!--<c:if test="#{cartBean.userId eq 0}">-->
+	 <c:if test="#{cartBean.userId eq 0}">
 		 <li class="">
 		 <a href="#login" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">Login</span></a>
 		<div id="login" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >
@@ -118,7 +118,7 @@
 			  </div>
 		</div>
 		</li>
-	<!--</c:if>-->
+	</c:if>
     </ul>
   </div>
 </div>
@@ -264,16 +264,29 @@
 				  <td>
 					<div class="input-append">
 					<h:form>
-						<h:commandButton class="btn" action="#{cartBean.decOrder(order)}">
+						<!--<h:commandButton id="decbutton" action="#{cartBean.decOrder(order)}" style="display: none;" />
+						<button  class="btn" type="submit" id="editForm:decbutton" name="editForm:decbutton">
 							<i class="icon-minus"></i>
-						</h:commandButton>
-						<h:commandButton class="btn" style="line-height: 1.1em;" value="#{order.productsNumber}"/>
-						<h:commandButton class="btn" action="#{cartBean.incOrder(order)}">
+						</button>
+						<h:commandButton styleClass="btn" value="#{order.productsNumber}"/>
+						<h:commandButton action="#{cartBean.incOrder(order)}" id="incbutton" style="display: none;"/>
+						<button class="btn" type="submit" id="editForm:incbutton" name="editForm:incbutton">
 							<i class="icon-plus"></i>
-						</h:commandButton>
-						<h:commandButton class="btn btn-danger" action="#{cartBean.removeOrder(order)}">
+						</button>
+						<h:commandButton id="delbutton" action="#{cartBean.removeOrder(order)}" style="display: none;"/>
+						<button class="btn  btn-danger" type="submit" id="editForm:delbutton" name="editForm:delbutton">
 							<i class="icon-remove icon-white"></i>
-						</h:commandButton>
+						</button>-->
+						<h:commandLink action="#{cartBean.decOrder(order)}" class="btn">
+							<i class="icon-minus"></i>
+						</h:commandLink>
+						<h:commandButton type="button" styleClass="btn" value="#{order.productsNumber}"/>
+						<h:commandLink action="#{cartBean.incOrder(order)}" class="btn">
+							<i class="icon-plus"></i>
+						</h:commandLink>
+						<h:commandLink styleClass="btn  btn-danger"  action="#{cartBean.removeOrder(order)}">
+							<i class="icon-remove icon-white"></i>
+						</h:commandLink>
 					</h:form>
 					</div>
 				  </td>
