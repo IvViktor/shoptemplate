@@ -71,7 +71,10 @@ public class RegisterBean {
 			}
 		} catch (Exception e){
 			e.printStackTrace();
+		} finally {
+			userDao.close();
 		}
+		
 		try{
 			categoryDao.open();
 			this.categories = categoryDao.getAllCategories();

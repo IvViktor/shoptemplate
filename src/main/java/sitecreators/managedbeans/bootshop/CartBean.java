@@ -62,6 +62,8 @@ public class CartBean {
 			}
 		} catch (Exception e){
 			e.printStackTrace();
+		} finally {
+			userDao.close();
 		}
 		try{
 			categoryDao.open();

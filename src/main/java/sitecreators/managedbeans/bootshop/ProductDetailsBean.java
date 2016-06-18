@@ -19,6 +19,7 @@ import sitecreators.utils.order.Order;
 import sitecreators.utils.order.OrderStatus;
 import sitecreators.utils.product.Product;
 import sitecreators.utils.product.ProductDAO;
+import sitecreators.utils.product.ProductDecription;
 import sitecreators.utils.user.User;
 import sitecreators.utils.user.UserAbout;
 import sitecreators.utils.user.UserDAO;
@@ -90,7 +91,10 @@ public class ProductDetailsBean {
 			}
 		} catch (Exception e){
 			e.printStackTrace();
+		} finally {
+			userDao.close();
 		}
+		
 		try{
 			categoryDao.open();
 			this.categories = categoryDao.getAllCategories();
@@ -105,6 +109,13 @@ public class ProductDetailsBean {
 			this.product = productDao.getProduct(id);
 			if(product == null) throw new Exception();
 			this.products = productDao.getProducts(product.getCategory(),0,0,0,6);
+			this.title = product.getProductTitle();
+			ProductDecription pDescr = product.getDescription();
+			if(pDescr != null) this.description = pDescr.getDescription();
+			this.price = product.getProductPrice().getAmount();
+			this.icon = product.getIcon();
+			this.images = product.getImages();
+			this.comments = product.getComments();
 		} catch (Exception e){
 			e.printStackTrace();
 			throw new Exception("invalid identifier");

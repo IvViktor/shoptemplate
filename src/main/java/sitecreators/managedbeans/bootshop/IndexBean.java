@@ -69,6 +69,8 @@ public class IndexBean {
 			}
 		} catch (Exception e){
 			e.printStackTrace();
+		} finally {
+			userDao.close();
 		}
 		try{
 			productDao.open();

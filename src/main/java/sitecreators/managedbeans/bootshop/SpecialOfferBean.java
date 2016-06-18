@@ -113,7 +113,10 @@ public class SpecialOfferBean {
 			}
 		} catch (Exception e){
 			e.printStackTrace();
+		} finally {
+			userDao.close();
 		}
+		
 		if(sortType == null) sortType="";
 		if(sortType.equalsIgnoreCase("nasc")){
 			products.sort((Product p1, Product p2) -> p1.getProductTitle().compareTo(p2.getProductTitle()));

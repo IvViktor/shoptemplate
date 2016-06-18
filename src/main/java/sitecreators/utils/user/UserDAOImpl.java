@@ -119,7 +119,7 @@ public class UserDAOImpl implements UserDAO {
 		if(session != null){
 			this.session.close();
 			this.session = null;
-			System.out.println("categoryDAO session opened");
+			System.out.println("userDAO session closed");
 		}
 	}
 
