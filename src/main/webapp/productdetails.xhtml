@@ -41,7 +41,6 @@
 	
   </head>
 <body onload="closeSession()">
-<p:remoteCommand name="closeSession" actionListener="#{productDetailsBean.closeSession()}" style="display: none;" />
 <div id="header">
 <div class="container">
 <c:if test="#{productDetailsBean.userId ne 0}">
@@ -86,7 +85,7 @@
 	 <li class=""><a href="special_offer.xhtml">Specials Offer</a></li>
 	 <li class=""><a href="normal.xhtml">Delivery</a></li>
 	 <li class=""><a href="contact.xhtml">Contact</a></li>
-	 <!--<c:if test="#{productDetailsBean.userId eq 0}">-->
+	 <c:if test="#{productDetailsBean.userId eq 0}">
 		 <li class="">
 		 <a href="#login" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">Login</span></a>
 		<div id="login" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >
@@ -118,7 +117,7 @@
 			  </div>
 		</div>
 		</li>
-	<!--</c:if>-->
+	</c:if>
     </ul>
   </div>
 </div>
@@ -213,7 +212,7 @@
     </ul>	
 	<div class="row">	  
 			<div id="gallery" class="span3">
-            <a href="#{productDetailsBean.icon.imagePath}" title="Fujifilm FinePix S2950 Digital Camera">
+            <a href="#{productDetailsBean.icon.imagePath}" title="#{productDetailsBean.title}">
 				<img src="#{productDetailsBean.icon.imagePath}" style="width:100%"
 				 alt="#{productDetailsBean.icon.imgDecs}"/>
             </a>
@@ -549,5 +548,6 @@
 	</div>
 </div>
 <span id="themesBtn"></span>
+<p:remoteCommand name="closeSession" actionListener="#{productDetailsBean.closeSession()}" style="display: none;" />
 </body>
 </html>
