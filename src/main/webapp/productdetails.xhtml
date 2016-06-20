@@ -210,7 +210,7 @@
     <ul class="breadcrumb">
     <li><a href="index.xhtml">Home</a> <span class="divider">/</span></li>
     <li><a href="products.xhtml">Products</a> <span class="divider">/</span></li>
-    <li class="active">product Details</li>
+    <li class="active">#{productDetailsBean.title}</li>
     </ul>	
 	<div class="row">	  
 			<div id="gallery" class="span3">
@@ -246,17 +246,19 @@
 			</div>
 			<div class="span6">
 				<h3>#{productDetailsBean.title}</h3>
+				<ui:remove>
 				<!--<small>- (14MP, 18x Optical Zoom) 3-inch LCD</small>-->
+				</ui:remove>
 				<hr class="soft"/>
 				<h:form class="form-horizontal qtyFrm">
 				  <div class="control-group">
 					<label class="control-label"><span>$ #{productDetailsBean.price}</span></label>
 					<div class="controls">
+					<ui:remove>
 					<!--<input type="number" class="span1" placeholder="Qty."/>-->
-					<!--<h:form>-->
+					</ui:remove>
 					<input type="hidden" name="productId" value="#{productDetailsBean.productId}" />
 					  <h:commandLink action="#{productDetailsBean.addToCart()}" class="btn btn-large btn-primary pull-right"> Add to cart <i class=" icon-shopping-cart"></i></h:commandLink>
-					<!--</h:form>-->
 					</div>
 				  </div>
 				</h:form>
@@ -316,6 +318,7 @@
 						<h:commandButton type="submit" action="#{productDetailsBean.addComment}" value="Leave comment" />
 					</h:form>
 				</c:if>
+				<ui:remove>
                 <!--<table class="table table-bordered">
 				<tbody>
 				<tr class="techSpecRow"><th colspan="2">Product Details</th></tr>
@@ -352,6 +355,7 @@
 				<p>
 				Even at the longest zoom settings or in the most challenging of lighting conditions, the S2950 is able to produce crisp, clean results. With its mechanically stabilised 1/2 3", 14 megapixel CCD sensor, and high ISO sensitivity settings, Fujifilm's Dual Image Stabilisation technology combines to reduce the blurring effects of both hand-shake and subject movement to provide superb pictures.
 				</p>-->
+				</ui:remove>
               </div>
 		<div class="tab-pane fade" id="profile">
 		<div id="myTab" class="pull-right">
@@ -382,10 +386,11 @@
 				<div class="span3 alignR">
 					<h:form class="form-horizontal qtyFrm">
 						<h3> $ #{product.productPrice.amount}</h3>
-						<label class="checkbox">
+						<ui:remove>
+						<!--<label class="checkbox">
 							<input type="checkbox"/>  Adds product to compair
-						</label><br/>
-						
+						</label><br/>-->
+						</ui:remove>
 						<c:if test="#{productDetailsBean.userId != 0}">
 							<!--<h:form>-->
 							<input type="hidden" name="productId" value="#{product.id}" />

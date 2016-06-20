@@ -281,16 +281,16 @@
 				<div class="span3 alignR">
 					<h:form class="form-horizontal qtyFrm">
 						<h3> $ #{product.productPrice.amount}</h3>
-						<label class="checkbox">
+						<ui:remove>
+						<!--<label class="checkbox">
 							<input type="checkbox"/>  Adds product to compair
-						</label><br/>
+						</label><br/>-->
+						</ui:remove>
 						
 						<c:if test="#{productsBean.userId != 0}">
-							<!--<h:form>-->
 								<h:commandLink class="btn" action="#{productsBean.addToCart(product.id)}">Add to 
 									<i class="icon-shopping-cart"></i>
 								</h:commandLink>
-							<!--</h:form>-->
 						</c:if>
 						  <h:link outcome="productdetails" class="btn btn-large">
 						  	<i class="icon-zoom-in"></i>
@@ -339,8 +339,9 @@
 	<hr class="soft"/>
 	</div>
 </div>
-
+	<ui:remove>
 	<!--<a href="compair.xhtml" class="btn btn-large pull-right">Compair Product</a>-->
+	</ui:remove>
 	
 	<div class="pagination">
 			<ul>
