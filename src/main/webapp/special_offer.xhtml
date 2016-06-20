@@ -280,9 +280,18 @@
 						</label><br/>-->
 						</ui:remove>
 						<c:if test="#{specialOfferBean.userId != 0}">
+						<h:form>
 								<h:commandLink class="btn" action="#{specialOfferBean.addToCart(product.id)}">Add to 
 									<i class="icon-shopping-cart"></i>
 								</h:commandLink>
+								<c:if test="#{specialOfferBean.prodPerPage != null}">
+								<input type="hidden" name="ppp" value="#{specialOfferBean.prodPerPage}" />
+								</c:if>
+								<c:if test="#{specialOfferBean.sortType != null}">
+									<input type="hidden" name="sortBy" value="#{specialOfferBean.sortType}" />
+								</c:if>
+								<input type="hidden" name="page" value="#{specialOfferBean.pageNum}" />
+						</h:form>
 						</c:if>
 						  <h:link outcome="productdetails" class="btn btn-large">
 						  	<i class="icon-zoom-in"></i>
@@ -315,9 +324,18 @@
 						<f:param name="productId" value="#{product.id}" />
 					</h:link> 
 					<c:if test="#{specialOfferBean.userId != 0}">
+					<h:form>
 						<h:commandLink class="btn" action="#{specialOfferBean.addToCart(product.id)}">Add to 
 							<i class="icon-shopping-cart"></i>
 						</h:commandLink>
+						<c:if test="#{specialOfferBean.prodPerPage != null}">
+							<input type="hidden" name="ppp" value="#{specialOfferBean.prodPerPage}" />
+						</c:if>
+						<c:if test="#{specialOfferBean.sortType != null}">
+							<input type="hidden" name="sortBy" value="#{specialOfferBean.sortType}" />
+						</c:if>
+						<input type="hidden" name="page" value="#{specialOfferBean.pageNum}" />
+					</h:form>
 					</c:if>
 					<a class="btn btn-primary" href="#">$ #{product.productPrice.amount}</a>
 				</h4>

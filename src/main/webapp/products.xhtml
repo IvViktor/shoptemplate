@@ -291,6 +291,22 @@
 								<h:commandLink class="btn" action="#{productsBean.addToCart(product.id)}">Add to 
 									<i class="icon-shopping-cart"></i>
 								</h:commandLink>
+								<c:if test="#{productsBean.selectedCategory != null}">
+								<input type="hidden"  name="category" value="#{productsBean.selectedCategory}" />
+								</c:if>
+								<c:if test="#{productsBean.minPrice != null}">
+									<input type="hidden"  name="minprice" value="#{productsBean.minPrice}" />
+								</c:if>
+								<c:if test="#{productsBean.maxPrice != null}">
+									<input type="hidden" name="maxPrice" value="#{productsBean.maxPrice}" />
+								</c:if>
+								<c:if test="#{productsBean.prodPerPage != null}">
+									<input type="hidden"  name="ppp" value="#{productsBean.prodPerPage}" />
+								</c:if>
+								<c:if test="#{productsBean.sortType != null}">
+									<input type="hidden"  name="sortBy" value="#{productsBean.sortType}" />
+								</c:if>
+								<input type="hidden"  name="page" value="#{productsBean.pageNum}" />
 						</c:if>
 						  <h:link outcome="productdetails" class="btn btn-large">
 						  	<i class="icon-zoom-in"></i>
@@ -327,6 +343,22 @@
 							<h:commandLink class="btn" action="#{productsBean.addToCart(product.id)}">Add to 
 								<i class="icon-shopping-cart"></i>
 							</h:commandLink>
+							<c:if test="#{productsBean.selectedCategory != null}">
+							<input type="hidden"  name="category" value="#{productsBean.selectedCategory}" />
+							</c:if>
+							<c:if test="#{productsBean.minPrice != null}">
+								<input type="hidden"  name="minprice" value="#{productsBean.minPrice}" />
+							</c:if>
+							<c:if test="#{productsBean.maxPrice != null}">
+								<input type="hidden" name="maxPrice" value="#{productsBean.maxPrice}" />
+							</c:if>
+							<c:if test="#{productsBean.prodPerPage != null}">
+								<input type="hidden"  name="ppp" value="#{productsBean.prodPerPage}" />
+							</c:if>
+							<c:if test="#{productsBean.sortType != null}">
+								<input type="hidden"  name="sortBy" value="#{productsBean.sortType}" />
+							</c:if>
+							<input type="hidden"  name="page" value="#{productsBean.pageNum}" />
 						</h:form>
 					</c:if>
 					<a class="btn btn-primary" href="#">$ #{product.productPrice.amount}</a>
