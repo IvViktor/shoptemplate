@@ -48,6 +48,8 @@ public class RegisterBean {
 	private String email;
 	
 	private String password;
+
+	private int totalPrice;
 	
 		
 	public RegisterBean(){
@@ -81,6 +83,7 @@ public class RegisterBean {
 		} catch (Exception e){
 			e.printStackTrace();
 		}
+		calculateSum();
 	}
 	
 	public String register(){
@@ -143,6 +146,16 @@ public class RegisterBean {
 			e.printStackTrace();
 		} finally {
 			userDao.close();
+		}
+		calculateSum();
+	}
+	
+	private void calculateSum(){
+		this.totalPrice = 0;
+		for(Order order : cart){
+			int number = order.getProductsNumber();
+			int price = order.getProduct().getProductPrice().getAmount();
+			this.totalPrice += (price * number);
 		}
 	}
 	
@@ -237,6 +250,14 @@ public class RegisterBean {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public int getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 		
 }

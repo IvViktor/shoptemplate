@@ -36,6 +36,8 @@ public class DeliveryPageBean {
 	private String loginEmail;
 	
 	private String loginPassword;
+
+	private int totalPrice;
 	
 	public DeliveryPageBean(){
 		this.userDao = (UserDAO) ApplicationContextUtil.getApplicationContext().getBean("UserDAO");
@@ -67,6 +69,7 @@ public class DeliveryPageBean {
 		} catch (Exception e){
 			e.printStackTrace();
 		}
+		calculateSum();
 	}
 	
 	public void login(){
@@ -92,6 +95,16 @@ public class DeliveryPageBean {
 			e.printStackTrace();
 		} finally {
 			userDao.close();
+		}
+		calculateSum();
+	}
+	
+	private void calculateSum(){
+		this.totalPrice = 0;
+		for(Order order : cart){
+			int number = order.getProductsNumber();
+			int price = order.getProduct().getProductPrice().getAmount();
+			this.totalPrice += (price * number);
 		}
 	}
 	
@@ -154,6 +167,14 @@ public class DeliveryPageBean {
 
 	public void setLoginPassword(String loginPassword) {
 		this.loginPassword = loginPassword;
+	}
+
+	public int getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 		
 }

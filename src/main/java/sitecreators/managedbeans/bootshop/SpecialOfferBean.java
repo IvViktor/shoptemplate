@@ -55,6 +55,8 @@ public class SpecialOfferBean {
 	private String pageNum;
 	
 	private int totalPages;
+
+	private int totalPrice;
 	
 	public SpecialOfferBean(){
 		this.productDao = (ProductDAO) ApplicationContextUtil.getApplicationContext().getBean("ProductDAO");
@@ -127,6 +129,7 @@ public class SpecialOfferBean {
 		} else {
 			products.sort((Product p1,Product p2) -> (int)(p1.getId() - p2.getId())*(-1));
 		}
+		calculateSum();
 	}
 	
 	public void addToCart(long productId){
@@ -155,7 +158,17 @@ public class SpecialOfferBean {
 		} finally {
 			productDao.close();
 			userDao.close();
-		}		
+		}
+		calculateSum();
+	}
+	
+	private void calculateSum(){
+		this.totalPrice = 0;
+		for(Order order : cart){
+			int number = order.getProductsNumber();
+			int price = order.getProduct().getProductPrice().getAmount();
+			this.totalPrice += (price * number);
+		}
 	}
 	
 	private Order checkOrder(Product product){
@@ -189,6 +202,7 @@ public class SpecialOfferBean {
 		} finally {
 			userDao.close();
 		}
+		calculateSum();
 	}
 	
 	public void closeSession(){
@@ -291,6 +305,14 @@ public class SpecialOfferBean {
 
 	public void setTotalPages(int totalPages) {
 		this.totalPages = totalPages;
+	}
+
+	public int getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 	
 }

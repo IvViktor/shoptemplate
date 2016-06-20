@@ -36,6 +36,8 @@ public class ForgetPassBean {
 	private String loginEmail;
 	
 	private String loginPassword;
+
+	private int totalPrice;
 	
 	public ForgetPassBean(){
 		this.userDao = (UserDAO) ApplicationContextUtil.getApplicationContext().getBean("UserDAO");
@@ -68,13 +70,14 @@ public class ForgetPassBean {
 		} catch (Exception e){
 			e.printStackTrace();
 		}
+		calculateSum();
 	}
 	
 	public void forgotPass(){
 		return;
 	}
 	
-	public void login(){
+	public String login(){
 		try{
 			userDao.open();
 			this.user = userDao.getUser(loginEmail);
@@ -97,6 +100,17 @@ public class ForgetPassBean {
 			e.printStackTrace();
 		} finally {
 			userDao.close();
+		}
+		
+		return "home";
+	}
+	
+	private void calculateSum(){
+		this.totalPrice = 0;
+		for(Order order : cart){
+			int number = order.getProductsNumber();
+			int price = order.getProduct().getProductPrice().getAmount();
+			this.totalPrice += (price * number);
 		}
 	}
 	
@@ -159,6 +173,14 @@ public class ForgetPassBean {
 
 	public void setLoginPassword(String loginPassword) {
 		this.loginPassword = loginPassword;
+	}
+
+	public int getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 		
 }
