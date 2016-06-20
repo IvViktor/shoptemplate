@@ -109,7 +109,7 @@
 						</label>
 					  </div>-->
 				  </ui:remove>
-				  <h:commandButton value="Sign in" class="btn btn-success" action="#{specialOfferBean.login}" />
+				  <h:commandButton type="submit" value="Sign in" class="btn btn-success" action="#{specialOfferBean.login}" />
 				</h:form>		
 				<ui:remove>
 					<!--<button type="submit" class="btn btn-success">Sign in</button>
@@ -270,24 +270,24 @@
 					<br class="clr"/>
 				</div>
 				<div class="span3 alignR">
-					<form class="form-horizontal qtyFrm">
+					<h:form class="form-horizontal qtyFrm">
 						<h3> $ #{product.productPrice.amount}</h3>
 						<label class="checkbox">
 							<input type="checkbox"/>  Adds product to compair
 						</label><br/>
 						
 						<c:if test="#{specialOfferBean.userId != 0}">
-							<h:form>
-								<h:commandButton class="btn" action="#{specialOfferBean.addToCart(product.id)}">Add to 
+							<!--<h:form>-->
+								<h:commandLink class="btn" action="#{specialOfferBean.addToCart(product.id)}">Add to 
 									<i class="icon-shopping-cart"></i>
-								</h:commandButton>
-							</h:form>
+								</h:commandLink>
+							<!--</h:form>-->
 						</c:if>
 						  <h:link outcome="productdetails" class="btn btn-large">
 						  	<i class="icon-zoom-in"></i>
 						  	<f:param name="productId" value="#{product.id}" />
 						</h:link>
-					</form>
+					</h:form>
 				</div>
 			</div>
 			<hr class="soft"/>
@@ -314,9 +314,9 @@
 						<f:param name="productId" value="#{product.id}" />
 					</h:link> 
 					<c:if test="#{specialOfferBean.userId != 0}">
-						<h:commandButton class="btn" action="#{specialOfferBean.addToCart(product.id)}">Add to 
+						<h:commandLink class="btn" action="#{specialOfferBean.addToCart(product.id)}">Add to 
 							<i class="icon-shopping-cart"></i>
-						</h:commandButton>
+						</h:commandLink>
 					</c:if>
 					<a class="btn btn-primary" href="#">$222.00</a>
 				</h4>

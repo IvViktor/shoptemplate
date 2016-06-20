@@ -108,7 +108,7 @@
 						</label>
 					  </div>-->
 				  </ui:remove>
-				  <h:commandButton value="Sign in" class="btn btn-success" action="#{productDetailsBean.login}" />
+				  <h:commandButton type="submit" value="Sign in" class="btn btn-success" action="#{productDetailsBean.login}" />
 				</h:form>		
 				<ui:remove>
 					<!--<button type="submit" class="btn btn-success">Sign in</button>
@@ -246,17 +246,18 @@
 				<h3>#{productDetailsBean.title}</h3>
 				<!--<small>- (14MP, 18x Optical Zoom) 3-inch LCD</small>-->
 				<hr class="soft"/>
-				<form class="form-horizontal qtyFrm">
+				<h:form class="form-horizontal qtyFrm">
 				  <div class="control-group">
 					<label class="control-label"><span>$ #{productDetailsBean.price}</span></label>
 					<div class="controls">
 					<!--<input type="number" class="span1" placeholder="Qty."/>-->
-					<h:form>
-					  <h:commandButton action="#{productDetailsBean.addToCart()}" class="btn btn-large btn-primary pull-right"> Add to cart <i class=" icon-shopping-cart"></i></h:commandButton>
-					</h:form>
+					<!--<h:form>-->
+					<input type="hidden" name="productId" value="#{productDetailsBean.productId}" />
+					  <h:commandLink action="#{productDetailsBean.addToCart()}" class="btn btn-large btn-primary pull-right"> Add to cart <i class=" icon-shopping-cart"></i></h:commandLink>
+					<!--</h:form>-->
 					</div>
 				  </div>
-				</form>
+				</h:form>
 				<ui:remove>
 				<!--<hr class="soft"/>
 				<h4>100 items in stock</h4>
@@ -310,7 +311,7 @@
 						Leave your comment here:<br />
 						<input type="hidden" value="#{productDetailsBean.productId}" name="productId" />
 						<h:inputTextarea value="#{productDetailsBean.commentBody}" cols="30" rows="7" /><br />
-						<h:commandButton action="#{productDetailsBean.addComment}" value="Leave comment" />
+						<h:commandButton type="submit" action="#{productDetailsBean.addComment}" value="Leave comment" />
 					</h:form>
 				</c:if>
                 <!--<table class="table table-bordered">
@@ -377,24 +378,25 @@
 					<br class="clr"/>
 				</div>
 				<div class="span3 alignR">
-					<form class="form-horizontal qtyFrm">
+					<h:form class="form-horizontal qtyFrm">
 						<h3> $ #{product.productPrice.amount}</h3>
 						<label class="checkbox">
 							<input type="checkbox"/>  Adds product to compair
 						</label><br/>
 						
 						<c:if test="#{productDetailsBean.userId != 0}">
-							<h:form>
-								<h:commandButton class="btn" action="#{productDetailsBean.addToCart(product.id)}">Add to 
-									<i class="icon-shopping-cart"></i>
-								</h:commandButton>
-							</h:form>
+							<!--<h:form>-->
+							<input type="hidden" name="productId" value="#{product.id}" />
+							<h:commandLink class="btn" action="#{productDetailsBean.addToCart(product.id)}">Add to 
+								<i class="icon-shopping-cart"></i>
+							</h:commandLink>
+							<!--</h:form>-->
 						</c:if>
 						  <h:link outcome="productdetails" class="btn btn-large">
 						  	<i class="icon-zoom-in"></i>
 						  	<f:param name="productId" value="#{product.id}" />
 						</h:link>
-					</form>
+					</h:form>
 				</div>
 			</div>
 			<hr class="soft"/>
@@ -422,9 +424,10 @@
 					</h:link> 
 					<c:if test="#{productDetailsBean.userId != 0}">
 						<h:form>
-							<h:commandButton class="btn" action="#{productDetailsBean.addToCart(product.id)}">Add to 
+							<input type="hidden" name="productId" value="#{product.id}" />
+							<h:commandLink class="btn" action="#{productDetailsBean.addToCart(product.id)}">Add to 
 								<i class="icon-shopping-cart"></i>
-							</h:commandButton>
+							</h:commandLink>
 						</h:form>
 					</c:if>
 					<a class="btn btn-primary" href="#">$222.00</a>

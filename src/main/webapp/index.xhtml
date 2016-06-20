@@ -108,7 +108,7 @@
 						</label>
 					  </div>-->
 				  </ui:remove>
-				  <h:commandButton value="Sign in" class="btn btn-success" action="#{indexBean.login}" />
+				  <h:commandButton type="submit" value="Sign in" class="btn btn-success" action="#{indexBean.login}" />
 				</h:form>		
 				<ui:remove>
 					<!--<button type="submit" class="btn btn-success">Sign in</button>
@@ -355,9 +355,9 @@
 						   	</h:link> 
 						   	<c:if test="#{indexBean.userId != 0}">
 							   	<h:form>
-								   	<h:commandButton class="btn" action="#{indexBean.addToCart(product.id)}">Add to 
+								   	<h:commandLink class="btn" action="#{indexBean.addToCart(product.id)}">Add to 
 								   		<i class="icon-shopping-cart"></i>
-								   	</h:commandButton>
+								   	</h:commandLink>
 								</h:form>
 						   	</c:if>
 						   	<a class="btn btn-primary" href="#">$222.00</a>

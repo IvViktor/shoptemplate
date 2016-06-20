@@ -58,7 +58,8 @@
 				<a href="product_summary.html"><span class="">$</span></a>-->
 			</ui:remove>
 			<a href="product_summary.xhtml"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> 
-			[ #{cartBean.cart.size()} ] Itemes in your cart </span> </a> 
+			[ #{cartBean.cart.size()} ] Itemes in your cart 
+			</span><span class="btn btn-mini">$ #{cartBean.totalPrice}</span> </a> 
 		</div>
 		</div>
 	</div>
@@ -109,7 +110,7 @@
 						</label>
 					  </div>-->
 				  </ui:remove>
-				  <h:commandButton value="Sign in" class="btn btn-success" action="#{cartBean.login}" />
+				  <h:commandButton type="submit" value="Sign in" class="btn btn-success" action="#{cartBean.login}" />
 				</h:form>		
 				<ui:remove>
 					<!--<button type="submit" class="btn btn-success">Sign in</button>
@@ -132,7 +133,9 @@
 	<div id="sidebar" class="span3">
 		<c:if test="#{cartBean.userId ne 0}">
 			<div class="well well-small"><a id="myCart" href="product_summary.xhtml"><img src="themes/images/ico-cart.png" alt="cart"/>
-			#{cartBean.cart.size()} Items in your cart  <span class="badge badge-warning pull-right">$155.00</span></a></div>
+			#{cartBean.cart.size()} Items in your cart  
+			<span class="badge badge-warning pull-right">$ #{cartBean.totalPrice}</span>
+			</a></div>
 		</c:if>
 		<ul id="sideManu" class="nav nav-tabs nav-stacked">
 			<ui:repeat value="#{cartBean.categories}" var="category">
@@ -263,36 +266,27 @@
                   <td>#{order.product.productTitle}</td>
 				  <td>
 					<div class="input-append">
-					<h:form>
-						<!--<h:commandButton id="decbutton" action="#{cartBean.decOrder(order)}" style="display: none;" />
-						<button  class="btn" type="submit" id="editForm:decbutton" name="editForm:decbutton">
-							<i class="icon-minus"></i>
-						</button>
-						<h:commandButton styleClass="btn" value="#{order.productsNumber}"/>
-						<h:commandButton action="#{cartBean.incOrder(order)}" id="incbutton" style="display: none;"/>
-						<button class="btn" type="submit" id="editForm:incbutton" name="editForm:incbutton">
-							<i class="icon-plus"></i>
-						</button>
-						<h:commandButton id="delbutton" action="#{cartBean.removeOrder(order)}" style="display: none;"/>
-						<button class="btn  btn-danger" type="submit" id="editForm:delbutton" name="editForm:delbutton">
-							<i class="icon-remove icon-white"></i>
-						</button>-->
+					<h:form style="display:inline-block;">
 						<h:commandLink action="#{cartBean.decOrder(order)}" class="btn">
 							<i class="icon-minus"></i>
 						</h:commandLink>
+					</h:form>
+					<h:form style="display:inline-block;">
 						<h:commandButton type="button" styleClass="btn" value="#{order.productsNumber}"/>
 						<h:commandLink action="#{cartBean.incOrder(order)}" class="btn">
 							<i class="icon-plus"></i>
 						</h:commandLink>
+					</h:form>
+					<h:form style="display:inline-block;">
 						<h:commandLink styleClass="btn  btn-danger"  action="#{cartBean.removeOrder(order)}">
 							<i class="icon-remove icon-white"></i>
 						</h:commandLink>
 					</h:form>
 					</div>
 				  </td>
-                  <td>#{order.product.productPrice.amount}</td>
-                  <td>$0.00</td>
-                  <td>#{order.product.productPrice.amount}</td>
+                  <td>$ #{order.product.productPrice.amount}</td>
+                  <td>$ 0.00</td>
+                  <td>$ #{order.product.productPrice.amount * order.productsNumber}</td>
                 </tr>
 			   </ui:repeat>
                 <tr>

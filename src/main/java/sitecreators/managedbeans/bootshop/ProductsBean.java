@@ -63,6 +63,8 @@ public class ProductsBean {
 	private String pageNum;
 	
 	private int totalPages;
+
+	private int totalPrice;
 	
 	public ProductsBean(){
 		this.productDao = (ProductDAO) ApplicationContextUtil.getApplicationContext().getBean("ProductDAO");
@@ -157,18 +159,26 @@ public class ProductsBean {
 		} else {
 			products.sort((Product p1,Product p2) -> (int)(p1.getId() - p2.getId())*(-1));
 		}
-		
+		calculateSum();
 	}
 	
 	public void addToCart(long productId){
-		Order order = new Order();
-		order.setCustomer(user);
-		order.setFormedTime(new Timestamp(new Date().getTime()));
-		order.setStatus(OrderStatus.INCART);
 		try{
 			productDao.open();
 			Product product = productDao.getProduct(productId);
-			product.addOrder(order);
+			Order order = checkOrder(product);
+			if(order == null){
+				order = new Order();
+				order.setCustomer(user);
+				order.setFormedTime(new Timestamp(new Date().getTime()));
+				order.setStatus(OrderStatus.INCART);
+				product.addOrder(order);
+				cart.add(order);
+			} else {
+				int amount = order.getProductsNumber();
+				amount++;
+				order.setProductsNumber(amount);
+			}
 			productDao.updateProduct(product);
 			userDao.open();
 			user.addPurchase(order);
@@ -178,7 +188,24 @@ public class ProductsBean {
 		} finally {
 			productDao.close();
 			userDao.close();
-		}		
+		}	
+		calculateSum();
+	}
+	
+	private void calculateSum(){
+		this.totalPrice = 0;
+		for(Order order : cart){
+			int number = order.getProductsNumber();
+			int price = order.getProduct().getProductPrice().getAmount();
+			this.totalPrice += (price * number);
+		}
+	}
+	
+	private Order checkOrder(Product product){
+		for(Order order : cart){
+			if(order.getProduct().getId() == product.getId()) return order;
+		}
+		return null;
 	}
 	
 	public void login(){
@@ -189,12 +216,23 @@ public class ProductsBean {
 			if(pswd.check(loginPassword)){
 				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userID", user.getId());
 				System.out.println("password accepted");
+				this.userId = user.getId();
+				this.user = userDao.getUser(userId);
+				UserAbout uAbout = user.getAbout();
+				if(uAbout != null){
+					this.userName = uAbout.getFirstName()+" "+uAbout.getSecondName();
+				}
+				List<Order> orders = user.getPurchases();
+				for(Order o : orders){
+					if(o.getStatus().equals(OrderStatus.INCART)) this.cart.add(o);
+				}
 			}
 		} catch (Exception e){
 			e.printStackTrace();
 		} finally {
 			userDao.close();
 		}
+		calculateSum();
 	}
 	
 	public void closeSession(){
@@ -329,6 +367,14 @@ public class ProductsBean {
 
 	public void setTotalPages(int totalPages) {
 		this.totalPages = totalPages;
+	}
+
+	public int getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 	
 }

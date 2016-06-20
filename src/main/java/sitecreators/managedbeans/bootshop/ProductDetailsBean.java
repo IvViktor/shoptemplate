@@ -66,6 +66,8 @@ public class ProductDetailsBean {
 	private List<Comment> comments;
 	
 	private String commentBody;
+
+	private int totalPrice;
 	
 	public ProductDetailsBean() throws Exception{
 		this.productDao = (ProductDAO) ApplicationContextUtil.getApplicationContext().getBean("ProductDAO");
@@ -120,7 +122,7 @@ public class ProductDetailsBean {
 			e.printStackTrace();
 			throw new Exception("invalid identifier");
 		}
-		
+		calculateSum();
 	}
 	
 	public void closeSession(){
@@ -137,6 +139,17 @@ public class ProductDetailsBean {
 			if(pswd.check(loginPassword)){
 				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userID", user.getId());
 				System.out.println("password accepted");
+				this.userId = user.getId();
+				this.user = userDao.getUser(userId);
+				UserAbout uAbout = user.getAbout();
+				if(uAbout != null){
+					this.userName = uAbout.getFirstName()+" "+uAbout.getSecondName();
+				}
+				List<Order> orders = user.getPurchases();
+				for(Order o : orders){
+					if(o.getStatus().equals(OrderStatus.INCART)) this.cart.add(o);
+				}
+				calculateSum();
 			}
 		} catch (Exception e){
 			e.printStackTrace();
@@ -146,14 +159,22 @@ public class ProductDetailsBean {
 	}
 	
 	public void addToCart(long productId){
-		Order order = new Order();
-		order.setCustomer(user);
-		order.setFormedTime(new Timestamp(new Date().getTime()));
-		order.setStatus(OrderStatus.INCART);
 		try{
 			productDao.open();
 			Product product = productDao.getProduct(productId);
-			product.addOrder(order);
+			Order order = checkOrder(product);
+			if(order == null){
+				order = new Order();
+				order.setCustomer(user);
+				order.setFormedTime(new Timestamp(new Date().getTime()));
+				order.setStatus(OrderStatus.INCART);
+				product.addOrder(order);
+				cart.add(order);
+			} else {
+				int amount = order.getProductsNumber();
+				amount++;
+				order.setProductsNumber(amount);
+			}
 			productDao.updateProduct(product);
 			userDao.open();
 			user.addPurchase(order);
@@ -163,17 +184,33 @@ public class ProductDetailsBean {
 		} finally {
 			productDao.close();
 			userDao.close();
-		}		
+		}
+		calculateSum();
+	}
+	
+	private Order checkOrder(Product product){
+		for(Order order : cart){
+			if(order.getProduct().getId() == product.getId()) return order;
+		}
+		return null;
 	}
 	
 	public void addToCart(){
-		Order order = new Order();
-		order.setCustomer(user);
-		order.setFormedTime(new Timestamp(new Date().getTime()));
-		order.setStatus(OrderStatus.INCART);
 		try{
 			productDao.open();
-			product.addOrder(order);
+			Order order = checkOrder(product);
+			if(order == null){
+				order = new Order();
+				order.setCustomer(user);
+				order.setFormedTime(new Timestamp(new Date().getTime()));
+				order.setStatus(OrderStatus.INCART);
+				product.addOrder(order);
+				cart.add(order);
+			} else {
+				int amount = order.getProductsNumber();
+				amount++;
+				order.setProductsNumber(amount);
+			}
 			productDao.updateProduct(product);
 			userDao.open();
 			user.addPurchase(order);
@@ -183,7 +220,8 @@ public class ProductDetailsBean {
 		} finally {
 			productDao.close();
 			userDao.close();
-		}		
+		}
+		calculateSum();
 	}
 	
 	public void addComment(){
@@ -199,6 +237,15 @@ public class ProductDetailsBean {
 			e.printStackTrace();
 		} finally {
 			productDao.close();
+		}
+	}
+	
+	private void calculateSum(){
+		this.totalPrice = 0;
+		for(Order order : cart){
+			int number = order.getProductsNumber();
+			int price = order.getProduct().getProductPrice().getAmount();
+			this.totalPrice += (price * number);
 		}
 	}
 
@@ -320,6 +367,14 @@ public class ProductDetailsBean {
 
 	public void setCommentBody(String commentBody) {
 		this.commentBody = commentBody;
+	}
+
+	public int getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 		
 }

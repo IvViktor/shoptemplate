@@ -71,6 +71,7 @@ public class CartBean {
 		} catch (Exception e){
 			e.printStackTrace();
 		}
+		calculateSum();
 	}
 	
 	public void login(){
@@ -81,6 +82,16 @@ public class CartBean {
 			if(pswd.check(loginPassword)){
 				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userID", user.getId());
 				System.out.println("password accepted");
+				this.userId = user.getId();
+				this.user = userDao.getUser(userId);
+				UserAbout uAbout = user.getAbout();
+				if(uAbout != null){
+					this.userName = uAbout.getFirstName()+" "+uAbout.getSecondName();
+				}
+				List<Order> orders = user.getPurchases();
+				for(Order o : orders){
+					if(o.getStatus().equals(OrderStatus.INCART)) this.cart.add(o);
+				}
 			}
 		} catch (Exception e){
 			e.printStackTrace();
@@ -101,11 +112,16 @@ public class CartBean {
 		} finally {
 			userDao.close();
 		}
+		calculateSum();
 	}
 	
 	public void decOrder(Order order){
 		int amount = order.getProductsNumber();
 		amount--;
+		if(amount < 1){
+			removeOrder(order);
+			return;
+		}
 		order.setProductsNumber(amount);
 		try{
 			userDao.open();
@@ -115,10 +131,12 @@ public class CartBean {
 		} finally {
 			userDao.close();
 		}
+		calculateSum();
 	}
 	
 	public void removeOrder(Order order){
 		order.setStatus(OrderStatus.DEFFERED);
+		cart.remove(order);
 		try{
 			userDao.open();
 			userDao.updateUser(user);
@@ -126,6 +144,16 @@ public class CartBean {
 			e.printStackTrace();
 		} finally {
 			userDao.close();
+		}
+		calculateSum();
+	}
+	
+	private void calculateSum(){
+		this.totalPrice = 0;
+		for(Order order : cart){
+			int number = order.getProductsNumber();
+			int price = order.getProduct().getProductPrice().getAmount();
+			this.totalPrice += (price * number);
 		}
 	}
 	

@@ -77,6 +77,16 @@ public class DeliveryPageBean {
 			if(pswd.check(loginPassword)){
 				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userID", user.getId());
 				System.out.println("password accepted");
+				this.userId = user.getId();
+				this.user = userDao.getUser(userId);
+				UserAbout uAbout = user.getAbout();
+				if(uAbout != null){
+					this.userName = uAbout.getFirstName()+" "+uAbout.getSecondName();
+				}
+				List<Order> orders = user.getPurchases();
+				for(Order o : orders){
+					if(o.getStatus().equals(OrderStatus.INCART)) this.cart.add(o);
+				}
 			}
 		} catch (Exception e){
 			e.printStackTrace();
