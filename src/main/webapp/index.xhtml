@@ -296,7 +296,7 @@
 					  <h5>#{product.productTitle}</h5>
 					   <h4><h:link class="btn" outcome="productdetails" value="VIEW">
 					   		<f:param name="productId" value="#{product.id}" />
-					   </h:link> <span class="pull-right">$222.00</span></h4>
+					   </h:link> <span class="pull-right">$ #{product.productPrice.amount}</span></h4>
 					</div>
 				  </div>
 				</li>
@@ -321,7 +321,7 @@
 						  <h5>#{product.productTitle}</h5>
 						   <h4><h:link class="btn" outcome="productdetails" value="VIEW">
 						   		<f:param name="productId" value="#{product.id}" />
-						   </h:link> <span class="pull-right">$222.00</span></h4>
+						   </h:link> <span class="pull-right">$ #{product.productPrice.amount}</span></h4>
 						</div>
 					  </div>
 					</li>
@@ -362,7 +362,7 @@
 								   	</h:commandLink>
 								</h:form>
 						   	</c:if>
-						   	<a class="btn btn-primary" href="#">$222.00</a>
+						   	<a class="btn btn-primary" href="#">$ #{product.productPrice.amount}</a>
 						   </h4>
 						</div>
 					  </div>
