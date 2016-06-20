@@ -109,12 +109,12 @@ public class ProductsBean {
 				min = Double.parseDouble(minPrice);
 				System.out.println("parsed minPrice"+min);
 			} catch (Exception e){ min = 0;}
-			if(searchText == null){
+			if((searchText == null)||(searchText.length() == 0)){
 				productAmount = ((Number) productDao.getProductsNumber(filterCategory, min, max)).intValue();
 				this.products = productDao.getProducts(filterCategory,min,max,(page-1)*ppp,ppp);
 			} else {
-				this.products = productDao.getProducts(searchText);
-				productAmount = ((Number) productDao.getProductsNumber(searchText)).intValue();
+				this.products = productDao.getProducts(searchText,filterCategory);
+				productAmount = ((Number) productDao.getProductsNumber(searchText,filterCategory)).intValue();
 			}
 			this.productsNumber = productAmount;
 			this.totalPages = productAmount / ppp;

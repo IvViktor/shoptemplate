@@ -19,7 +19,7 @@ public interface ProductDAO {
 	
 	public Number getProductsNumber(Category category, double minPrice, double maxPrice);
 	
-	public Number getProductsNumber(String titleRegExp);
+	public Number getProductsNumber(String titleRegExp,Category category);
 
 	public List<Product> getProducts();
 	
@@ -31,7 +31,7 @@ public interface ProductDAO {
 
 	public List<Product> getProducts(int startNum, int length);
 	
-	public List<Product> getProducts(String titleRegExp);
+	public List<Product> getProducts(String titleRegExp,Category category);
 	
 	public List<Product> getProducts(Category category,double minPrice,double maxPrice,int startNum, int length);
 	

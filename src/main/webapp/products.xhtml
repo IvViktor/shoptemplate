@@ -73,16 +73,18 @@
 </a>
   <div class="navbar-inner">
     <a class="brand" href="index.xhtml"><img src="themes/images/logo.png" alt="Bootsshop"/></a>
-		<form class="form-inline navbar-search" method="post" action="products.xhtml" >
-		<input id="srchFld" class="srchTxt" type="text" name="searchText"/>
-			<select class="srchTxt" name="selectedCategory">
-				<option value="all">All</option>
-				<ui:repeat value="#{productsBean.categories}" var="category">
-					<option value="#{category.title}">#{category.title}</option>
-				</ui:repeat>
-			</select> 
-		  <button type="submit" id="submitButton" class="btn btn-primary">Go</button>
-    </form>
+		<h:form class="form-inline navbar-search" action="products.xhtml" >
+			<input class="srchTxt" type="text" name="searchText" value="#{productsBean.searchText}"/>
+			<input type="hidden" id="searchcategory" name="selectedCategory"
+			 value="#{productsBean.selectedCategory}"/>
+			<h:selectOneMenu value="#{productsBean.selectedCategory}" class="srchTxt"
+				onchange="document.getElementById('searchcategory').value=this.value;">
+				<f:selectItem itemValue="all" itemLabel="ALL"/>
+				<f:selectItems value="#{productsBean.categories}" var="category"
+				 itemLabel="#{category.title}" itemValue="#{category.title}"/>
+			</h:selectOneMenu>
+			<button type="submit" id="submitButton" class="btn btn-primary">Go</button>
+    	</h:form>
     <ul id="topMenu" class="nav pull-right">
 	 <li class=""><a href="special_offer.xhtml">Specials Offer</a></li>
 	 <li class=""><a href="normal.xhtml">Delivery</a></li>

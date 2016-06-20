@@ -7,6 +7,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -56,13 +57,14 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public List<Product> getProducts(String titleRegExp) {
+	public List<Product> getProducts(String titleRegExp,Category category) {
 		List<Product> resultList = new ArrayList<>();
 		Transaction tx = null;
 		try{
 			tx = session.beginTransaction();
 			Criteria cr = session.createCriteria(Product.class);
-			cr.add(Restrictions.like("productTitle", titleRegExp));
+			if(category != null) cr.add(Restrictions.eq("category", category));
+			cr.add(Restrictions.ilike("productTitle", titleRegExp,MatchMode.ANYWHERE));
 			resultList = cr.list();
 			tx.commit();
 		} catch (Exception e){
@@ -180,13 +182,14 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public Number getProductsNumber(String titleRegExp) {
+	public Number getProductsNumber(String titleRegExp,Category category) {
 		Number number = null;
 		Transaction tx = null;
 		try{
 			tx = session.beginTransaction();
 			Criteria cr = session.createCriteria(Product.class);
-			cr.add(Restrictions.like("productTitle", titleRegExp));
+			if(category != null) cr.add(Restrictions.eq("category", category));
+			cr.add(Restrictions.ilike("productTitle", titleRegExp,MatchMode.ANYWHERE));
 			cr.setProjection(Projections.rowCount());
 			number = (Number) cr.uniqueResult();
 			tx.commit();
