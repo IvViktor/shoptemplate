@@ -92,7 +92,11 @@ public class ProductsBean {
 			ppp=6;
 			prodPerPage = "6";
 		}
-		if(pageNum != null) page = Integer.parseInt(pageNum);
+		try{
+			if(pageNum != null) page = Integer.parseInt(pageNum);
+		}catch (Exception e){
+			page = 1;
+		}
 		Category filterCategory = null;
 		double min=0 ,max=0;
 		try{
