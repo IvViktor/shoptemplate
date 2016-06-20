@@ -82,6 +82,7 @@ public class ProductsBean {
 		this.maxPrice = (String) req.getParameter("maxprice");
 		this.selectedCategory = (String) req.getParameter("selectedCategory");
 		this.sortType = (String) req.getParameter("sortBy");
+		this.searchText = (String) req.getParameter("searchText");
 		int ppp = 6;
 		int page = 1;
 		int productAmount = 0;
