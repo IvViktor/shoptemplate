@@ -150,8 +150,8 @@ public class HomeBean {
 			}
 			productDao.updateProduct(product);
 			userDao.open();
-			user.addPurchase(order);
-			userDao.updateUser(user);
+			visitor.addPurchase(order);
+			userDao.updateUser(visitor);
 		} catch (Exception e){
 			e.printStackTrace();
 		} finally {
