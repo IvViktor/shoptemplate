@@ -60,7 +60,7 @@ public class ProductsBean {
 	
 	private String prodPerPage;
 	
-	private String pageNum;
+	private int pageNum;
 	
 	private int totalPages;
 
@@ -77,25 +77,26 @@ public class ProductsBean {
 		}
 		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		this.prodPerPage = (String) req.getParameter("ppp");
-		this.pageNum = (String) req.getParameter("page");
+		try{
+			String page = (String) req.getParameter("page");
+			this.pageNum = Integer.parseInt(page);
+		} catch (Exception e){
+			pageNum = 1;
+		}
+		if(pageNum == 0) pageNum++;
 		this.minPrice = (String) req.getParameter("minprice");
 		this.maxPrice = (String) req.getParameter("maxprice");
 		this.selectedCategory = (String) req.getParameter("selectedCategory");
 		this.sortType = (String) req.getParameter("sortBy");
 		this.searchText = (String) req.getParameter("searchText");
 		int ppp = 6;
-		int page = 1;
+		int page = pageNum;
 		int productAmount = 0;
 		try{
 			ppp = Integer.parseInt(prodPerPage);
 		} catch (Exception e){ 
 			ppp=6;
 			prodPerPage = "6";
-		}
-		try{
-			if(pageNum != null) page = Integer.parseInt(pageNum);
-		}catch (Exception e){
-			page = 1;
 		}
 		Category filterCategory = null;
 		double min=0 ,max=0;
@@ -358,11 +359,11 @@ public class ProductsBean {
 		this.prodPerPage = prodPerPage;
 	}
 
-	public String getPageNum() {
+	public int getPageNum() {
 		return pageNum;
 	}
 
-	public void setPageNum(String pageNum) {
+	public void setPageNum(int pageNum) {
 		this.pageNum = pageNum;
 	}
 
