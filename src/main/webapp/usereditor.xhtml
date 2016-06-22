@@ -289,13 +289,13 @@
 						<div class="control-group">
 							<label class="control-label" for="oldpass">Old password</label>
 							<div class="controls">
-							  <h:inputText value="#{userEditorBean.oldPassword}" name="oldpass" id="oldpass"/>
+							  <h:inputSecret value="#{userEditorBean.oldPassword}" name="oldpass" id="oldpass"/>
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="newpass">New password </label>
 							<div class="controls">
-							  <h:inputText id="newpass" placeholder="Email" 
+							  <h:inputSecret id="newpass" placeholder="Email" 
 							   value="#{userEditorBean.newPassword}"/>
 							</div>
 						</div>
@@ -312,7 +312,7 @@
 							<label class="control-label" for="imagefile">Download new image</label>
 							<div class="controls">
 							   <h:inputFile multiple="false" allowTypes="/(\.|\/)(gif|jpeg|png)$/" 
-								value="#{userEditorBean.oldPassword}" required="false" mode="simple" 
+								value="#{userEditorBean.newImage}" required="false" mode="simple" 
 								name="imagefile" id="imagefile"/>
 							</div>
 					</div>
