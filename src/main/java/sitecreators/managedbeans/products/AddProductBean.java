@@ -18,7 +18,7 @@ import sitecreators.utils.product.ProductPrice;
 import sitecreators.utils.user.User;
 import sitecreators.utils.user.UserDAO;
 
-@ManagedBean(name="addProductBean")
+//@ManagedBean(name="addProductBean")
 public class AddProductBean {
 	
 	private CategoryDAO categoryDao;
