@@ -141,6 +141,9 @@ public class UserEditorBean {
 		try {
 			if(password.check(oldPassword)){
 				password.create(newPassword);
+				userDao.open();
+				userDao.updateUser(user);
+				userDao.close();
 			}
 			else System.err.println("invalid password");
 		} catch (NoSuchAlgorithmException e) {

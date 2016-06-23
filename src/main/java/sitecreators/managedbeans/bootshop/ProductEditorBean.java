@@ -200,7 +200,7 @@ public class ProductEditorBean {
 		} finally {
 		this.productDao.close();
 		}
-		return "products";
+		return "home";
 	}
 
 	public List<Category> getCategories() {

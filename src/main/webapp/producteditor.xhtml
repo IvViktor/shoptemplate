@@ -43,9 +43,9 @@
 <body onload="closeSession()">
 <div id="header">
 <div class="container">
-<c:if test="#{userEditorBean.userId ne 0}">
+<c:if test="#{editProductBean.userId ne 0}">
 	<div id="welcomeLine" class="row">
-		<div class="span6">Welcome!<strong> #{userEditorBean.userName}</strong></div>
+		<div class="span6">Welcome!<strong> #{editProductBean.userName}</strong></div>
 		<div class="span6">
 		<div class="pull-right">
 			<ui:remove>
@@ -57,8 +57,8 @@
 				<a href="product_summary.html"><span class="">$</span></a>-->
 			</ui:remove>
 			<a href="product_summary.xhtml"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> 
-			[ #{userEditorBean.cart.size()} ] Itemes in your cart </span>
-			<span class="btn btn-mini">$ #{userEditorBean.totalPrice}</span> </a> 
+			[ #{editProductBean.cart.size()} ] Itemes in your cart </span>
+			<span class="btn btn-mini">$ #{editProductBean.totalPrice}</span> </a> 
 		</div>
 		</div>
 	</div>
@@ -76,7 +76,7 @@
 		<input id="srchFld" class="srchTxt" type="text" name="searchText"/>
 			<select class="srchTxt" name="selectedCategory">
 				<option value="all">All</option>
-				<ui:repeat value="#{userEditorBean.categories}" var="category">
+				<ui:repeat value="#{editProductBean.categories}" var="category">
 					<option value="#{category.title}">#{category.title}</option>
 				</ui:repeat>
 			</select> 
@@ -86,40 +86,11 @@
 	 <li class=""><a href="special_offer.xhtml">Specials Offer</a></li>
 	 <li class=""><a href="normal.xhtml">Delivery</a></li>
 	 <li class=""><a href="contact.xhtml">Contact</a></li>
-	 <c:if test="#{userEditorBean.userId eq 0}">
 		 <li class="">
-		 <a href="#login" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">Login</span></a>
+		 <a href="home.xhtml" ><span class="btn btn-large btn-success">Home</span></a>
 
-		<!--<div id="login" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >
-			  <div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				<h3>Login Block</h3>
-			  </div>
-			  <div class="modal-body">
-				<h:form class="form-horizontal loginFrm">
-				  <div class="control-group">								
-					<h:inputText type="text" id="inputEmail" placeholder="Email" value="#{userEditorBean.loginEmail}"/>
-				  </div>
-				  <div class="control-group">
-					<h:inputSecret type="password" id="inputPassword" placeholder="Password" value="#{userEditorBean.loginPassword}"/>
-				  </div>
-				  <ui:remove>
-					  <!~~<div class="control-group">
-						<label class="checkbox">
-						<input type="checkbox"> Remember me
-						</label>
-					  </div>~~>
-				  </ui:remove>
-				  <h:commandButton type="submit" value="Sign in" class="btn btn-success" action="#{userEditorBean.login}" />
-				</h:form>		
-				<ui:remove>
-					<!~~<button type="submit" class="btn btn-success">Sign in</button>
-					<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>~~>
-				</ui:remove>
-			  </div>
-		</div>-->
+		
 		</li>
-	</c:if>
     </ul>
   </div>
 </div>
@@ -132,13 +103,13 @@
 <!-- Sidebar ================================================== -->
 
 	<div id="sidebar" class="span3">
-		<c:if test="#{userEditorBean.userId ne 0}">
+		<c:if test="#{editProductBean.userId ne 0}">
 			<div class="well well-small"><a id="myCart" href="product_summary.xhtml"><img src="themes/images/ico-cart.png" alt="cart"/>
-			#{userEditorBean.cart.size()} Items in your cart  
-			<span class="badge badge-warning pull-right">$ #{userEditorBean.totalPrice}</span></a></div>
+			#{editProductBean.cart.size()} Items in your cart  
+			<span class="badge badge-warning pull-right">$ #{editProductBean.totalPrice}</span></a></div>
 		</c:if>
 		<ul id="sideManu" class="nav nav-tabs nav-stacked">
-			<ui:repeat value="#{userEditorBean.categories}" var="category">
+			<ui:repeat value="#{editProductBean.categories}" var="category">
 				<li>
 					<h:link outcome="products" value="#{category.title}">
 						<f:param name="selectedCategory" value="#{category.title}" />
@@ -211,18 +182,18 @@
     <ul class="breadcrumb">
     <li><a href="index.xhtml">Home</a> <span class="divider">/</span></li>
     <li><a href="#">Users</a> <span class="divider">/</span></li>
-    <li class="active">#{userEditorBean.userName}</li>
+    <li class="active">#{editProductBean.userName}</li>
     </ul>	
 	<div class="row">	  
 			<div id="gallery" class="span3">
-            <a href="#{userEditorBean.icon.imagePath}" title="#{userEditorBean.userName}">
-				<img src="#{userEditorBean.icon.imagePath}" style="width:100%"
-				 alt="#{userEditorBean.icon.imgDecs}"/>
+            <a href="#{editProductBean.icon.imagePath}" title="#{editProductBean.userName}">
+				<img src="#{editProductBean.icon.imagePath}" style="width:100%"
+				 alt="#{editProductBean.icon.imgDecs}"/>
             </a>
 			<div id="differentview" class="moreOptopm carousel slide">
                 <div class="carousel-inner">
                  <div class="item active">
-                  <ui:repeat value="#{userEditorBean.images}" var="image">
+                  <ui:repeat value="#{editProductBean.images}" var="image">
                    <a href="#{image.imagePath}"> <img style="width:29%" src="#{image.imagePath}" 
                    alt="#{image.imgDecs}"/></a>
                   </ui:repeat>
@@ -247,72 +218,43 @@
 			</div>
 			<div class="span6">
 			<h:form class="form-horizontal" enctype="multipart/form-data">
-					<h4>Your personal information</h4>
+					<h4>Product information</h4>
 					<div class="control-group">
-						<label class="control-label" for="inputFname1">First name <sup>*</sup></label>
+						<label class="control-label" for="inputFname1">Product title <sup>*</sup></label>
 						<div class="controls">
-						  <h:inputText id="inputFname1" placeholder="First Name" required="true"
-						   value="#{userEditorBean.firstName}"/>
+						  <h:inputText id="inputFname1" required="true"
+						   value="#{editProductBean.title}"/>
 						</div>
 					 </div>
 					 <div class="control-group">
-						<label class="control-label" for="inputLnam">Last name <sup>*</sup></label>
+						<label class="control-label" for="inputLnam">Product price <sup>*</sup></label>
 						<div class="controls">
-						  <h:inputText id="inputLnam" placeholder="Last Name" required="true"  
-						  value="#{userEditorBean.secondName}"/>
+						  <h:inputText id="inputLnam" required="true"  
+						  value="#{editProductBean.price}"/>
 						</div>
 					 </div>
 					<div class="control-group">
-						<label class="control-label" for="aditionalInfo">Additional information </label>
+						<label class="control-label" for="input_category">Select category <sup>*</sup></label>
 						<div class="controls">
-						  <h:inputTextarea name="aditionalInfo" id="aditionalInfo" cols="26" rows="3" 
-						  value="#{userEditorBean.userAbout}"/>
+						<h:selectOneMenu value="#{editProductBean.category}">
+							<f:selectItems value="#{editProductBean.categories}" var="cat" itemLabel="#{cat.title}" itemValue="#{cat.title}" />
+						</h:selectOneMenu>
 						</div>
-					</div>
-					<hr class="soft"/>
-					<h4>Your contact information</h4>
+	 				 </div>	  
 					<div class="control-group">
-						<label class="control-label" for="phone">Phone number </label>
+						<label class="control-label" for="productAbout">Description </label>
 						<div class="controls">
-						  <h:inputText value="#{userEditorBean.pnoneNumber}" name="phone" id="phone" placeholder="phone"/>
+		 				 <h:inputTextarea cols="26" rows="4" id="productAbout" placeholder="Description" 
+		  				 value="#{editProductBean.description}"/>
 						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="input_email">Email <sup>*</sup></label>
-						<div class="controls">
-						  <h:inputText id="input_email" placeholder="Email" required="true" 
-						   value="#{userEditorBean.email}"/>
-						</div>
-					</div>
+	 				</div>	
 					<hr class="soft"/>
-					<h4>Password change</h4>
-						<div class="control-group">
-							<label class="control-label" for="oldpass">Old password</label>
-							<div class="controls">
-							  <h:inputSecret value="#{userEditorBean.oldPassword}" name="oldpass" id="oldpass"/>
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="newpass">New password </label>
-							<div class="controls">
-							  <h:inputSecret id="newpass" placeholder="Email" 
-							   value="#{userEditorBean.newPassword}"/>
-							</div>
-						</div>
-					
-						<div class="control-group">
-							<div class="controls">
-								<h:commandButton class="btn btn-large btn-primary" value="Change"
-								 action="#{userEditorBean.changePassword()}"/>
-							</div>
-						</div>	
-					<hr class="soft"/>
-					<h4>Add new image</h4>
+					<h4>Add new image for product</h4>
 					<div class="control-group">
 							<label class="control-label" for="imagefile">Download new image</label>
 							<div class="controls">
 							   <h:inputFile multiple="false" allowTypes="/(\.|\/)(gif|jpeg|png)$/" 
-								value="#{userEditorBean.newImage}" required="false" mode="simple" 
+								value="#{editProductBean.imageFile}" required="false" mode="simple" 
 								name="imagefile" id="imagefile"/>
 							</div>
 					</div>
@@ -320,14 +262,14 @@
 							<label class="control-label" for="imagedesc">New image description </label>
 							<div class="controls">
 							  <h:inputText id="imagedesc" placeholder="Description"  
-							   value="#{userEditorBean.newImageDesc}"/>
+							   value="#{editProductBean.imageDesc}"/>
 							</div>
 					</div>
 					<hr class="soft"/>
 					<div class="control-group">
 						<div class="controls">
 							<h:commandButton class="btn btn-large btn-success" 
-							value="Save changes" action="#{userEditorBean.save()}"/>
+							value="Save changes" action="#{editProductBean.save()}"/>
 						</div>
 					</div>	
 					<ui:remove>
@@ -347,20 +289,19 @@
 					  </div>
 					</form>-->
 					</ui:remove>
+					<input type="hidden" name="productId" value="#{editProductBean.productId}" />
 				</h:form>
 			<hr class="soft"/>
 			</div>
 			
-			<div class="span9">
-            <ul id="productDetail" class="nav nav-tabs">
-             <!--<li class="active"><a href="#home" data-toggle="tab">Comments</a></li>-->
-              <li class="active"><a href="#profile" data-toggle="tab">User products</a></li>
+		<ul id="productDetail" class="nav nav-tabs">
+              <li class="active"><a href="#home" data-toggle="tab">Comments</a></li>
+              <!--<li><a href="#profile" data-toggle="tab">Related Products</a></li>-->
             </ul>
-            <ui:remove>
-            <!--<div id="myTabContent" class="tab-content">
+            <div id="myTabContent" class="tab-content">
               <div class="tab-pane fade active in" id="home">
 			  <h4>Comments for this product</h4>
-			  <ui:repeat value="#{userEditorBean.comments}" var="comment">
+			  <ui:repeat value="#{editProductBean.comments}" var="comment">
 				<ui:param name="user" value="#{comment.publisher}" />
 				<div class="comment" style="border:1px solid #fff">
 					<p>#{comment.getBody()}</p>
@@ -369,192 +310,23 @@
 						<f:param name="userId" value="#{user.id}" />
 					</h:link>
 					<br/>
-					Published: #{comment.getPublishTime().toString()}
+					Published: #{comment.getPublishTime().toString()} <br />
+					<h:form>
+					<h:commandButton value="Delete comment" action="#{editProductBean.removeComment()}">
+						<f:setPropertyActionListener  target="#{editProductBean.deletedComment}" value="#{comment}" />
+					</h:commandButton>
+					</h:form>
 				</div>
 				</ui:repeat>
-				<c:if test="#{userEditorBean.userId ne 0}">
-					<h:form>
-						Leave your comment here:<br />
-						<input type="hidden" value="#{userEditorBean.productId}" name="productId" />
-						<h:inputTextarea value="#{userEditorBean.commentBody}" cols="30" rows="7" /><br />
-						<h:commandButton type="submit" action="#{userEditorBean.addComment}" value="Leave comment" />
-					</h:form>
-				</c:if>
-				<ui:remove>
-                <!~~<table class="table table-bordered">
-				<tbody>
-				<tr class="techSpecRow"><th colspan="2">Product Details</th></tr>
-				<tr class="techSpecRow"><td class="techSpecTD1">Brand: </td><td class="techSpecTD2">Fujifilm</td></tr>
-				<tr class="techSpecRow"><td class="techSpecTD1">Model:</td><td class="techSpecTD2">FinePix S2950HD</td></tr>
-				<tr class="techSpecRow"><td class="techSpecTD1">Released on:</td><td class="techSpecTD2"> 2011-01-28</td></tr>
-				<tr class="techSpecRow"><td class="techSpecTD1">Dimensions:</td><td class="techSpecTD2"> 5.50" h x 5.50" w x 2.00" l, .75 pounds</td></tr>
-				<tr class="techSpecRow"><td class="techSpecTD1">Display size:</td><td class="techSpecTD2">3</td></tr>
-				</tbody>
-				</table>
-				
-				<h5>Features</h5>
-				<p>
-				14 Megapixels. 18.0 x Optical Zoom. 3.0-inch LCD Screen. Full HD photos and 1280 x 720p HD movie capture. ISO sensitivity ISO6400 at reduced resolution. Tracking Auto Focus. Motion Panorama Mode. Face Detection technology with Blink detection and Smile and shoot mode. 4 x AA batteries not included. WxDxH 110.2 ×81.4x73.4mm. Weight 0.341kg (excluding battery and memory card). Weight 0.437kg (including battery and memory card).<br/>
-				OND363338
-				</p>
-
-				<h4>Editorial Reviews</h4>
-				<h5>Manufacturer's Description </h5>
-				<p>
-				With a generous 18x Fujinon optical zoom lens, the S2950 really packs a punch, especially when matched with its 14 megapixel sensor, large 3.0" LCD screen and 720p HD (30fps) movie capture.
-				</p>
-
-				<h5>Electric powered Fujinon 18x zoom lens</h5>
-				<p>
-				The S2950 sports an impressive 28mm – 504mm* high precision Fujinon optical zoom lens. Simple to operate with an electric powered zoom lever, the huge zoom range means that you can capture all the detail, even when you're at a considerable distance away. You can even operate the zoom during video shooting. Unlike a bulky D-SLR, bridge cameras allow you great versatility of zoom, without the hassle of carrying a bag of lenses.
-				</p>
-				<h5>Impressive panoramas</h5>
-				<p>
-				With its easy to use Panoramic shooting mode you can get creative on the S2950, however basic your skills, and rest assured that you will not risk shooting uneven landscapes or shaky horizons. The camera enables you to take three successive shots with a helpful tool which automatically releases the shutter once the images are fully aligned to seamlessly stitch the shots together in-camera. It's so easy and the results are impressive.
-				</p>
-
-				<h5>Sharp, clear shots</h5>
-				<p>
-				Even at the longest zoom settings or in the most challenging of lighting conditions, the S2950 is able to produce crisp, clean results. With its mechanically stabilised 1/2 3", 14 megapixel CCD sensor, and high ISO sensitivity settings, Fujifilm's Dual Image Stabilisation technology combines to reduce the blurring effects of both hand-shake and subject movement to provide superb pictures.
-				</p>~~>
-				</ui:remove>
-              </div>-->
-              </ui:remove>
-		<div class="tab-pane fade active in" id="profile">
-		<div id="myTab" class="pull-right">
-		 <a href="#listView" data-toggle="tab"><span class="btn btn-large"><i class="icon-list"></i></span></a>
-		 <a href="#blockView" data-toggle="tab"><span class="btn btn-large btn-primary"><i class="icon-th-large"></i></span></a>
-		</div>
-		<br class="clr"/>
-		<hr class="soft"/>
-		<div class="tab-content">
-		<div class="tab-pane" id="listView">
-		<ui:repeat value="#{userEditorBean.products}" var="product">
-			<div class="row">	  
-				<div class="span2">
-					<img src="#{product.icon.imagePath}" alt="#{product.icon.imgDecs}"/>
-				</div>
-				<div class="span4">
-					<h3>New | Available</h3>				
-					<hr class="soft"/>
-					<h5>#{product.productTitle}</h5>
-					<p>
-					#{product.description.description}
-					</p>
-					<h:link class="btn btn-small pull-right" outcome="productdetails" value="View Details">
-						<f:param name="productId" value="#{product.id}" />
-					</h:link>
-					<br class="clr"/>
-				</div>
-				<div class="span3 alignR">
-					<h:form class="form-horizontal qtyFrm">
-						<h3> $ #{product.productPrice.amount}</h3>
-						<ui:remove>
-						<!--<c:if test="#{userEditorBean.userId != 0}">
-							<!~~<h:form>~~>
-							<input type="hidden" name="productId" value="#{order.product.id}" />
-							<h:commandLink class="btn" action="#{userEditorBean.addToCart(order.product.id)}">Add to 
-								<i class="icon-shopping-cart"></i>
-							</h:commandLink>
-							<!~~</h:form>~~>
-						</c:if>-->
-						</ui:remove>
-						  <h:link outcome="producteditor" class="btn btn-large">
-						  	<i class="icon-edit"></i>
-						  	<f:param name="productId" value="#{product.id}" />
-						</h:link>
-					</h:form>
-				</div>
 			</div>
-			<hr class="soft"/>
-		</ui:repeat>
-	</div>
-
-	<div class="tab-pane  active" id="blockView">
-		<ul class="thumbnails">
-		<ui:repeat value="#{userEditorBean.products}" var="product">
-			<li class="span3">
-			  <div class="thumbnail">
-				<h:link outcome="productdetails" >
-					<img src="#{product.icon.imagePath}" alt="#{product.icon.imgDecs}"/>
-					<f:param name="productId" value="#{product.id}" />
-				</h:link>
-				<div class="caption">
-				  <h5>#{product.productTitle}</h5>
-				  <p> 
-					#{product.description.description} 
-				  </p>
-				<h4 style="text-align:center">
-					<h:link class="btn" outcome="producteditor">
-						<i class="icon-edit"></i>
-						<f:param name="productId" value="#{product.id}" />
-					</h:link> 
-					<ui:remove>
-					<!--<c:if test="#{userEditorBean.userId != 0}">
-						<h:form>
-							<input type="hidden" name="productId" value="#{product.id}" />
-							<h:commandLink class="btn" action="#{userEditorBean.addToCart(product.id)}">Add to 
-								<i class="icon-shopping-cart"></i>
-							</h:commandLink>
-						</h:form>
-					</c:if>-->
-					</ui:remove>
-					<a class="btn btn-primary" href="#">$ #{product.productPrice.amount}</a>
-				</h4>
-				</div>
-			  </div>
-			</li>
-		</ui:repeat>
-		 </ul>
-	<hr class="soft"/>
-	</div>
+		
 </div>
-		<div class="pagination">
-			<ul>
-				<li>
-					<h:link value="&lsaquo;">
-						<f:param name="page" value="#{userEditorBean.pageNum - 1}" />
-					</h:link>
-				</li>
-				<ui:remove>
-				<!--<c:forEach begin="1" end="#{productsBean.totalPages}" var="i">
-					<li>
-						<h:link value="#{i}">
-							<c:if test="#{productsBean.selectedCategory != null}">
-								<f:param name="category" value="#{productsBean.selectedCategory}" />
-							</c:if>
-							<c:if test="#{productsBean.minPrice != null}">
-								<f:param name="minprice" value="#{productsBean.minPrice}" />
-							</c:if>
-							<c:if test="#{productsBean.maxPrice != null}">
-								<f:param name="maxPrice" value="#{productsBean.maxPrice}" />
-							</c:if>
-							<c:if test="#{productsBean.prodPerPage != null}">
-								<f:param name="ppp" value="#{productsBean.prodPerPage}" />
-							</c:if>
-							<c:if test="#{productsBean.sortType != null}">
-								<f:param name="sortBy" value="#{productsBean.sortType}" />
-							</c:if>
-							<f:param name="page" value="#{i}" />
-						</h:link>
-					</li>
-				</c:forEach>-->
-				</ui:remove>
-				<li>
-					<h:link value="&rsaquo;">
-						<f:param name="page" value="#{userEditorBean.pageNum + 1}" />
-					</h:link>
-				</li>
-			</ul>
-			
-	</div>
+		
 				<br class="clr"/>
 					 </div>
 		</div>
           </div>
 
-	</div>
-</div>
 </div> 
 </div>
 <!-- MainBody End ============================= -->
@@ -659,6 +431,6 @@
 	</div>
 </div>
 <span id="themesBtn"></span>
-<p:remoteCommand name="closeSession" actionListener="#{userEditorBean.closeSession()}" style="display: none;" />
+<p:remoteCommand name="closeSession" actionListener="#{editProductBean.closeSession()}" style="display: none;" />
 </body>
 </html>

@@ -134,10 +134,10 @@ public class AddProductBean {
 		imageDao.addImage(icon);
 		product.setIcon(icon);
 		if(imageFile != null) product.addImage(icon);
-		product.setOwner(user);
 		try{
 			productDao.open();
 			productDao.addProduct(product);
+			product.setOwner(user);
 			productDao.close();
 		} catch (Exception e){
 			e.printStackTrace();
