@@ -162,6 +162,14 @@ public class ProductEditorBean {
 		newImage.setImgDecs(imageDesc);
 		imageDao.addImage(newImage);
 		product.addImage(newImage);
+		try{
+			this.productDao.open();
+			this.productDao.updateProduct(this.product);
+		} catch (Exception e){
+			e.printStackTrace();
+		} finally {
+		this.productDao.close();
+		}
 	}
 	
 	public void setNewIcon(){

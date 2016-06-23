@@ -78,6 +78,7 @@ public class UserEditorBean {
 	public UserEditorBean() throws Exception{
 		this.userDao = (UserDAO) ApplicationContextUtil.getApplicationContext().getBean("UserDAO");
 		this.imageDao = (ImageDAO) ApplicationContextUtil.getApplicationContext().getBean("ImageDAO");
+		categoryDao = (CategoryDAO) ApplicationContextUtil.getApplicationContext().getBean("CategoryDAO");
 		userId = (long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
 		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		try{
@@ -159,6 +160,13 @@ public class UserEditorBean {
 		newImage.setImgDecs(newImageDesc);
 		imageDao.addImage(newImage);
 		user.addImage(newImage);
+		try{
+			userDao.open();
+			userDao.updateUser(user);
+			userDao.close();
+		} catch (Exception e){
+			e.printStackTrace();
+		}
 	}
 	
 	public void setNewIcon(){
