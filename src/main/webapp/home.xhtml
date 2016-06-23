@@ -85,41 +85,12 @@
     <ul id="topMenu" class="nav pull-right">
 	 <li class=""><a href="special_offer.xhtml">Specials Offer</a></li>
 	 <li class=""><a href="normal.xhtml">Delivery</a></li>
-	 <li class=""><a href="contact.xhtml">Contact</a></li>
-	 <c:if test="#{homeBean.userId eq 0}">
+	 <li class=""><a href="newproduct.xhtml">Add product</a></li>
 		 <li class="">
-		 <a href="#login" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">Login</span></a>
+		 <a href="usereditor.xhtml" ><span class="btn btn-large btn-danger">Edit</span></a>
 
-		<!--<div id="login" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >
-			  <div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				<h3>Login Block</h3>
-			  </div>
-			  <div class="modal-body">
-				<h:form class="form-horizontal loginFrm">
-				  <div class="control-group">								
-					<h:inputText type="text" id="inputEmail" placeholder="Email" value="#{homeBean.loginEmail}"/>
-				  </div>
-				  <div class="control-group">
-					<h:inputSecret type="password" id="inputPassword" placeholder="Password" value="#{homeBean.loginPassword}"/>
-				  </div>
-				  <ui:remove>
-					  <!~~<div class="control-group">
-						<label class="checkbox">
-						<input type="checkbox"> Remember me
-						</label>
-					  </div>~~>
-				  </ui:remove>
-				  <h:commandButton type="submit" value="Sign in" class="btn btn-success" action="#{homeBean.login}" />
-				</h:form>		
-				<ui:remove>
-					<!~~<button type="submit" class="btn btn-success">Sign in</button>
-					<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>~~>
-				</ui:remove>
-			  </div>
-		</div>-->
+		
 		</li>
-	</c:if>
     </ul>
   </div>
 </div>

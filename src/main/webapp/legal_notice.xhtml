@@ -87,7 +87,8 @@
 	 <li class=""><a href="special_offer.xhtml">Specials Offer</a></li>
 	 <li class=""><a href="normal.xhtml">Delivery</a></li>
 	 <li class=""><a href="contact.xhtml">Contact</a></li>
-	 <c:if test="#{deliveryBean.userId eq 0}">
+	<c:choose>
+	 <c:when test="#{deliveryBean.userId eq 0}">
 		 <li class="">
 		 <a href="#login" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">Login</span></a>
 		<div id="login" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >
@@ -119,8 +120,12 @@
 			  </div>
 		</div>
 		</li>
-	</c:if>
-    </ul>
+	</c:when>
+	<c:otherwise>
+		<li><a href="home.xhtml" ><span class="btn btn-large btn-success">Home</span></a></li>
+	</c:otherwise>
+	</c:choose>    
+	</ul>
   </div>
 </div>
 </div>
