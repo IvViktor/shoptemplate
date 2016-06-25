@@ -192,12 +192,22 @@
             </a>
 			<div id="differentview" class="moreOptopm carousel slide">
                 <div class="carousel-inner">
+                 <c:set var="listSize" value="#{editProductBean.images.size()}" />
+				  <c:set var="endIndex" value="#{(listSize le 3) ? listSize : 3}"/>
                  <div class="item active">
-                  <ui:repeat value="#{editProductBean.images}" var="image">
+                  <ui:repeat value="#{editProductBean.images.subList(0,endIndex)}" var="image">
                    <a href="#{image.imagePath}"> <img style="width:29%" src="#{image.imagePath}" 
                    alt="#{image.imgDecs}"/></a>
                   </ui:repeat>
                   </div>
+                  <c:if test="#{listSize gt 3}">
+                  <div class="item">
+                   	<ui:repeat value="#{editProductBean.images.subList(endIndex,listSize)}" var="image">
+                   <a href="#{image.imagePath}"> <img style="width:29%" src="#{image.imagePath}" 
+                   alt="#{image.imgDecs}"/></a>
+                  </ui:repeat>
+                  </div>
+                  </c:if>
                 </div>
               <!--  
 			  <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
@@ -267,7 +277,7 @@
 					</div>
 					<div class="control-group">
 						<div class="controls">
-							<h:commandButton class="btn btn-large btn-success" 
+							<h:commandButton class="btn btn-large btn-primary" 
 							value="Add image" action="#{editProductBean.addImage()}"/>
 						</div>
 					</div>	

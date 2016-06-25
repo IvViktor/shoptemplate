@@ -176,6 +176,11 @@ public class HomeBean {
 			this.totalPrice += (price * number);
 		}
 	}
+	
+	public String logout(){
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("userID");
+		return "index";
+	}
 
 	public User getVisitor() {
 		return visitor;

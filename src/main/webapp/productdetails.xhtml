@@ -225,12 +225,22 @@
             </a>
 			<div id="differentview" class="moreOptopm carousel slide">
                 <div class="carousel-inner">
+                 <c:set var="listSize" value="#{productDetailsBean.images.size()}" />
+				  <c:set var="endIndex" value="#{(listSize le 3) ? listSize : 3}"/>
                  <div class="item active">
-                  <ui:repeat value="#{productDetailsBean.images}" var="image">
+                  <ui:repeat value="#{productDetailsBean.images.subList(0,endIndex)}" var="image">
                    <a href="#{image.imagePath}"> <img style="width:29%" src="#{image.imagePath}" 
                    alt="#{image.imgDecs}"/></a>
                   </ui:repeat>
                   </div>
+                  <c:if test="#{listSize gt 3}">
+                  <div class="item">
+                   	<ui:repeat value="#{productDetailsBean.images.subList(endIndex,listSize)}" var="image">
+                   <a href="#{image.imagePath}"> <img style="width:29%" src="#{image.imagePath}" 
+                   alt="#{image.imgDecs}"/></a>
+                  </ui:repeat>
+                  </div>
+                  </c:if>
                 </div>
               <!--  
 			  <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
@@ -421,7 +431,7 @@
 			<li class="span3">
 			  <div class="thumbnail">
 				<h:link outcome="productdetails" >
-					<img src="#{product.icon.imagePath}" alt="#{product.icon.imgDecs}"/>
+					<img src="#{product.icon.imagePath}" alt="#{product.icon.imgDecs}" style="max-height: 170px"/>
 					<f:param name="productId" value="#{product.id}" />
 				</h:link>
 				<div class="caption">

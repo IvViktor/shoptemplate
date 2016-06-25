@@ -83,14 +83,13 @@
 		  <button type="submit" id="submitButton" class="btn btn-primary">Go</button>
     </form>
     <ul id="topMenu" class="nav pull-right">
-	 <li class=""><a href="special_offer.xhtml">Specials Offer</a></li>
+	 <!--<li class=""><a href="special_offer.xhtml">Specials Offer</a></li>-->
 	 <li class=""><a href="normal.xhtml">Delivery</a></li>
 	 <li class=""><a href="newproduct.xhtml">Add product</a></li>
 		 <li class="">
 		 <a href="usereditor.xhtml" ><span class="btn btn-large btn-danger">Edit</span></a>
-
-		
-		</li>
+	</li>
+	
     </ul>
   </div>
 </div>
@@ -192,12 +191,22 @@
             </a>
 			<div id="differentview" class="moreOptopm carousel slide">
                 <div class="carousel-inner">
+				  <c:set var="listSize" value="#{homeBean.images.size()}" />
+				  <c:set var="endIndex" value="#{(listSize le 3) ? listSize : 3}"/>
                  <div class="item active">
-                  <ui:repeat value="#{homeBean.images}" var="image">
+                  <ui:repeat value="#{homeBean.images.subList(0,endIndex)}" var="image">
                    <a href="#{image.imagePath}"> <img style="width:29%" src="#{image.imagePath}" 
                    alt="#{image.imgDecs}"/></a>
                   </ui:repeat>
                   </div>
+                  <c:if test="#{listSize gt 3}">
+                  <div class="item">
+                   	<ui:repeat value="#{homeBean.images.subList(endIndex,listSize)}" var="image">
+                   <a href="#{image.imagePath}"> <img style="width:29%" src="#{image.imagePath}" 
+                   alt="#{image.imgDecs}"/></a>
+                  </ui:repeat>
+                  </div>
+                  </c:if>
                 </div>
               <!--  
 			  <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
@@ -208,8 +217,8 @@
 			 <div class="btn-toolbar">
 			  <div class="btn-group">
 				<span class="btn"><i class="icon-envelope"></i></span>
-				<span class="btn" ><i class="icon-print"></i></span>
-				<span class="btn" ><i class="icon-zoom-in"></i></span>
+				<!-- <span class="btn" ><i class="icon-print"></i></span>
+				<span class="btn" ><i class="icon-zoom-in"></i></span> -->
 				<span class="btn" ><i class="icon-star"></i></span>
 				<span class="btn" ><i class=" icon-thumbs-up"></i></span>
 				<span class="btn" ><i class="icon-thumbs-down"></i></span>
@@ -222,42 +231,23 @@
 				<!--<small>- (14MP, 18x Optical Zoom) 3-inch LCD</small>-->
 				</ui:remove>
 				<hr class="soft"/>
-				<h:form class="form-horizontal qtyFrm">
 				  <div class="control-group">
-					<label class="control-label"><span>#{homeBean.userPhone}</span></label>
-					<label class="control-label"><span>#{homeBean.userEmail}</span></label>
-					<ui:remove>
-					<div class="controls">
-					<!--<input type="number" class="span1" placeholder="Qty."/>-->
-					<input type="hidden" name="productId" value="#{homeBean.productId}" />
-					  <h:commandLink action="#{homeBean.addToCart()}" class="btn btn-large btn-primary pull-right"> Add to cart <i class=" icon-shopping-cart"></i></h:commandLink>
-					</div>
-					</ui:remove>
+				  <div class="control=group">
+					<label class="control-label"><span>Phone number: </span>
+					<span>#{homeBean.userPhone}</span></label>
 				  </div>
-				</h:form>
-				<ui:remove>
-				<!--<hr class="soft"/>
-				<h4>100 items in stock</h4>
-				<form class="form-horizontal qtyFrm pull-right">
-				  <div class="control-group">
-					<label class="control-label"><span>Color</span></label>
-					<div class="controls">
-					  <select class="span2">
-						  <option>Black</option>
-						  <option>Red</option>
-						  <option>Blue</option>
-						  <option>Brown</option>
-						</select>
-					</div>
+  				  <div class="control=group">
+					<label class="control-label"><span>User e-mail: </span><span>#{homeBean.userEmail}</span></label>
 				  </div>
-				</form>-->
-				</ui:remove>
+					
+				  </div>
 				<hr class="soft clr"/>
-				<p>
-				#{homeBean.userAbout}
-				
-				</p>
-				<!--<a class="btn btn-small pull-right" href="#detail">More Details</a>-->
+				<div class="control-group">
+							<label class="control-label" >User about information:</label>
+							<div class="controls">
+								#{homeBean.userAbout}
+							</div>
+				</div>
 				<br class="clr"/>
 			<a href="#" name="detail"></a>
 			<hr class="soft"/>
@@ -391,7 +381,7 @@
 			<li class="span3">
 			  <div class="thumbnail">
 				<h:link outcome="productdetails" >
-					<img src="#{order.product.icon.imagePath}" alt="#{order.product.icon.imgDecs}"/>
+					<img src="#{order.product.icon.imagePath}" alt="#{order.product.icon.imgDecs}" style="max-height: 170px"/>
 					<f:param name="productId" value="#{order.product.id}" />
 				</h:link>
 				<div class="caption">
@@ -404,14 +394,7 @@
 						<i class="icon-zoom-in"></i>
 						<f:param name="productId" value="#{order.product.id}" />
 					</h:link> 
-					<c:if test="#{homeBean.userId != 0}">
-						<h:form>
-							<input type="hidden" name="productId" value="#{order.product.id}" />
-							<h:commandLink class="btn" action="#{homeBean.addToCart(order.product.id)}">Add to 
-								<i class="icon-shopping-cart"></i>
-							</h:commandLink>
-						</h:form>
-					</c:if>
+					
 					<a class="btn btn-primary" href="#">$ #{order.product.productPrice.amount}</a>
 				</h4>
 				</div>
