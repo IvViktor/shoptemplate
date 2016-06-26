@@ -84,7 +84,7 @@ public class ProductEditorBean {
 
 	private Currency userCurrency;
 	
-	
+	private List<Currency> currencies = new ArrayList<>();
 	
 	public ProductEditorBean() throws Exception{
 		categoryDao = (CategoryDAO) ApplicationContextUtil.getApplicationContext().getBean("CategoryDAO");
@@ -384,6 +384,14 @@ public class ProductEditorBean {
 
 	public void setSelectedStatus(String selectedStatus) {
 		this.selectedStatus = selectedStatus;
+	}
+
+	public List<Currency> getCurrencies() {
+		return currencies;
+	}
+
+	public void setCurrencies(List<Currency> currencies) {
+		this.currencies = currencies;
 	}
 
 			

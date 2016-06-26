@@ -80,6 +80,9 @@ public class UserEditorBean {
 
 	private Currency userCurrency;
 	
+	private List<Currency> currencies = new ArrayList<>();
+
+	
 	public UserEditorBean() throws Exception{
 		this.userDao = (UserDAO) ApplicationContextUtil.getApplicationContext().getBean("UserDAO");
 		this.imageDao = (ImageDAO) ApplicationContextUtil.getApplicationContext().getBean("ImageDAO");
@@ -375,6 +378,14 @@ public class UserEditorBean {
 
 	public void setUserId(long userId) {
 		this.userId = userId;
+	}
+
+	public List<Currency> getCurrencies() {
+		return currencies;
+	}
+
+	public void setCurrencies(List<Currency> currencies) {
+		this.currencies = currencies;
 	}
 		
 }

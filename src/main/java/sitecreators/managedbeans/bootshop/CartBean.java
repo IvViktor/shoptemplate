@@ -177,12 +177,12 @@ public class CartBean {
 		}
 	}
 	
-	public String returnPrice(ProductPrice pPrice){
+	public String returnPrice(ProductPrice pPrice, int number){
 		Currency productCurrency = pPrice.getCurrency();
 		StringBuffer price = new StringBuffer();
 		Country code = userCurrency.getCountryCode();
 		if(code.isPositionLeft()) price.append(code.getCc());
-		double amount = pPrice.getAmount() * userCurrency.getKoef() / productCurrency.getKoef();
+		double amount = pPrice.getAmount() * number * userCurrency.getKoef() / productCurrency.getKoef();
 		price.append(amount);
 		if(!code.isPositionLeft()) price.append(code.getCc());
 		return price.toString();
