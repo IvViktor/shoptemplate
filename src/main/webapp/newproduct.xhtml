@@ -59,7 +59,7 @@
 			</ui:remove>
 			<a href="product_summary.xhtml"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> 
 			[ #{addProductBean.cart.size()} ] Itemes in your cart </span>
-			<span class="btn btn-mini">$ #{addProductBean.totalPrice}</span> </a> 
+			<span class="btn btn-mini">#{addProductBean.totalPrice}</span> </a> 
 		</div>
 		</div>
 	</div>
@@ -104,7 +104,7 @@
 		<c:if test="#{addProductBean.userId ne 0}">
 			<div class="well well-small"><a id="myCart" href="product_summary.xhtml"><img src="themes/images/ico-cart.png" alt="cart"/>
 			#{addProductBean.cart.size()} Items in your cart  
-			<span class="badge badge-warning pull-right">$ #{addProductBean.totalPrice}</span></a></div>
+			<span class="badge badge-warning pull-right">#{addProductBean.totalPrice}</span></a></div>
 		</c:if>
 		<ul id="sideManu" class="nav nav-tabs nav-stacked">
 			<ui:repeat value="#{addProductBean.categories}" var="category">

@@ -58,7 +58,7 @@
 			</ui:remove>
 			<a href="product_summary.xhtml"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> 
 			[ #{indexBean.cart.size()} ] Itemes in your cart </span>
-			<span class="btn btn-mini">$ #{indexBean.totalPrice}</span> </a> 
+			<span class="btn btn-mini">#{indexBean.totalPrice}</span> </a> 
 		</div>
 		</div>
 	</div>
@@ -202,7 +202,7 @@
 		<c:if test="#{indexBean.userId ne 0}">
 			<div class="well well-small"><a id="myCart" href="product_summary.xhtml"><img src="themes/images/ico-cart.png" alt="cart"/>
 			#{indexBean.cart.size()} Items in your cart 
-			 <span class="badge badge-warning pull-right">$ #{indexBean.totalPrice}</span></a></div>
+			 <span class="badge badge-warning pull-right">#{indexBean.totalPrice}</span></a></div>
 		</c:if>
 		<ul id="sideManu" class="nav nav-tabs nav-stacked">
 			<ui:repeat value="#{indexBean.categories}" var="category">
@@ -301,7 +301,7 @@
 					  <h5>#{product.productTitle}</h5>
 					   <h4><h:link class="btn" outcome="productdetails" value="VIEW">
 					   		<f:param name="productId" value="#{product.id}" />
-					   </h:link> <span class="pull-right">$ #{product.productPrice.amount}</span></h4>
+					   </h:link> <span class="pull-right">#{indexBean.returnPrice(product.productPrice)}</span></h4>
 					</div>
 				  </div>
 				</li>
@@ -326,7 +326,7 @@
 						  <h5>#{product.productTitle}</h5>
 						   <h4><h:link class="btn" outcome="productdetails" value="VIEW">
 						   		<f:param name="productId" value="#{product.id}" />
-						   </h:link> <span class="pull-right">$ #{product.productPrice.amount}</span></h4>
+						   </h:link> <span class="pull-right">#{indexBean.returnPrice(product.productPrice)}</span></h4>
 						</div>
 					  </div>
 					</li>
@@ -367,7 +367,7 @@
 								   	</h:commandLink>
 								</h:form>
 						   	</c:if>
-						   	<a class="btn btn-primary" href="#">$ #{product.productPrice.amount}</a>
+						   	<a class="btn btn-primary" href="#">#{indexBean.returnPrice(product.productPrice)}</a>
 						   </h4>
 						</div>
 					  </div>

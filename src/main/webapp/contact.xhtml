@@ -53,11 +53,12 @@
 				<a href="product_summary.html"><span class="">Es</span></a>
 				<span class="btn btn-mini">En</span>
 				<a href="product_summary.html"><span>&pound;</span></a>
-				<span class="btn btn-mini">$155.00</span>
+				
 				<a href="product_summary.html"><span class="">$</span></a>-->
 			</ui:remove>
 			<a href="product_summary.xhtml"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> 
-			[ #{deliveryBean.cart.size()} ] Itemes in your cart </span> </a> 
+			[ #{deliveryBean.cart.size()} ] Itemes in your cart </span>
+			<span class="btn btn-mini">#{deliveryBean.totalPrice}</span> </a> 
 		</div>
 		</div>
 	</div>

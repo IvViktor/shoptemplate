@@ -59,7 +59,7 @@
 			</ui:remove>
 			<a href="product_summary.xhtml"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> 
 			[ #{productsBean.cart.size()} ] Itemes in your cart </span>
-			<span class="btn btn-mini">$ #{productsBean.totalPrice}</span> </a> 
+			<span class="btn btn-mini">#{productsBean.totalPrice}</span> </a> 
 		</div>
 		</div>
 	</div>
@@ -142,7 +142,7 @@
 		<c:if test="#{productsBean.userId ne 0}">
 			<div class="well well-small"><a id="myCart" href="product_summary.xhtml"><img src="themes/images/ico-cart.png" alt="cart"/>
 			#{productsBean.cart.size()} Items in your cart  
-			<span class="badge badge-warning pull-right">$ #{productsBean.totalPrice}</span></a></div>
+			<span class="badge badge-warning pull-right">#{productsBean.totalPrice}</span></a></div>
 		</c:if>
 		<ul id="sideManu" class="nav nav-tabs nav-stacked">
 			<ui:repeat value="#{productsBean.categories}" var="category">
@@ -287,7 +287,7 @@
 				</div>
 				<div class="span3 alignR">
 					<h:form class="form-horizontal qtyFrm">
-						<h3> $ #{product.productPrice.amount}</h3>
+						<h3> #{productsBean.returnPrice(product.productPrice)}</h3>
 						<ui:remove>
 						<!--<label class="checkbox">
 							<input type="checkbox"/>  Adds product to compair
@@ -368,7 +368,7 @@
 							<input type="hidden"  name="page" value="#{productsBean.pageNum}" />
 						</h:form>
 					</c:if>
-					<a class="btn btn-primary" href="#">$ #{product.productPrice.amount}</a>
+					<a class="btn btn-primary" href="#">#{productsBean.returnPrice(product.productPrice)}</a>
 				</h4>
 				</div>
 			  </div>

@@ -58,7 +58,7 @@
 			</ui:remove>
 			<a href="product_summary.xhtml"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> 
 			[ #{homeBean.cart.size()} ] Itemes in your cart </span>
-			<span class="btn btn-mini">$ #{homeBean.totalPrice}</span> </a> 
+			<span class="btn btn-mini">#{homeBean.totalPrice}</span> </a> 
 		</div>
 		</div>
 	</div>
@@ -105,7 +105,7 @@
 		<c:if test="#{homeBean.visitorId ne 0}">
 			<div class="well well-small"><a id="myCart" href="product_summary.xhtml"><img src="themes/images/ico-cart.png" alt="cart"/>
 			#{homeBean.cart.size()} Items in your cart  
-			<span class="badge badge-warning pull-right">$ #{homeBean.totalPrice}</span></a></div>
+			<span class="badge badge-warning pull-right">#{homeBean.totalPrice}</span></a></div>
 		</c:if>
 		<ul id="sideManu" class="nav nav-tabs nav-stacked">
 			<ui:repeat value="#{homeBean.categories}" var="category">
@@ -350,7 +350,7 @@
 				</div>
 				<div class="span3 alignR">
 					<h:form class="form-horizontal qtyFrm">
-						<h3> $ #{order.product.productPrice.amount}</h3>
+						<h3> #{homeBean.returnPrice(order.product.productPrice)}</h3>
 						<ui:remove>
 						<!--<label class="checkbox">
 							<input type="checkbox"/>  Adds product to compair
@@ -395,7 +395,7 @@
 						<f:param name="productId" value="#{order.product.id}" />
 					</h:link> 
 					
-					<a class="btn btn-primary" href="#">$ #{order.product.productPrice.amount}</a>
+					<a class="btn btn-primary" href="#">#{homeBean.returnPrice(order.product.productPrice)}</a>
 				</h4>
 				</div>
 			  </div>

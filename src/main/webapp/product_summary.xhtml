@@ -59,7 +59,7 @@
 			</ui:remove>
 			<a href="product_summary.xhtml"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> 
 			[ #{cartBean.cart.size()} ] Itemes in your cart 
-			</span><span class="btn btn-mini">$ #{cartBean.totalPrice}</span> </a> 
+			</span><span class="btn btn-mini">#{cartBean.totalPrice}</span> </a> 
 		</div>
 		</div>
 	</div>
@@ -139,7 +139,7 @@
 		<c:if test="#{cartBean.userId ne 0}">
 			<div class="well well-small"><a id="myCart" href="product_summary.xhtml"><img src="themes/images/ico-cart.png" alt="cart"/>
 			#{cartBean.cart.size()} Items in your cart  
-			<span class="badge badge-warning pull-right">$ #{cartBean.totalPrice}</span>
+			<span class="badge badge-warning pull-right">#{cartBean.totalPrice}</span>
 			</a></div>
 		</c:if>
 		<ul id="sideManu" class="nav nav-tabs nav-stacked">
@@ -289,18 +289,18 @@
 					</h:form>
 					</div>
 				  </td>
-                  <td>$ #{order.product.productPrice.amount}</td>
-                  <td>$ 0.00</td>
-                  <td>$ #{order.product.productPrice.amount * order.productsNumber}</td>
+                  <td>#{cartBean.returnPrice(order.product.productPrice,1)}</td>
+                  <td>0.00</td>
+                  <td>#{cartBean.returnPrice(order.product.productPrice,order.productsNumber)}</td>
                 </tr>
 			   </ui:repeat>
                 <tr>
                   <td colspan="5" style="text-align:right">Total Price:	</td>
-                  <td> $ #{cartBean.totalPrice}</td>
+                  <td> #{cartBean.totalPrice}</td>
                 </tr>
 				 <tr>
                   <td colspan="5" style="text-align:right">Total Discount:	</td>
-                  <td> $ #{cartBean.totalDiscount}</td>
+                  <td>#{cartBean.totalDiscount}</td>
                 </tr>
                 <tr>
                   <td colspan="5" style="text-align:right"><strong>TOTAL </strong></td>
