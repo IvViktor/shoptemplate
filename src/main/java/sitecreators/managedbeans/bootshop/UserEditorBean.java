@@ -82,6 +82,8 @@ public class UserEditorBean {
 	
 	private List<Currency> currencies = new ArrayList<>();
 
+	private String newCurrency;
+
 	
 	public UserEditorBean() throws Exception{
 		this.userDao = (UserDAO) ApplicationContextUtil.getApplicationContext().getBean("UserDAO");
@@ -157,6 +159,13 @@ public class UserEditorBean {
 		}
 	}
 	
+	private Currency getCurrency(String code){
+		for(Currency c : currencies){
+			if(c.getCountryCode().getStringValue().equals(code)) return c;
+		}
+		return getCurrency("USD");
+	}
+	
 	public String returnPrice(ProductPrice pPrice){
 		Currency productCurrency = pPrice.getCurrency();
 		StringBuffer price = new StringBuffer();
@@ -218,6 +227,7 @@ public class UserEditorBean {
 		if(uContact == null) uContact = new UserContacts();
 		uContact.setEmail(email);
 		uContact.setPnoneNumber(pnoneNumber);
+		userCurrency = getCurrency(newCurrency);
 		try{
 			userDao.open();
 			userDao.updateUser(user);
@@ -386,6 +396,14 @@ public class UserEditorBean {
 
 	public void setCurrencies(List<Currency> currencies) {
 		this.currencies = currencies;
+	}
+
+	public String getNewCurrency() {
+		return newCurrency;
+	}
+
+	public void setNewCurrency(String newCurrency) {
+		this.newCurrency = newCurrency;
 	}
 		
 }

@@ -266,6 +266,17 @@
 						</div>
 					</div>
 					<hr class="soft"/>
+					<h4>Your prefferences </h4>
+					<div class="control-group">
+						<label class="control-label">Currency </label>
+						<div class="controls">
+						  <h:selectOneMenu value="#{userEditorBean.newCurrency}">
+						  	<f:selectItems value="#{userEditorBean.currencies}" val="curr" 
+						  	itemLabel="#{curr.countryCode.stringValue}" itemValue="#{curr.countryCode.stringValue}" />
+						  </h:selectOneMenu>
+						</div>
+					</div>
+					<hr class="soft"/>
 					<h4>Password change</h4>
 						<div class="control-group">
 							<label class="control-label" for="oldpass">Old password</label>

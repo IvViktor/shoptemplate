@@ -86,6 +86,8 @@ public class ProductEditorBean {
 	
 	private List<Currency> currencies = new ArrayList<>();
 	
+	private String productCurrency;
+	
 	public ProductEditorBean() throws Exception{
 		categoryDao = (CategoryDAO) ApplicationContextUtil.getApplicationContext().getBean("CategoryDAO");
 		productDao = (ProductDAO) ApplicationContextUtil.getApplicationContext().getBean("ProductDAO");
@@ -120,6 +122,7 @@ public class ProductEditorBean {
 			this.icon = product.getIcon();
 			this.images = product.getImages();
 			this.comments = product.getComments();
+			this.productCurrency = pPrice.getCurrency().getCountryCode().getStringValue();
 		}catch (Exception e){
 			e.printStackTrace();
 		}
@@ -208,6 +211,13 @@ public class ProductEditorBean {
 		}
 	}
 	
+	private Currency getCurrency(String code){
+		for(Currency c : currencies){
+			if(c.getCountryCode().getStringValue().equals(code)) return c;
+		}
+		return getCurrency("USD");
+	}
+	
 	public void removeComment(){
 		product.removeComment(deletedComment);
 	}
@@ -220,6 +230,7 @@ public class ProductEditorBean {
 		ProductPrice pPrice = product.getProductPrice();
 		if(pPrice == null) pPrice = new ProductPrice();
 		pPrice.setAmount(price);
+		pPrice.setCurrency(this.getCurrency(productCurrency));
 		ProductDecription pDescr = product.getDescription();
 		if (pDescr == null) pDescr = new ProductDecription();
 		pDescr.setDescription(description);
@@ -392,6 +403,14 @@ public class ProductEditorBean {
 
 	public void setCurrencies(List<Currency> currencies) {
 		this.currencies = currencies;
+	}
+
+	public String getProductCurrency() {
+		return productCurrency;
+	}
+
+	public void setProductCurrency(String productCurrency) {
+		this.productCurrency = productCurrency;
 	}
 
 			

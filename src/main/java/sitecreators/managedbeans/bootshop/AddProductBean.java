@@ -66,6 +66,7 @@ public class AddProductBean {
 	
 	private List<Currency> currencies = new ArrayList<>();
 
+	private String productCurrency;
 	
 	public AddProductBean() throws Exception{
 		
@@ -138,9 +139,11 @@ public class AddProductBean {
 		product.setProductTitle(productTitle);
 		ProductPrice pPrice = new ProductPrice();
 		pPrice.setAmount(productPrice);
+		pPrice.setCurrency(this.getCurrency(productCurrency));
 		product.setProductPrice(pPrice);
 		ProductStatus status = ProductStatus.valueOf(selectedStatus);
 		product.setStatus(status);
+		
 		try{
 			categoryDao.open();
 			Category cat = categoryDao.getCategory(category);
@@ -169,6 +172,13 @@ public class AddProductBean {
 		}
 		
 		return "products";
+	}
+	
+	private Currency getCurrency(String code){
+		for(Currency c : currencies){
+			if(c.getCountryCode().getStringValue().equals(code)) return c;
+		}
+		return getCurrency("USD");
 	}
 	
 	public String getProductTitle() {
@@ -281,6 +291,14 @@ public class AddProductBean {
 
 	public void setCurrencies(List<Currency> currencies) {
 		this.currencies = currencies;
+	}
+
+	public String getProductCurrency() {
+		return productCurrency;
+	}
+
+	public void setProductCurrency(String productCurrency) {
+		this.productCurrency = productCurrency;
 	}
 			
 }
