@@ -10,6 +10,7 @@ import javax.servlet.http.Part;
 import sitecreators.utils.ApplicationContextUtil;
 import sitecreators.utils.category.Category;
 import sitecreators.utils.category.CategoryDAO;
+import sitecreators.utils.finance.Currency;
 import sitecreators.utils.image.Image;
 import sitecreators.utils.image.ImageDAO;
 import sitecreators.utils.order.Order;
@@ -39,7 +40,7 @@ public class AddProductBean {
 	
 	private List<Order> cart = new ArrayList<>();
 	
-	private int totalPrice;
+	private String totalPrice;
 	
 	private List<Category> categories;
 	
@@ -60,6 +61,8 @@ public class AddProductBean {
 	private ProductStatus[] statusList;
 	
 	private String selectedStatus;
+	
+	private Currency userCurrency;
 	
 	public AddProductBean() throws Exception{
 		
@@ -92,6 +95,7 @@ public class AddProductBean {
 			for(Order o : orders){
 				if(o.getStatus().equals(OrderStatus.INCART)) this.cart.add(o);
 			}
+			this.userCurrency = user.getCurrency();
 		} catch (Exception e){
 			e.printStackTrace();
 		} finally {
@@ -108,11 +112,21 @@ public class AddProductBean {
 	}
 	
 	private void calculateSum(){
-		this.totalPrice = 0;
+		double price = 0;
 		for(Order order : cart){
 			int number = order.getProductsNumber();
-			double price = order.getProduct().getProductPrice().getAmount();
-			this.totalPrice += (price * number);
+			ProductPrice pPrice = order.getProduct().getProductPrice();
+			Currency curr = pPrice.getCurrency();
+			double amount = pPrice.getAmount();
+			amount = (amount * number) * userCurrency.getKoef() / curr.getKoef();
+			double disc = amount * pPrice.getDiscount() / 100;
+			price+=(amount - disc);
+		}
+		char cc = userCurrency.getCountryCode().getCc();
+		if(userCurrency.getCountryCode().isPositionLeft()){
+			this.totalPrice = String.valueOf(cc) + price;
+		} else {
+			this.totalPrice = price + String.valueOf(cc);
 		}
 	}
 	
@@ -234,11 +248,11 @@ public class AddProductBean {
 		this.cart = cart;
 	}
 
-	public int getTotalPrice() {
+	public String getTotalPrice() {
 		return totalPrice;
 	}
 
-	public void setTotalPrice(int totalPrice) {
+	public void setTotalPrice(String totalPrice) {
 		this.totalPrice = totalPrice;
 	}
 

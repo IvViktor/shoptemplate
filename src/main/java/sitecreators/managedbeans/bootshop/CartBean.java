@@ -10,8 +10,11 @@ import sitecreators.utils.ApplicationContextUtil;
 import sitecreators.utils.auth.Password;
 import sitecreators.utils.category.Category;
 import sitecreators.utils.category.CategoryDAO;
+import sitecreators.utils.finance.Country;
+import sitecreators.utils.finance.Currency;
 import sitecreators.utils.order.Order;
 import sitecreators.utils.order.OrderStatus;
+import sitecreators.utils.product.ProductPrice;
 import sitecreators.utils.user.User;
 import sitecreators.utils.user.UserAbout;
 import sitecreators.utils.user.UserDAO;
@@ -37,9 +40,11 @@ public class CartBean {
 	
 	private String loginPassword;
 	
-	private int totalPrice;
+	private String totalPrice;
 	
-	private int totalDiscount;
+	private String totalDiscount;
+	
+	private Currency userCurrency;
 	
 	public CartBean(){
 		this.userDao = (UserDAO) ApplicationContextUtil.getApplicationContext().getBean("UserDAO");
@@ -60,6 +65,7 @@ public class CartBean {
 			for(Order o : orders){
 				if(o.getStatus().equals(OrderStatus.INCART)) this.cart.add(o);
 			}
+			this.userCurrency = user.getCurrency();
 		} catch (Exception e){
 			e.printStackTrace();
 		} finally {
@@ -149,18 +155,45 @@ public class CartBean {
 	}
 	
 	private void calculateSum(){
-		this.totalPrice = 0;
+		double price = 0;
+		double discount = 0;
 		for(Order order : cart){
 			int number = order.getProductsNumber();
-			int price = order.getProduct().getProductPrice().getAmount();
-			this.totalPrice += (price * number);
+			ProductPrice pPrice = order.getProduct().getProductPrice();
+			Currency curr = pPrice.getCurrency();
+			double amount = pPrice.getAmount();
+			amount = (amount * number) * userCurrency.getKoef() / curr.getKoef();
+			double disc = amount * pPrice.getDiscount() / 100;
+			discount+=disc;
+			price+=(amount - disc);
 		}
+		char cc = userCurrency.getCountryCode().getCc();
+		if(userCurrency.getCountryCode().isPositionLeft()){
+			this.totalPrice = String.valueOf(cc) + price;
+			this.totalDiscount = String.valueOf(cc) + discount;
+		} else {
+			this.totalPrice = price + String.valueOf(cc);
+			this.totalDiscount = discount + String.valueOf(cc);
+		}
+	}
+	
+	public String returnPrice(ProductPrice pPrice){
+		Currency productCurrency = pPrice.getCurrency();
+		StringBuffer price = new StringBuffer();
+		Country code = userCurrency.getCountryCode();
+		if(code.isPositionLeft()) price.append(code.getCc());
+		double amount = pPrice.getAmount() * userCurrency.getKoef() / productCurrency.getKoef();
+		price.append(amount);
+		if(!code.isPositionLeft()) price.append(code.getCc());
+		return price.toString();
 	}
 	
 	public void closeSession(){
 		userDao.close();
 		categoryDao.close();
 	}
+	
+	
 
 	public User getUser() {
 		return user;
@@ -218,20 +251,12 @@ public class CartBean {
 		this.loginPassword = loginPassword;
 	}
 
-	public int getTotalPrice() {
+	public String getTotalPrice() {
 		return totalPrice;
 	}
-
-	public void setTotalPrice(int totalPrice) {
-		this.totalPrice = totalPrice;
-	}
-
-	public int getTotalDiscount() {
+	
+	public String getTotalDiscount() {
 		return totalDiscount;
 	}
-
-	public void setTotalDiscount(int totalDiscount) {
-		this.totalDiscount = totalDiscount;
-	}
-		
+			
 }

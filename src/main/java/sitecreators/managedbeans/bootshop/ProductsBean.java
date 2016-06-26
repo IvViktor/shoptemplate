@@ -13,10 +13,13 @@ import sitecreators.utils.ApplicationContextUtil;
 import sitecreators.utils.auth.Password;
 import sitecreators.utils.category.Category;
 import sitecreators.utils.category.CategoryDAO;
+import sitecreators.utils.finance.Country;
+import sitecreators.utils.finance.Currency;
 import sitecreators.utils.order.Order;
 import sitecreators.utils.order.OrderStatus;
 import sitecreators.utils.product.Product;
 import sitecreators.utils.product.ProductDAO;
+import sitecreators.utils.product.ProductPrice;
 import sitecreators.utils.user.User;
 import sitecreators.utils.user.UserAbout;
 import sitecreators.utils.user.UserDAO;
@@ -64,7 +67,9 @@ public class ProductsBean {
 	
 	private int totalPages;
 
-	private int totalPrice;
+	private String totalPrice;
+
+	private Currency userCurrency;
 	
 	public ProductsBean(){
 		this.productDao = (ProductDAO) ApplicationContextUtil.getApplicationContext().getBean("ProductDAO");
@@ -149,6 +154,7 @@ public class ProductsBean {
 			for(Order o : orders){
 				if(o.getStatus().equals(OrderStatus.INCART)) this.cart.add(o);
 			}
+			this.userCurrency = user.getCurrency();
 		} catch (Exception e){
 			e.printStackTrace();
 		} finally {
@@ -161,7 +167,7 @@ public class ProductsBean {
 		} else if(sortType.equalsIgnoreCase("ndesc")){
 			products.sort((Product p1, Product p2) -> (p1.getProductTitle().compareTo(p2.getProductTitle()))*(-1));
 		} else if(sortType.equalsIgnoreCase("lpf")){
-			products.sort((Product p1,Product p2) -> p1.getProductPrice().getAmount() - p2.getProductPrice().getAmount());
+			products.sort((Product p1,Product p2) ->(int)( p1.getProductPrice().getAmount() - p2.getProductPrice().getAmount()));
 		} else {
 			products.sort((Product p1,Product p2) -> (int)(p1.getId() - p2.getId())*(-1));
 		}
@@ -199,12 +205,33 @@ public class ProductsBean {
 	}
 	
 	private void calculateSum(){
-		this.totalPrice = 0;
+		double price = 0;
 		for(Order order : cart){
 			int number = order.getProductsNumber();
-			int price = order.getProduct().getProductPrice().getAmount();
-			this.totalPrice += (price * number);
+			ProductPrice pPrice = order.getProduct().getProductPrice();
+			Currency curr = pPrice.getCurrency();
+			double amount = pPrice.getAmount();
+			amount = (amount * number) * userCurrency.getKoef() / curr.getKoef();
+			double disc = amount * pPrice.getDiscount() / 100;
+			price+=(amount - disc);
 		}
+		char cc = userCurrency.getCountryCode().getCc();
+		if(userCurrency.getCountryCode().isPositionLeft()){
+			this.totalPrice = String.valueOf(cc) + price;
+		} else {
+			this.totalPrice = price + String.valueOf(cc);
+		}
+	}
+	
+	public String returnPrice(ProductPrice pPrice){
+		Currency productCurrency = pPrice.getCurrency();
+		StringBuffer price = new StringBuffer();
+		Country code = userCurrency.getCountryCode();
+		if(code.isPositionLeft()) price.append(code.getCc());
+		double amount = pPrice.getAmount() * userCurrency.getKoef() / productCurrency.getKoef();
+		price.append(amount);
+		if(!code.isPositionLeft()) price.append(code.getCc());
+		return price.toString();
 	}
 	
 	private Order checkOrder(Product product){
@@ -375,11 +402,11 @@ public class ProductsBean {
 		this.totalPages = totalPages;
 	}
 
-	public int getTotalPrice() {
+	public String getTotalPrice() {
 		return totalPrice;
 	}
 
-	public void setTotalPrice(int totalPrice) {
+	public void setTotalPrice(String totalPrice) {
 		this.totalPrice = totalPrice;
 	}
 	

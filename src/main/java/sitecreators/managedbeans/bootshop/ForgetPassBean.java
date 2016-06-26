@@ -10,8 +10,10 @@ import sitecreators.utils.ApplicationContextUtil;
 import sitecreators.utils.auth.Password;
 import sitecreators.utils.category.Category;
 import sitecreators.utils.category.CategoryDAO;
+import sitecreators.utils.finance.Currency;
 import sitecreators.utils.order.Order;
 import sitecreators.utils.order.OrderStatus;
+import sitecreators.utils.product.ProductPrice;
 import sitecreators.utils.user.User;
 import sitecreators.utils.user.UserAbout;
 import sitecreators.utils.user.UserDAO;
@@ -37,7 +39,9 @@ public class ForgetPassBean {
 	
 	private String loginPassword;
 
-	private int totalPrice;
+	private String totalPrice;
+
+	private Currency userCurrency;
 	
 	public ForgetPassBean(){
 		this.userDao = (UserDAO) ApplicationContextUtil.getApplicationContext().getBean("UserDAO");
@@ -58,6 +62,7 @@ public class ForgetPassBean {
 			for(Order o : orders){
 				if(o.getStatus().equals(OrderStatus.INCART)) this.cart.add(o);
 			}
+			this.userCurrency = user.getCurrency();
 		} catch (Exception e){
 			e.printStackTrace();
 		} finally {
@@ -106,11 +111,21 @@ public class ForgetPassBean {
 	}
 	
 	private void calculateSum(){
-		this.totalPrice = 0;
+		double price = 0;
 		for(Order order : cart){
 			int number = order.getProductsNumber();
-			int price = order.getProduct().getProductPrice().getAmount();
-			this.totalPrice += (price * number);
+			ProductPrice pPrice = order.getProduct().getProductPrice();
+			Currency curr = pPrice.getCurrency();
+			double amount = pPrice.getAmount();
+			amount = (amount * number) * userCurrency.getKoef() / curr.getKoef();
+			double disc = amount * pPrice.getDiscount() / 100;
+			price+=(amount - disc);
+		}
+		char cc = userCurrency.getCountryCode().getCc();
+		if(userCurrency.getCountryCode().isPositionLeft()){
+			this.totalPrice = String.valueOf(cc) + price;
+		} else {
+			this.totalPrice = price + String.valueOf(cc);
 		}
 	}
 	
@@ -175,11 +190,11 @@ public class ForgetPassBean {
 		this.loginPassword = loginPassword;
 	}
 
-	public int getTotalPrice() {
+	public String getTotalPrice() {
 		return totalPrice;
 	}
 
-	public void setTotalPrice(int totalPrice) {
+	public void setTotalPrice(String totalPrice) {
 		this.totalPrice = totalPrice;
 	}
 		

@@ -24,7 +24,7 @@ public class ProductPrice {
 	@JoinColumn(name = "currency_id",foreignKey = @ForeignKey(name = "CURRENCY_ID_FK"))
 	private Currency currency;
 	
-	
+	private double discount = 0;
 
 	public double getAmount() {
 		return amount;
@@ -40,6 +40,14 @@ public class ProductPrice {
 
 	public void setCurrency(Currency currency) {
 		this.currency = currency;
+	}
+
+	public double getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(double discount) {
+		this.discount = discount;
 	}
 
 }

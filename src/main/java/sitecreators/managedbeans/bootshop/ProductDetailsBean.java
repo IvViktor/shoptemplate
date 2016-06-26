@@ -14,12 +14,15 @@ import sitecreators.utils.auth.Password;
 import sitecreators.utils.category.Category;
 import sitecreators.utils.category.CategoryDAO;
 import sitecreators.utils.comment.Comment;
+import sitecreators.utils.finance.Country;
+import sitecreators.utils.finance.Currency;
 import sitecreators.utils.image.Image;
 import sitecreators.utils.order.Order;
 import sitecreators.utils.order.OrderStatus;
 import sitecreators.utils.product.Product;
 import sitecreators.utils.product.ProductDAO;
 import sitecreators.utils.product.ProductDecription;
+import sitecreators.utils.product.ProductPrice;
 import sitecreators.utils.user.User;
 import sitecreators.utils.user.UserAbout;
 import sitecreators.utils.user.UserDAO;
@@ -57,7 +60,7 @@ public class ProductDetailsBean {
 	
 	private String description;
 	
-	private int price;
+	private String price;
 	
 	private Image icon;
 	
@@ -67,7 +70,9 @@ public class ProductDetailsBean {
 	
 	private String commentBody;
 
-	private int totalPrice;
+	private String totalPrice;
+
+	private Currency userCurrency;
 	
 	public ProductDetailsBean() throws Exception{
 		this.productDao = (ProductDAO) ApplicationContextUtil.getApplicationContext().getBean("ProductDAO");
@@ -91,6 +96,7 @@ public class ProductDetailsBean {
 			for(Order o : orders){
 				if(o.getStatus().equals(OrderStatus.INCART)) this.cart.add(o);
 			}
+			this.userCurrency = user.getCurrency();
 		} catch (Exception e){
 			e.printStackTrace();
 		} finally {
@@ -114,7 +120,7 @@ public class ProductDetailsBean {
 			this.title = product.getProductTitle();
 			ProductDecription pDescr = product.getDescription();
 			if(pDescr != null) this.description = pDescr.getDescription();
-			this.price = product.getProductPrice().getAmount();
+			this.price = returnPrice(product.getProductPrice());
 			this.icon = product.getIcon();
 			this.images = product.getImages();
 			this.comments = product.getComments();
@@ -241,12 +247,33 @@ public class ProductDetailsBean {
 	}
 	
 	private void calculateSum(){
-		this.totalPrice = 0;
+		double price = 0;
 		for(Order order : cart){
 			int number = order.getProductsNumber();
-			int price = order.getProduct().getProductPrice().getAmount();
-			this.totalPrice += (price * number);
+			ProductPrice pPrice = order.getProduct().getProductPrice();
+			Currency curr = pPrice.getCurrency();
+			double amount = pPrice.getAmount();
+			amount = (amount * number) * userCurrency.getKoef() / curr.getKoef();
+			double disc = amount * pPrice.getDiscount() / 100;
+			price+=(amount - disc);
 		}
+		char cc = userCurrency.getCountryCode().getCc();
+		if(userCurrency.getCountryCode().isPositionLeft()){
+			this.totalPrice = String.valueOf(cc) + price;
+		} else {
+			this.totalPrice = price + String.valueOf(cc);
+		}
+	}
+	
+	public String returnPrice(ProductPrice pPrice){
+		Currency productCurrency = pPrice.getCurrency();
+		StringBuffer price = new StringBuffer();
+		Country code = userCurrency.getCountryCode();
+		if(code.isPositionLeft()) price.append(code.getCc());
+		double amount = pPrice.getAmount() * userCurrency.getKoef() / productCurrency.getKoef();
+		price.append(amount);
+		if(!code.isPositionLeft()) price.append(code.getCc());
+		return price.toString();
 	}
 
 	public long getUserId() {
@@ -329,11 +356,11 @@ public class ProductDetailsBean {
 		this.description = description;
 	}
 
-	public int getPrice() {
+	public String getPrice() {
 		return price;
 	}
 
-	public void setPrice(int price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 
@@ -369,11 +396,11 @@ public class ProductDetailsBean {
 		this.commentBody = commentBody;
 	}
 
-	public int getTotalPrice() {
+	public String getTotalPrice() {
 		return totalPrice;
 	}
 
-	public void setTotalPrice(int totalPrice) {
+	public void setTotalPrice(String totalPrice) {
 		this.totalPrice = totalPrice;
 	}
 		
