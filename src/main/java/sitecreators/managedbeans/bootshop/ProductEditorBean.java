@@ -55,7 +55,7 @@ public class ProductEditorBean {
 	
 	private String title;
 	
-	private int price;
+	private double price;
 	
 	private String category;
 	
@@ -151,7 +151,7 @@ public class ProductEditorBean {
 		this.totalPrice = 0;
 		for(Order order : cart){
 			int number = order.getProductsNumber();
-			int price = order.getProduct().getProductPrice().getAmount();
+			double price = order.getProduct().getProductPrice().getAmount();
 			this.totalPrice += (price * number);
 		}
 	}
@@ -244,11 +244,11 @@ public class ProductEditorBean {
 		this.title = title;
 	}
 
-	public int getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(int price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 

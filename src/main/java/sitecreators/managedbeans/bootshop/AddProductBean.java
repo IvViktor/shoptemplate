@@ -45,7 +45,7 @@ public class AddProductBean {
 	
 	private String productTitle;
 	
-	private int productPrice;
+	private double productPrice;
 	
 	private String description;
 	
@@ -111,7 +111,7 @@ public class AddProductBean {
 		this.totalPrice = 0;
 		for(Order order : cart){
 			int number = order.getProductsNumber();
-			int price = order.getProduct().getProductPrice().getAmount();
+			double price = order.getProduct().getProductPrice().getAmount();
 			this.totalPrice += (price * number);
 		}
 	}
@@ -162,11 +162,11 @@ public class AddProductBean {
 		this.productTitle = productTitle;
 	}
 
-	public int getProductPrice() {
+	public double getProductPrice() {
 		return productPrice;
 	}
 
-	public void setProductPrice(int productPrice) {
+	public void setProductPrice(double productPrice) {
 		this.productPrice = productPrice;
 	}
 

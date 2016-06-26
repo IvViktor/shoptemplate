@@ -18,17 +18,19 @@ import sitecreators.utils.finance.Currency;
 @Embeddable
 public class ProductPrice {
 	
-	private int amount;
+	private double amount;
 	
 	@ManyToOne
 	@JoinColumn(name = "currency_id",foreignKey = @ForeignKey(name = "CURRENCY_ID_FK"))
 	private Currency currency;
+	
+	
 
-	public int getAmount() {
+	public double getAmount() {
 		return amount;
 	}
 
-	public void setAmount(int amount) {
+	public void setAmount(double amount) {
 		this.amount = amount;
 	}
 
