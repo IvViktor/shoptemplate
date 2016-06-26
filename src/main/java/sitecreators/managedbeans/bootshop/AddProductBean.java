@@ -18,6 +18,7 @@ import sitecreators.utils.product.Product;
 import sitecreators.utils.product.ProductDAO;
 import sitecreators.utils.product.ProductDecription;
 import sitecreators.utils.product.ProductPrice;
+import sitecreators.utils.product.ProductStatus;
 import sitecreators.utils.user.User;
 import sitecreators.utils.user.UserAbout;
 import sitecreators.utils.user.UserDAO;
@@ -56,6 +57,10 @@ public class AddProductBean {
 	
 	private Part imageFile;
 	
+	private ProductStatus[] statusList;
+	
+	private String selectedStatus;
+	
 	public AddProductBean() throws Exception{
 		
 		categoryDao = (CategoryDAO) ApplicationContextUtil.getApplicationContext().getBean("CategoryDAO");
@@ -93,6 +98,7 @@ public class AddProductBean {
 			userDao.close();
 		}
 		calculateSum();
+		statusList = ProductStatus.values();
 	}
 	
 	public void closeSession(){
@@ -116,6 +122,8 @@ public class AddProductBean {
 		ProductPrice pPrice = new ProductPrice();
 		pPrice.setAmount(productPrice);
 		product.setProductPrice(pPrice);
+		ProductStatus status = ProductStatus.valueOf(selectedStatus);
+		product.setStatus(status);
 		try{
 			categoryDao.open();
 			Category cat = categoryDao.getCategory(category);
@@ -232,6 +240,22 @@ public class AddProductBean {
 
 	public void setTotalPrice(int totalPrice) {
 		this.totalPrice = totalPrice;
+	}
+
+	public ProductStatus[] getStatusList() {
+		return statusList;
+	}
+
+	public void setStatusList(ProductStatus[] statusList) {
+		this.statusList = statusList;
+	}
+
+	public String getSelectedStatus() {
+		return selectedStatus;
+	}
+
+	public void setSelectedStatus(String selectedStatus) {
+		this.selectedStatus = selectedStatus;
 	}
 			
 }

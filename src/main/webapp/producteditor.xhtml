@@ -257,7 +257,16 @@
 		 				 <h:inputTextarea cols="26" rows="4" id="productAbout" placeholder="Description" 
 		  				 value="#{editProductBean.description}"/>
 						</div>
-	 				</div>	
+	 				</div>
+	 				<div class="control-group">
+						<label class="control-label">Select status of product </label>
+						<div class="controls">
+						  <h:selectOneMenu value="#{editProductBean.selectedStatus}">
+						  	<f:selectItems value="#{editProductBean.statusList}" var="status" 
+						  	itemLabel="#{status.representValue}" itemValue="#{status.stringValue}" />
+				 		  </h:selectOneMenu>
+						</div>
+					</div>		
 					<hr class="soft"/>
 					<h4>Add new image for product</h4>
 					<div class="control-group">

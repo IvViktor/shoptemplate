@@ -21,6 +21,7 @@ import sitecreators.utils.product.Product;
 import sitecreators.utils.product.ProductDAO;
 import sitecreators.utils.product.ProductDecription;
 import sitecreators.utils.product.ProductPrice;
+import sitecreators.utils.product.ProductStatus;
 import sitecreators.utils.user.User;
 import sitecreators.utils.user.UserAbout;
 import sitecreators.utils.user.UserDAO;
@@ -75,6 +76,11 @@ public class ProductEditorBean {
 	private Comment deletedComment;
 	
 	private ExternalContext exc;
+	
+	private ProductStatus[] statusList;
+	
+	private String selectedStatus;
+	
 	
 	
 	public ProductEditorBean() throws Exception{
@@ -138,6 +144,7 @@ public class ProductEditorBean {
 			e.printStackTrace();
 		}
 		calculateSum();
+		statusList = ProductStatus.values();
 	}
 	
 	private void calculateSum(){
@@ -193,6 +200,8 @@ public class ProductEditorBean {
 	
 	public String save(){
 		changeCategory(category);
+		ProductStatus status = ProductStatus.valueOf(selectedStatus);
+		product.setStatus(status);
 		product.setProductTitle(title);
 		ProductPrice pPrice = product.getProductPrice();
 		if(pPrice == null) pPrice = new ProductPrice();
@@ -345,6 +354,22 @@ public class ProductEditorBean {
 
 	public void setTotalPrice(int totalPrice) {
 		this.totalPrice = totalPrice;
+	}
+
+	public ProductStatus[] getStatusList() {
+		return statusList;
+	}
+
+	public void setStatusList(ProductStatus[] statusList) {
+		this.statusList = statusList;
+	}
+
+	public String getSelectedStatus() {
+		return selectedStatus;
+	}
+
+	public void setSelectedStatus(String selectedStatus) {
+		this.selectedStatus = selectedStatus;
 	}
 
 			
