@@ -27,7 +27,7 @@ public class Currency {
 	private Country countryCode;
 	
 	private double koef;
-
+	
 	public Country getCountryCode() {
 		return countryCode;
 	}

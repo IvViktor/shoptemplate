@@ -9,9 +9,11 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -19,6 +21,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import sitecreators.utils.auth.Password;
 import sitecreators.utils.comment.Comment;
+import sitecreators.utils.finance.Currency;
 import sitecreators.utils.image.Image;
 import sitecreators.utils.order.Order;
 import sitecreators.utils.order.OrderStatus;
@@ -61,6 +64,10 @@ public class User {
 	
 	@OneToMany(mappedBy="customer",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Order> purchases = new ArrayList<>();
+	
+	@ManyToOne
+	@JoinColumn(name = "currency_id",foreignKey = @ForeignKey(name = "CURRENCY_ID_FK"))
+	private Currency currency;
 
 	public long getId() {
 		return id;
@@ -151,5 +158,13 @@ public class User {
 
 	public void setContacts(UserContacts contacts) {
 		this.contacts = contacts;
+	}
+
+	public Currency getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(Currency currency) {
+		this.currency = currency;
 	}
 }
