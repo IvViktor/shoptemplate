@@ -75,6 +75,7 @@ public class IndexBean {
 				if(o.getStatus().equals(OrderStatus.INCART)) this.cart.add(o);
 			}
 			this.userCurrency = user.getCurrency();
+			calculateSum();
 		} catch (Exception e){
 			e.printStackTrace();
 		} finally {
@@ -93,7 +94,6 @@ public class IndexBean {
 		} catch (Exception e){
 			e.printStackTrace();
 		}
-		calculateSum();
 	}
 	
 	public void login(){
@@ -114,13 +114,15 @@ public class IndexBean {
 				for(Order o : orders){
 					if(o.getStatus().equals(OrderStatus.INCART)) this.cart.add(o);
 				}
+				this.userCurrency = user.getCurrency();
+				calculateSum();
+
 			}
 		} catch (Exception e){
 			e.printStackTrace();
 		} finally {
 			userDao.close();
 		}
-		calculateSum();
 	}
 	
 	public void addToCart(long productId){

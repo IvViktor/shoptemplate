@@ -81,6 +81,8 @@ public class RegisterBean {
 				if(o.getStatus().equals(OrderStatus.INCART)) this.cart.add(o);
 			}
 			this.userCurrency = user.getCurrency();
+			calculateSum();
+
 		} catch (Exception e){
 			e.printStackTrace();
 		} finally {
@@ -93,7 +95,6 @@ public class RegisterBean {
 		} catch (Exception e){
 			e.printStackTrace();
 		}
-		calculateSum();
 	}
 	
 	public String register(){
@@ -156,13 +157,15 @@ public class RegisterBean {
 				for(Order o : orders){
 					if(o.getStatus().equals(OrderStatus.INCART)) this.cart.add(o);
 				}
+				this.userCurrency = user.getCurrency();
+				calculateSum();
+
 			}
 		} catch (Exception e){
 			e.printStackTrace();
 		} finally {
 			userDao.close();
 		}
-		calculateSum();
 	}
 	
 	private void calculateSum(){

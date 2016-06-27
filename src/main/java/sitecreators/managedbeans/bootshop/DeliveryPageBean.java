@@ -63,6 +63,8 @@ public class DeliveryPageBean {
 				if(o.getStatus().equals(OrderStatus.INCART)) this.cart.add(o);
 			}
 			this.userCurrency = user.getCurrency();
+			calculateSum();
+
 		} catch (Exception e){
 			e.printStackTrace();
 		} finally {
@@ -74,7 +76,6 @@ public class DeliveryPageBean {
 		} catch (Exception e){
 			e.printStackTrace();
 		}
-		calculateSum();
 	}
 	
 	public void login(){
@@ -95,13 +96,15 @@ public class DeliveryPageBean {
 				for(Order o : orders){
 					if(o.getStatus().equals(OrderStatus.INCART)) this.cart.add(o);
 				}
+				this.userCurrency = user.getCurrency();
+				calculateSum();
+
 			}
 		} catch (Exception e){
 			e.printStackTrace();
 		} finally {
 			userDao.close();
 		}
-		calculateSum();
 	}
 	
 	private void calculateSum(){

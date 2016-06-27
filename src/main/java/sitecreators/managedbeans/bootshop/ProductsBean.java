@@ -155,6 +155,8 @@ public class ProductsBean {
 				if(o.getStatus().equals(OrderStatus.INCART)) this.cart.add(o);
 			}
 			this.userCurrency = user.getCurrency();
+			calculateSum();
+
 		} catch (Exception e){
 			e.printStackTrace();
 		} finally {
@@ -171,7 +173,6 @@ public class ProductsBean {
 		} else {
 			products.sort((Product p1,Product p2) -> (int)(p1.getId() - p2.getId())*(-1));
 		}
-		calculateSum();
 	}
 	
 	public void addToCart(long productId){
@@ -259,13 +260,15 @@ public class ProductsBean {
 				for(Order o : orders){
 					if(o.getStatus().equals(OrderStatus.INCART)) this.cart.add(o);
 				}
+				this.userCurrency = user.getCurrency();
+				calculateSum();
+
 			}
 		} catch (Exception e){
 			e.printStackTrace();
 		} finally {
 			userDao.close();
 		}
-		calculateSum();
 	}
 	
 	public void closeSession(){

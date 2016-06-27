@@ -66,6 +66,7 @@ public class CartBean {
 				if(o.getStatus().equals(OrderStatus.INCART)) this.cart.add(o);
 			}
 			this.userCurrency = user.getCurrency();
+			calculateSum();
 		} catch (Exception e){
 			e.printStackTrace();
 		} finally {
@@ -77,7 +78,6 @@ public class CartBean {
 		} catch (Exception e){
 			e.printStackTrace();
 		}
-		calculateSum();
 	}
 	
 	public void login(){
@@ -98,6 +98,9 @@ public class CartBean {
 				for(Order o : orders){
 					if(o.getStatus().equals(OrderStatus.INCART)) this.cart.add(o);
 				}
+				this.userCurrency = user.getCurrency();
+				calculateSum();
+
 			}
 		} catch (Exception e){
 			e.printStackTrace();

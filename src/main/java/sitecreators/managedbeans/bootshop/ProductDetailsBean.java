@@ -97,6 +97,8 @@ public class ProductDetailsBean {
 				if(o.getStatus().equals(OrderStatus.INCART)) this.cart.add(o);
 			}
 			this.userCurrency = user.getCurrency();
+			calculateSum();
+
 		} catch (Exception e){
 			e.printStackTrace();
 		} finally {
@@ -128,7 +130,6 @@ public class ProductDetailsBean {
 			e.printStackTrace();
 			throw new Exception("invalid identifier");
 		}
-		calculateSum();
 	}
 	
 	public void closeSession(){
@@ -155,6 +156,7 @@ public class ProductDetailsBean {
 				for(Order o : orders){
 					if(o.getStatus().equals(OrderStatus.INCART)) this.cart.add(o);
 				}
+				this.userCurrency = user.getCurrency();
 				calculateSum();
 			}
 		} catch (Exception e){

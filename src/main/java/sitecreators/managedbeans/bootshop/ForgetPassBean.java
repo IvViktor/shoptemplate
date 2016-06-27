@@ -63,6 +63,8 @@ public class ForgetPassBean {
 				if(o.getStatus().equals(OrderStatus.INCART)) this.cart.add(o);
 			}
 			this.userCurrency = user.getCurrency();
+			calculateSum();
+
 		} catch (Exception e){
 			e.printStackTrace();
 		} finally {
@@ -75,7 +77,6 @@ public class ForgetPassBean {
 		} catch (Exception e){
 			e.printStackTrace();
 		}
-		calculateSum();
 	}
 	
 	public void forgotPass(){
