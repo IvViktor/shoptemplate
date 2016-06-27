@@ -3,9 +3,12 @@
     xmlns="http://www.springframework.org/schema/beans"  
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
     xmlns:p="http://www.springframework.org/schema/p"  
-    xsi:schemaLocation="http://www.springframework.org/schema/beans   
-http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">  
-
+    xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+		http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		http://www.springframework.org/schema/task
+		http://www.springframework.org/schema/task/spring-task-3.0.xsd">  
+	<task:annotation-driven />
 		<!--<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="25" />
@@ -30,4 +33,7 @@ http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
 	<bean id="OrderDAO" class="sitecreators.utils.order.OrderDAOImpl"/>
 	<bean id="ProductDAO" class="sitecreators.utils.product.ProductDAOImpl"/>
 	<bean id="UserDAO" class="sitecreators.utils.user.UserDAOImpl"/>
+	<bean id="SchedulerService" class="sitecreators.utils.SchedulerService" depends-on="CurrencyDAO">
+		<property name="currencyDao" ref="CurrencyDAO" />
+	</bean>
 </beans>  

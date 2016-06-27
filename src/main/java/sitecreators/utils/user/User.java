@@ -66,7 +66,7 @@ public class User {
 	private List<Order> purchases = new ArrayList<>();
 	
 	@ManyToOne
-	@JoinColumn(name = "currency_id",foreignKey = @ForeignKey(name = "CURRENCY_ID_FK"))
+	@JoinColumn(name = "user_currency_id",foreignKey = @ForeignKey(name = "CURRENCY_USER_ID_FK"))
 	private Currency currency;
 
 	public long getId() {
