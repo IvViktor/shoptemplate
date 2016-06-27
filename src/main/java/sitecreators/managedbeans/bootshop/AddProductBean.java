@@ -75,6 +75,8 @@ public class AddProductBean {
 	
 	private List<String> currencyCodes = new ArrayList<>();
 	
+	private double discount;
+	
 	public AddProductBean() throws Exception{
 		
 		categoryDao = (CategoryDAO) ApplicationContextUtil.getApplicationContext().getBean("CategoryDAO");
@@ -152,6 +154,7 @@ public class AddProductBean {
 		ProductPrice pPrice = new ProductPrice();
 		pPrice.setAmount(productPrice);
 		pPrice.setCurrency(this.getCurrency(productCurrency));
+		pPrice.setDiscount(discount);
 		product.setProductPrice(pPrice);
 		ProductStatus status = ProductStatus.valueOf(selectedStatus);
 		product.setStatus(status);
@@ -319,6 +322,14 @@ public class AddProductBean {
 
 	public void setCurrencyCodes(List<String> currencyCodes) {
 		this.currencyCodes = currencyCodes;
+	}
+
+	public double getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(double discount) {
+		this.discount = discount;
 	}
 			
 }
