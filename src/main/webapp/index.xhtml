@@ -283,7 +283,8 @@
 			  <c:set var="startIndex" value="0" />
 			  <c:set var="endIndex" value="4" />
 			  <c:set var="listSize" value="#{indexBean.featuredProducts.size()}" />
-			  <c:set var="featuredPages" value="${((listSize % endIndex) gt 0) ? (listSize / endIndex) +1 : (listSize / endIndex)}" />
+			  <c:set var="featuredPages" 
+			  value="${((listSize mod endIndex) gt 0 ) ? ((listSize div endIndex) + 1) : (listSize div endIndex)}" />
 			  <c:if test="${listSize lt endIndex}">
 			  	<c:set var="endIndex" value="${listSize}" />
 			  </c:if>
@@ -308,10 +309,10 @@
 				</ui:repeat>
 			  </ul>
 			  </div>
-			  <c:if test="${featuredPages gt 1}">
+			  <c:if test="${featuredPages gt 2}">
 			  	<c:forEach var="i" begin="1" end="${featuredPages}">
 			  	 <c:set var="startIndex" value="${i*4}" />
-			  	 <c:set var="endIndex" value="${(((i*4)+4) lt listSize) ? ((i*4)+4) : listSize}" />
+			  	 <c:set var="endIndex" value="${((startIndex+4) lt listSize) ? (startIndex+4) : listSize}" />
 				  <div class="item">
 				  <ul class="thumbnails">
 					<ui:repeat value="#{indexBean.featuredProducts.subList(startIndex,endIndex)}" var="product">
