@@ -11,7 +11,9 @@ import sitecreators.utils.ApplicationContextUtil;
 import sitecreators.utils.auth.Password;
 import sitecreators.utils.category.Category;
 import sitecreators.utils.category.CategoryDAO;
+import sitecreators.utils.finance.Country;
 import sitecreators.utils.finance.Currency;
+import sitecreators.utils.finance.CurrencyDAO;
 import sitecreators.utils.image.Image;
 import sitecreators.utils.image.ImageDAO;
 import sitecreators.utils.order.Order;
@@ -27,7 +29,9 @@ public class RegisterBean {
 	
 	private User user;
 
-	private UserDAO userDao; 
+	private UserDAO userDao;
+	
+	private CurrencyDAO currencyDao;
 
 	private long userId = 0;
 	
@@ -59,6 +63,7 @@ public class RegisterBean {
 	public RegisterBean(){
 		this.userDao = (UserDAO) ApplicationContextUtil.getApplicationContext().getBean("UserDAO");
 		this.categoryDao =(CategoryDAO) ApplicationContextUtil.getApplicationContext().getBean("CategoryDAO");
+		currencyDao = (CurrencyDAO) ApplicationContextUtil.getApplicationContext().getBean("CurrencyDAO");
 		try{
 			userId = (long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
 		} catch (NullPointerException e){
@@ -114,6 +119,11 @@ public class RegisterBean {
 		icon.setImgDecs("no image");
 		imageDao.addImage(icon);
 		user.setIcon(icon);
+		List<Currency> currencies = currencyDao.getAllCurrencies();
+		for(Currency curr : currencies){
+			if(curr.getCountryCode().equals(Country.USD)) userCurrency = curr;
+		}
+		user.setCurrency(userCurrency);
 		try{
 			userDao.open();
 			userDao.addUser(user);

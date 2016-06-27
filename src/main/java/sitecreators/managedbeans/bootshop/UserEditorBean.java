@@ -16,6 +16,7 @@ import sitecreators.utils.category.Category;
 import sitecreators.utils.category.CategoryDAO;
 import sitecreators.utils.finance.Country;
 import sitecreators.utils.finance.Currency;
+import sitecreators.utils.finance.CurrencyDAO;
 import sitecreators.utils.image.Image;
 import sitecreators.utils.image.ImageDAO;
 import sitecreators.utils.order.Order;
@@ -49,6 +50,8 @@ public class UserEditorBean {
 	private String userName;
 
 	private CategoryDAO categoryDao;
+	
+	private CurrencyDAO currencyDao;
 	
 	private List<Category> categories;
 	
@@ -89,6 +92,7 @@ public class UserEditorBean {
 		this.userDao = (UserDAO) ApplicationContextUtil.getApplicationContext().getBean("UserDAO");
 		this.imageDao = (ImageDAO) ApplicationContextUtil.getApplicationContext().getBean("ImageDAO");
 		categoryDao = (CategoryDAO) ApplicationContextUtil.getApplicationContext().getBean("CategoryDAO");
+		currencyDao = (CurrencyDAO) ApplicationContextUtil.getApplicationContext().getBean("CurrencyDAO");
 		userId = (long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
 		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		try{
@@ -138,6 +142,7 @@ public class UserEditorBean {
 			e.printStackTrace();
 		}
 		calculateSum();
+		this.currencies = currencyDao.getAllCurrencies();
 	}
 	
 	private void calculateSum(){

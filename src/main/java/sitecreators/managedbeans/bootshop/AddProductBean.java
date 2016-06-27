@@ -11,6 +11,7 @@ import sitecreators.utils.ApplicationContextUtil;
 import sitecreators.utils.category.Category;
 import sitecreators.utils.category.CategoryDAO;
 import sitecreators.utils.finance.Currency;
+import sitecreators.utils.finance.CurrencyDAO;
 import sitecreators.utils.image.Image;
 import sitecreators.utils.image.ImageDAO;
 import sitecreators.utils.order.Order;
@@ -31,6 +32,7 @@ public class AddProductBean {
 	private ProductDAO productDao;
 	private UserDAO userDao;
 	private ImageDAO imageDao;
+	private CurrencyDAO currencyDao;
 	
 	private long userId;
 	
@@ -74,6 +76,7 @@ public class AddProductBean {
 		productDao = (ProductDAO) ApplicationContextUtil.getApplicationContext().getBean("ProductDAO");
 		userDao = (UserDAO) ApplicationContextUtil.getApplicationContext().getBean("UserDAO");
 		imageDao = (ImageDAO) ApplicationContextUtil.getApplicationContext().getBean("ImageDAO");
+		currencyDao = (CurrencyDAO) ApplicationContextUtil.getApplicationContext().getBean("CurrencyDAO");
 		try{
 			userId = (long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userID");
 		} catch (Exception e){
@@ -107,6 +110,7 @@ public class AddProductBean {
 		}
 		calculateSum();
 		statusList = ProductStatus.values();
+		this.currencies = currencyDao.getAllCurrencies();
 	}
 	
 	public void closeSession(){
