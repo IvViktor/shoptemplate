@@ -7,6 +7,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.Part;
 
+import org.apache.commons.math3.util.Precision;
+
 import sitecreators.utils.ApplicationContextUtil;
 import sitecreators.utils.category.Category;
 import sitecreators.utils.category.CategoryDAO;
@@ -140,7 +142,7 @@ public class AddProductBean {
 		if(userCurrency.getCountryCode().isPositionLeft()){
 			this.totalPrice = String.valueOf(cc) + price;
 		} else {
-			this.totalPrice = price + String.valueOf(cc);
+			this.totalPrice = Precision.round(price, 2) + String.valueOf(cc);
 		}
 	}
 	

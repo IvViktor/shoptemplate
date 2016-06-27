@@ -6,6 +6,8 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
+import org.apache.commons.math3.util.Precision;
+
 import sitecreators.utils.ApplicationContextUtil;
 import sitecreators.utils.auth.Password;
 import sitecreators.utils.category.Category;
@@ -118,11 +120,12 @@ public class LoginBean {
 			double disc = amount * pPrice.getDiscount() / 100;
 			price+=(amount - disc);
 		}
+		
 		char cc = userCurrency.getCountryCode().getCc();
 		if(userCurrency.getCountryCode().isPositionLeft()){
-			this.totalPrice = String.valueOf(cc) + price;
+			this.totalPrice = String.valueOf(cc) + Precision.round(price, 2);
 		} else {
-			this.totalPrice = price + String.valueOf(cc);
+			this.totalPrice = Precision.round(price, 2) + String.valueOf(cc);
 		}
 	}
 	

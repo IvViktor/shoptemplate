@@ -6,6 +6,8 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
+import org.apache.commons.math3.util.Precision;
+
 import sitecreators.utils.ApplicationContextUtil;
 import sitecreators.utils.auth.Password;
 import sitecreators.utils.category.Category;
@@ -170,12 +172,13 @@ public class CartBean {
 			discount+=disc;
 			price+=(amount - disc);
 		}
+		
 		char cc = userCurrency.getCountryCode().getCc();
 		if(userCurrency.getCountryCode().isPositionLeft()){
-			this.totalPrice = String.valueOf(cc) + price;
+			this.totalPrice = String.valueOf(cc) + Precision.round(price, 2);
 			this.totalDiscount = String.valueOf(cc) + discount;
 		} else {
-			this.totalPrice = price + String.valueOf(cc);
+			this.totalPrice = Precision.round(price, 2) + String.valueOf(cc);
 			this.totalDiscount = discount + String.valueOf(cc);
 		}
 	}
@@ -186,7 +189,8 @@ public class CartBean {
 		Country code = userCurrency.getCountryCode();
 		if(code.isPositionLeft()) price.append(code.getCc());
 		double amount = pPrice.getAmount() * number * userCurrency.getKoef() / productCurrency.getKoef();
-		price.append(amount);
+		
+		price.append(Precision.round(amount, 2));
 		if(!code.isPositionLeft()) price.append(code.getCc());
 		return price.toString();
 	}

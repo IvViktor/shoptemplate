@@ -9,6 +9,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.math3.util.Precision;
+
 import sitecreators.utils.ApplicationContextUtil;
 import sitecreators.utils.auth.Password;
 import sitecreators.utils.category.Category;
@@ -216,11 +218,12 @@ public class ProductsBean {
 			double disc = amount * pPrice.getDiscount() / 100;
 			price+=(amount - disc);
 		}
+		
 		char cc = userCurrency.getCountryCode().getCc();
 		if(userCurrency.getCountryCode().isPositionLeft()){
-			this.totalPrice = String.valueOf(cc) + price;
+			this.totalPrice = String.valueOf(cc) + Precision.round(price, 2);
 		} else {
-			this.totalPrice = price + String.valueOf(cc);
+			this.totalPrice = Precision.round(price, 2) + String.valueOf(cc);
 		}
 	}
 	
@@ -236,7 +239,8 @@ public class ProductsBean {
 		} catch (NullPointerException e){
 			amount = pPrice.getAmount();
 		}
-		price.append(amount);
+		
+		price.append(Precision.round(amount, 2));
 		if(!code.isPositionLeft()) price.append(code.getCc());
 		return price.toString();
 	}
