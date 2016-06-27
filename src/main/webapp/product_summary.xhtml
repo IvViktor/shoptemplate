@@ -290,7 +290,7 @@
 					</div>
 				  </td>
                   <td>#{cartBean.returnPrice(order.product.productPrice,1)}</td>
-                  <td>0.00</td>
+                  <td>#{cartBean.returnDiscount(order.product.productPrice,1)}</td>
                   <td>#{cartBean.returnPrice(order.product.productPrice,order.productsNumber)}</td>
                 </tr>
 			   </ui:repeat>
@@ -302,12 +302,12 @@
                   <td colspan="5" style="text-align:right">Total Discount:	</td>
                   <td>#{cartBean.totalDiscount}</td>
                 </tr>
-                <tr>
+                <!--<tr>
                   <td colspan="5" style="text-align:right"><strong>TOTAL </strong></td>
                   <td class="label label-important" style="display:block"> 
                   	<strong>  </strong>
                   </td>
-                </tr>
+                </tr>-->
 				</tbody>
             </table>
 		

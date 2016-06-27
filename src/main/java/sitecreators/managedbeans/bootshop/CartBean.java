@@ -176,10 +176,10 @@ public class CartBean {
 		char cc = userCurrency.getCountryCode().getCc();
 		if(userCurrency.getCountryCode().isPositionLeft()){
 			this.totalPrice = String.valueOf(cc) + Precision.round(price, 2);
-			this.totalDiscount = String.valueOf(cc) + discount;
+			this.totalDiscount = String.valueOf(cc) + Precision.round(discount, 2);
 		} else {
 			this.totalPrice = Precision.round(price, 2) + String.valueOf(cc);
-			this.totalDiscount = discount + String.valueOf(cc);
+			this.totalDiscount = Precision.round(discount, 2) + String.valueOf(cc);
 		}
 	}
 	
@@ -189,8 +189,20 @@ public class CartBean {
 		Country code = userCurrency.getCountryCode();
 		if(code.isPositionLeft()) price.append(code.getCc());
 		double amount = pPrice.getAmount() * number * userCurrency.getKoef() / productCurrency.getKoef();
-		
+		double discount = pPrice.getAmount() * number * pPrice.getDiscount() / 100 * userCurrency.getKoef() / productCurrency.getKoef();
+		amount -= discount;
 		price.append(Precision.round(amount, 2));
+		if(!code.isPositionLeft()) price.append(code.getCc());
+		return price.toString();
+	}
+	
+	public String returnDiscount(ProductPrice pPrice, int number){
+		Currency productCurrency = pPrice.getCurrency();
+		StringBuffer price = new StringBuffer();
+		Country code = userCurrency.getCountryCode();
+		if(code.isPositionLeft()) price.append(code.getCc());
+		double discount = pPrice.getAmount() * number * pPrice.getDiscount() / 100 * userCurrency.getKoef() / productCurrency.getKoef();
+		price.append(Precision.round(discount, 2));
 		if(!code.isPositionLeft()) price.append(code.getCc());
 		return price.toString();
 	}
