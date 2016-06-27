@@ -212,8 +212,9 @@
 			  <h:inputText type="text" id="inputLnam" placeholder="Price" required="true"  
 			  value="#{addProductBean.productPrice}"/>
 			  <h:selectOneMenu value="#{addProductBean.productCurrency}">
-				  <f:selectItems value="#{addProductBean.currencies}" val="curr" 
-			  	itemLabel="#{curr.countryCode.stringValue}" itemValue="#{curr.countryCode.stringValue}" />
+				  <f:selectItems value="#{addProductBean.currencyCodes}" val="curr" 
+			  	itemLabel="#{curr}" 
+						  	itemValue="#{curr}" />
 			  </h:selectOneMenu>
 			</div>
 		 </div>

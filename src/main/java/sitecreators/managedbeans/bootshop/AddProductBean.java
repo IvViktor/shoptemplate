@@ -10,6 +10,7 @@ import javax.servlet.http.Part;
 import sitecreators.utils.ApplicationContextUtil;
 import sitecreators.utils.category.Category;
 import sitecreators.utils.category.CategoryDAO;
+import sitecreators.utils.finance.Country;
 import sitecreators.utils.finance.Currency;
 import sitecreators.utils.finance.CurrencyDAO;
 import sitecreators.utils.image.Image;
@@ -70,6 +71,8 @@ public class AddProductBean {
 
 	private String productCurrency;
 	
+	private List<String> currencyCodes = new ArrayList<>();
+	
 	public AddProductBean() throws Exception{
 		
 		categoryDao = (CategoryDAO) ApplicationContextUtil.getApplicationContext().getBean("CategoryDAO");
@@ -111,6 +114,9 @@ public class AddProductBean {
 		calculateSum();
 		statusList = ProductStatus.values();
 		this.currencies = currencyDao.getAllCurrencies();
+		for(Country c : Country.values()){
+			currencyCodes.add(c.getStringValue());
+		}
 	}
 	
 	public void closeSession(){
@@ -303,6 +309,14 @@ public class AddProductBean {
 
 	public void setProductCurrency(String productCurrency) {
 		this.productCurrency = productCurrency;
+	}
+
+	public List<String> getCurrencyCodes() {
+		return currencyCodes;
+	}
+
+	public void setCurrencyCodes(List<String> currencyCodes) {
+		this.currencyCodes = currencyCodes;
 	}
 			
 }

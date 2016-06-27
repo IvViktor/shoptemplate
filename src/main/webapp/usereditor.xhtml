@@ -271,8 +271,9 @@
 						<label class="control-label">Currency </label>
 						<div class="controls">
 						  <h:selectOneMenu value="#{userEditorBean.newCurrency}">
-						  	<f:selectItems value="#{userEditorBean.currencies}" val="curr" 
-						  	itemLabel="#{curr.countryCode.stringValue}" itemValue="#{curr.countryCode.stringValue}" />
+						  	<f:selectItems value="#{userEditorBean.currencyCodes}" val="curr" 
+						  	itemLabel="#{curr}" 
+						  	itemValue="#{curr}" />
 						  </h:selectOneMenu>
 						</div>
 					</div>

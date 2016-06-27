@@ -86,6 +86,8 @@ public class UserEditorBean {
 	private List<Currency> currencies = new ArrayList<>();
 
 	private String newCurrency;
+	
+	private List<String> currencyCodes = new ArrayList<>();
 
 	
 	public UserEditorBean() throws Exception{
@@ -122,6 +124,9 @@ public class UserEditorBean {
 				if(o.getStatus().equals(OrderStatus.INCART)) this.cart.add(o);
 			}
 			this.userCurrency = user.getCurrency();
+			if(userCurrency != null){
+				newCurrency = userCurrency.getCountryCode().getStringValue();
+			}
 			this.icon = user.getIcon();
 			this.images = user.getImages();
 			this.password = user.getPassword();
@@ -143,6 +148,9 @@ public class UserEditorBean {
 		}
 		calculateSum();
 		this.currencies = currencyDao.getAllCurrencies();
+		for(Country c : Country.values()){
+			currencyCodes.add(c.getStringValue());
+		}
 	}
 	
 	private void calculateSum(){
@@ -232,7 +240,7 @@ public class UserEditorBean {
 		if(uContact == null) uContact = new UserContacts();
 		uContact.setEmail(email);
 		uContact.setPnoneNumber(pnoneNumber);
-		userCurrency = getCurrency(newCurrency);
+		user.setCurrency(getCurrency(newCurrency));
 		try{
 			userDao.open();
 			userDao.updateUser(user);
@@ -409,6 +417,14 @@ public class UserEditorBean {
 
 	public void setNewCurrency(String newCurrency) {
 		this.newCurrency = newCurrency;
+	}
+
+	public List<String> getCurrencyCodes() {
+		return currencyCodes;
+	}
+
+	public void setCurrencyCodes(List<String> currencyCodes) {
+		this.currencyCodes = currencyCodes;
 	}
 		
 }
