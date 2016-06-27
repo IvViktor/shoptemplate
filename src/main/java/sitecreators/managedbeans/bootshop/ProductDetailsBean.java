@@ -270,9 +270,15 @@ public class ProductDetailsBean {
 	public String returnPrice(ProductPrice pPrice){
 		Currency productCurrency = pPrice.getCurrency();
 		StringBuffer price = new StringBuffer();
+		if(userCurrency == null) userCurrency = productCurrency;
 		Country code = userCurrency.getCountryCode();
 		if(code.isPositionLeft()) price.append(code.getCc());
-		double amount = pPrice.getAmount() * userCurrency.getKoef() / productCurrency.getKoef();
+		double amount = 0;
+		try{
+			amount = pPrice.getAmount() * userCurrency.getKoef() / productCurrency.getKoef();
+		} catch (NullPointerException e){
+			amount = pPrice.getAmount();
+		}
 		price.append(amount);
 		if(!code.isPositionLeft()) price.append(code.getCc());
 		return price.toString();
