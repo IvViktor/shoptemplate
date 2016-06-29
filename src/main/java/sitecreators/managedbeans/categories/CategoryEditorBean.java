@@ -8,7 +8,7 @@ import sitecreators.utils.ApplicationContextUtil;
 import sitecreators.utils.category.Category;
 import sitecreators.utils.category.CategoryDAO;
 
-@ManagedBean(name="categoryEditorBean")
+//@ManagedBean(name="categoryEditorBean")
 public class CategoryEditorBean {
 	
 	private CategoryDAO categoryDao;
