@@ -35,5 +35,39 @@
 		   <servlet-name>Faces Servlet</servlet-name>
 		   <url-pattern>*.xhtml</url-pattern>
    </servlet-mapping>
-     	
+   
+   <filter>
+		<filter-name>FilterServlet</filter-name>
+		<filter-class>sitecreators.utils.FilterServlet</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>FilterServlet</filter-name>
+		<url-pattern>/newproduct.xhtml</url-pattern>
+	</filter-mapping>
+	
+    <filter-mapping>
+		<filter-name>FilterServlet</filter-name>
+		<url-pattern>/producteditor.xhtml</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>FilterServlet</filter-name>
+		<url-pattern>/home.xhtml</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>FilterServlet</filter-name>
+		<url-pattern>/usereditor.xhtml</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>FilterServlet</filter-name>
+		<url-pattern>/categoryeditor.xhtml</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>FilterServlet</filter-name>
+		<url-pattern>/orders.xhtml</url-pattern>
+	</filter-mapping> 	
 </web-app>
