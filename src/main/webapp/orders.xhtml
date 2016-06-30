@@ -98,7 +98,7 @@
 	<div class="container">
 	<div class="row">
 
-	<div class="span9">
+	<div class="span12">
     <ul class="breadcrumb">
 		<li><a href="home.xhtml">Home</a> <span class="divider">/</span></li>
 		<li class="active"> ORDERS LIST</li>
@@ -114,6 +114,7 @@
 				  <th>User name</th>
                   <th>User contact</th>
                   <th>Order status</th>
+                  <th>Manage order</th>
 				</tr>
               </thead>
               <tbody>
@@ -138,6 +139,17 @@
                   	#{order.customer.contacts.email}
                   </td>
                   <td>#{order.status.getRepresentValue()}</td>
+                  <td>
+                  	<h:form style="display:inline-block;">
+                  		<h:commandLink value="Cancel" action="#{ordersBean.cancel(order)}" class="btn btn-danger" />
+                  	</h:form>
+                  	<h:form style="display:inline-block;">
+                  		<h:commandLink value="Accept" action="#{ordersBean.accept(order)}" class="btn btn-primary" />
+                  	</h:form>
+                  	<h:form style="display:inline-block;">
+                  		<h:commandLink value="Fullfill" action="#{ordersBean.fullfill(order)}" class="btn btn-success" />
+                  	</h:form>
+                  </td>
                 </tr>
 			   </ui:repeat>
                 

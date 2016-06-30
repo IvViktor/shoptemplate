@@ -38,4 +38,21 @@ public class OrderDAOImpl implements OrderDAO {
 		return resultList;
 	}
 
+	@Override
+	public void update(Order order) {
+		Session session = null;
+		Transaction tx = null;
+		try{
+			session = this.sessionFactory.openSession();
+			tx = session.beginTransaction();
+			session.update(order);
+			tx.commit();
+		} catch (Exception e){
+			if(tx !=null) tx.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+	}
+
 }

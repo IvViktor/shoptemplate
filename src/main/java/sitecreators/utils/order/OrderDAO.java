@@ -13,4 +13,6 @@ public interface OrderDAO {
 
 	public List<Order> getOrders();
 	
+	public void update(Order order);
+	
 }

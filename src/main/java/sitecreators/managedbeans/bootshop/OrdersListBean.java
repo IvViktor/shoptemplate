@@ -15,6 +15,7 @@ import sitecreators.utils.category.CategoryDAO;
 import sitecreators.utils.finance.Country;
 import sitecreators.utils.finance.Currency;
 import sitecreators.utils.order.Order;
+import sitecreators.utils.order.OrderDAO;
 import sitecreators.utils.order.OrderStatus;
 import sitecreators.utils.product.Product;
 import sitecreators.utils.product.ProductDAO;
@@ -35,6 +36,8 @@ public class OrdersListBean {
 	private CategoryDAO categoryDao;
 	
 	private List<Category> categories;
+	
+	private OrderDAO orderDao;
 	
 	private long productId;
 
@@ -58,6 +61,7 @@ public class OrdersListBean {
 		this.userDao = (UserDAO) ApplicationContextUtil.getApplicationContext().getBean("UserDAO");
 		this.productDao = (ProductDAO) ApplicationContextUtil.getApplicationContext().getBean("ProductDAO");
 		this.categoryDao =(CategoryDAO) ApplicationContextUtil.getApplicationContext().getBean("CategoryDAO");
+		this.orderDao = (OrderDAO) ApplicationContextUtil.getApplicationContext().getBean("OrderDAO");
 		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		try{
 			String id = (String) req.getParameter("userId");
@@ -103,7 +107,6 @@ public class OrdersListBean {
 		}
 		if(productId > 0){
 			try{
-				
 				productDao.open();
 				Product product = productDao.getProduct(productId);
 				if(userId != product.getOwner().getId()) throw new IllegalArgumentException();
@@ -111,7 +114,7 @@ public class OrdersListBean {
 			} catch (IllegalArgumentException e){
 				throw new Exception("Cannot provide access for non owner");
 			} catch (Exception e){
-				
+				e.printStackTrace();
 			}
 		}
 		statusList = OrderStatus.values();
@@ -180,6 +183,21 @@ public class OrdersListBean {
 			OrderStatus ps = OrderStatus.valueOf(newStatus);
 			order.setStatus(ps);
 		}
+	}
+	
+	public void cancel(Order order){
+		order.setStatus(OrderStatus.CANCELED);
+		orderDao.update(order);
+	}
+	
+	public void accept(Order order){
+		order.setStatus(OrderStatus.ACTIVE);
+		orderDao.update(order);
+	}
+	
+	public void fullfill(Order order){
+		order.setStatus(OrderStatus.FULLFILLED);
+		orderDao.update(order);
 	}
 	
 	public void closeSession(){
