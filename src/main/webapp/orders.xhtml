@@ -41,7 +41,7 @@
 	
   </head>
 <body onload="closeSession()">
-<p:remoteCommand name="closeSession" actionListener="#{ordersBean.closeSession()}" style="display: none;" />
+
 <div id="header">
 <div class="container">
 <c:if test="#{ordersBean.userId ne 0}">
@@ -263,5 +263,6 @@
 	</div>
 </div>
 <span id="themesBtn"></span>
+<p:remoteCommand name="closeSession" actionListener="#{ordersBean.closeSession()}" style="display: none;" />
 </body>
 </html>
