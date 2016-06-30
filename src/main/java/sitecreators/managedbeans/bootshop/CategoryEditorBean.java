@@ -128,12 +128,12 @@ public class CategoryEditorBean {
 		categoryDao.close();
 	}
 	
-	public String update(){
-		categories.remove(selectedCategory);
-		selectedCategory.setTitle(newCategory);
-		categories.add(selectedCategory);
+	public String update(Category category){
+		categories.remove(category);
+		category.setTitle(newCategory);
+		categories.add(category);
 		categoryDao.open();
-		categoryDao.updateCategory(selectedCategory);
+		categoryDao.updateCategory(category);
 		categoryDao.close();
 		newCategory = "";
 		

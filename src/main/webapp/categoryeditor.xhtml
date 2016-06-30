@@ -259,8 +259,8 @@
 							<h:inputText type="text" value="#{categoryEditorBean.newCategory}" />
 						  </div>
 						  <div class="control-group">
-						  <h:commandButton value="Update" class="btn btn-primary" action="#{categoryEditorBean.update}">
-						  	<f:setPropertyActionListener target="#{categoryEditorBean.selectedCategory}" value="#{category}" />
+						  <h:commandButton value="Update" class="btn btn-primary" 
+						  action="#{categoryEditorBean.update(category)}">
 						  </h:commandButton>
 						  </div>
 						</h:form>		
