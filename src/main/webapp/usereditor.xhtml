@@ -480,14 +480,16 @@
 				</h:link>
 				<div class="caption">
 				  <h5>#{product.productTitle}</h5>
-				  <p> 
-					#{product.description.description} 
-				  </p>
+				  
 				<h4 style="text-align:center">
 					<h:link class="btn" outcome="producteditor">
 						<i class="icon-edit"></i>
 						<f:param name="productId" value="#{product.id}" />
-					</h:link> 
+					</h:link>
+					<h:link class="btn" outcome="orders">
+						<i class="icon-list"></i>
+						<f:param name="productId" value="#{product.id}" />
+					</h:link>  
 					<ui:remove>
 					<!--<c:if test="#{userEditorBean.userId != 0}">
 						<h:form>
